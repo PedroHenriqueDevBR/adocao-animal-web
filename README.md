@@ -7,8 +7,8 @@ Este projeto está sendo desenvolvido para a disciplina de projeto integrador, m
 <p align="center">
 <img alt="Developer" src="https://img.shields.io/badge/Developer-PedroHenriqueDevBR-green">
 <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/pedrohenriquedevbr/carteira-de-vacinacao-animal">
-<img alt="Front-emd" src="https://img.shields.io/badge/Front-end-Flutter-blue">
-<img alt="Back-end" src="https://img.shields.io/badge/Back-end-Django-green">
+<img alt="Front-emd" src="https://img.shields.io/badge/Frontend-Flutter-blue">
+<img alt="Back-end" src="https://img.shields.io/badge/Backend-Django-green">
 </p>
 
 # :memo: Visão Geral
@@ -69,6 +69,7 @@ O desenvolvimento dessa aplicação utiliza como base as seguintes tecnologias e
 ```
 
 <h2 id="funcionalidades">:heavy_check_mark: Funcionalidades</h2>
+
 - [ ] Registro de usuário;
 - [ ] Registrar animal vinculado ao usuário;
 - [ ] Registrar clinica veterinária;
