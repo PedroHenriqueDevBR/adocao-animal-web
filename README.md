@@ -41,13 +41,13 @@ Esta seção irá mostrar como a aplicação foi modelada para que pudesse atend
 
 A modelagem foi criada antes de iniciar o desenvolvimento da aplicação, com o objetivo de guiar o desenvolvimento e evitar erros que pudessem atrapalhar o andamento do desenvolvimento.
 
-<h2 id="modelagem-classes">Modelagem das classes</h2>
+<h2 id="modelagem-classes">Modelagem do banco de dados</h2>
 
-<img width="100%" src="" />
+<img width="100%" src="https://raw.githubusercontent.com/PedroHenriqueDevBR/carteira-de-vacinacao-animal/76f4f01c6173a4522895cd3b5d29276c6dc816be/docs/assets/database.svg" />
 
 <h2 id="modelagem-mapa-aplicacao">Protótipo de baixa qualidade</h2>
 
-<img width="100%" src="" />
+<img width="100%" src="https://raw.githubusercontent.com/PedroHenriqueDevBR/carteira-de-vacinacao-animal/76f4f01c6173a4522895cd3b5d29276c6dc816be/docs/assets/low-quality-prototype.svg" />
 
 ### Descrição das páginas
 
@@ -76,6 +76,7 @@ O desenvolvimento dessa aplicação utiliza como base as seguintes tecnologias e
 - [ ] Registrar animal para adoção;
 - [ ] Adicionar imagem do animal;
 - [ ] Apresentar todos os animais registrados para adoção;
+- [ ] Solicitar adoção de um animal;
 - [ ] Transferir animal de um usuário para o outro;
 - [ ] Buscar animal de acordo com o código;
 - [ ] Adicionar vacina ao cartão de vacina do animal;
