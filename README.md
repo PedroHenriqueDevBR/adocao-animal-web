@@ -43,11 +43,15 @@ A modelagem foi criada antes de iniciar o desenvolvimento da aplicação, com o 
 
 <h2 id="modelagem-classes">Modelagem do banco de dados</h2>
 
-<img width="100%" src="https://raw.githubusercontent.com/PedroHenriqueDevBR/carteira-de-vacinacao-animal/76f4f01c6173a4522895cd3b5d29276c6dc816be/docs/assets/database.svg" />
+<img width="100%" src="https://raw.githubusercontent.com/PedroHenriqueDevBR/carteira-de-vacinacao-animal/2834a33d79c3942949c7dc6bca5db3e378b86bb7/docs/assets/database.svg" />
 
 <h2 id="modelagem-mapa-aplicacao">Protótipo de baixa fidelidade</h2>
 
 <img width="100%" src="https://raw.githubusercontent.com/PedroHenriqueDevBR/carteira-de-vacinacao-animal/7b18aff73ffcc8dd0f73f2c94352d10fe2e840e8/docs/assets/low-quality-prototype.svg" />
+
+<h2 id="modelagem-mapa-aplicacao">Protótipo de alta fidelidade</h2>
+
+<img width="100%" src="https://raw.githubusercontent.com/PedroHenriqueDevBR/carteira-de-vacinacao-animal/2834a33d79c3942949c7dc6bca5db3e378b86bb7/docs/assets/hight-quality-prototype.svg" />
 
 ### Descrição das páginas
 
