@@ -51,7 +51,7 @@ A modelagem foi criada antes de iniciar o desenvolvimento da aplicação, com o 
 
 <h2 id="modelagem-mapa-aplicacao">Protótipo de alta fidelidade</h2>
 
-<img width="100%" src="https://raw.githubusercontent.com/PedroHenriqueDevBR/carteira-de-vacinacao-animal/2834a33d79c3942949c7dc6bca5db3e378b86bb7/docs/assets/hight-quality-prototype.svg" />
+<img width="100%" src="https://raw.githubusercontent.com/PedroHenriqueDevBR/carteira-de-vacinacao-animal/ebf7cdb6dbd9d4978e4e37161fef61d99c508152/docs/assets/hight-quality-prototype.svg" />
 
 ### Descrição das páginas
 
