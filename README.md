@@ -1,4 +1,4 @@
-<h1 align="center">:dog: Carteira de vacinação animal :cat:</h1>
+<h1 align="center">:dog: Adoção de animais :cat:</h1>
 
 <p align="center">
 Este projeto está sendo desenvolvido para a disciplina de projeto integrador, ministrada por Ely da Silva Miranda no Instituto Federal do Piauí (Campus Central).
@@ -13,7 +13,7 @@ Este projeto está sendo desenvolvido para a disciplina de projeto integrador, m
 
 # :memo: Visão Geral
 
-Aplicação desenvovida servir de apoio na vacinação de animais em clínicas veterinárias.
+Aplicação desenvovida servir de apoio e facilidade na adoção de animais .
 
 
  * <strong><a href="#tecnologias">Tecnologias utilizadas</a></strong>
@@ -43,15 +43,15 @@ A modelagem foi criada antes de iniciar o desenvolvimento da aplicação, com o 
 
 <h2 id="modelagem-classes">Modelagem do banco de dados</h2>
 
-<img width="100%" src="https://raw.githubusercontent.com/PedroHenriqueDevBR/carteira-de-vacinacao-animal/2834a33d79c3942949c7dc6bca5db3e378b86bb7/docs/assets/database.svg" />
+<img width="100%" src="https://raw.githubusercontent.com/PedroHenriqueDevBR/aplicacao-para-adocao-de-animais/main/docs/assets/database.png" />
 
-<h2 id="modelagem-mapa-aplicacao">Protótipo de baixa fidelidade</h2>
+<h2 id="modelagem-mapa-aplicacao">Pŕototipo da aplicação</h2>
 
-<img width="100%" src="https://raw.githubusercontent.com/PedroHenriqueDevBR/carteira-de-vacinacao-animal/7b18aff73ffcc8dd0f73f2c94352d10fe2e840e8/docs/assets/low-quality-prototype.svg" />
+<img width="100%" src="https://raw.githubusercontent.com/PedroHenriqueDevBR/aplicacao-para-adocao-de-animais/main/docs/assets/hight-quality-prototype-web.png" />
 
-<h2 id="modelagem-mapa-aplicacao">Protótipo de alta fidelidade</h2>
+<h2 id="modelagem-mapa-aplicacao">Protótipo versão mobile</h2>
 
-<img width="100%" src="https://raw.githubusercontent.com/PedroHenriqueDevBR/carteira-de-vacinacao-animal/ebf7cdb6dbd9d4978e4e37161fef61d99c508152/docs/assets/hight-quality-prototype.svg" />
+<img width="100%" src="https://raw.githubusercontent.com/PedroHenriqueDevBR/aplicacao-para-adocao-de-animais/main/docs/assets/hight-quality-prototype-mobile.png" />
 
 ### Descrição das páginas
 
@@ -75,14 +75,16 @@ O desenvolvimento dessa aplicação utiliza como base as seguintes tecnologias e
 <h2 id="funcionalidades">:heavy_check_mark: Funcionalidades</h2>
 
 - [ ] Registro de usuário;
-- [ ] Registrar animal vinculado ao usuário;
-- [ ] Registrar clinica veterinária;
+- [ ] Adicionar o imagem ao perfil no usuário logado;
+- [ ] Adicionar o contato ao perfil no usuário logado;
 - [ ] Registrar animal para adoção;
 - [ ] Adicionar imagem do animal;
-- [ ] Apresentar todos os animais registrados para adoção;
-- [ ] Solicitar adoção de um animal;
-- [ ] Transferir animal de um usuário para o outro;
-- [ ] Buscar animal de acordo com o código;
 - [ ] Adicionar vacina ao cartão de vacina do animal;
-- [ ] Apresentar histórico de vacinação do animal.
-
+- [ ] Apresentar histórico de vacinação do animal;
+- [ ] Apresentar todos os animais disponíveis para adoção;
+- [ ] Apresentar todos os animais disponíveis para adoção próximos ao usuário logado;
+- [ ] Apresentar os meus animais disponíveis para adoção ou adotados;
+- [ ] Solicitar adoção de um animal;
+- [ ] Apresentar todos os pedidos de adoção;
+- [ ] Confirmar ou negar pedido de adoção;
+- [ ] Buscar animal de acordo com o código;
