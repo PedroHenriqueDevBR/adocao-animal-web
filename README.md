@@ -13,9 +13,10 @@ Este projeto está sendo desenvolvido para a disciplina de projeto integrador, m
 
 # :memo: Visão Geral
 
-Aplicação desenvovida servir de apoio e facilidade na adoção de animais .
+Aplicação desenvovida servir de apoio e facilidade na adoção de animais.
 
 
+ * <strong><a href="#description">Descrição completa do sistema</a></strong>
  * <strong><a href="#tecnologias">Tecnologias utilizadas</a></strong>
  * <strong><a href="#modelagem">Modelagem da aplicação</a></strong>
     * <strong><a href="#modelagem-classes">Modelagem das classes</a></strong>
@@ -24,6 +25,38 @@ Aplicação desenvovida servir de apoio e facilidade na adoção de animais .
  * <strong><a href="#instalacao">Instalação</a></strong>
  * <strong><a href="#funcionalidades">Funcionalidades</a></strong>
  * <strong><a href="#screenshots">Screenshots</a></strong>
+
+<h1 id="description">:smile: Descrição</h1>
+
+**Trata-se do desenvolvimento de uma aplicação para facilitar a comunicação entre quem possui um animal para adoção com quem deseja adotar.**
+
+Essa aplicação possui o intuito de ser bem simples de ser utlizada pelas pessoas, para que o processo de adoção do animal seja o mais simples possível, mas temos algumas regras que devem ser seguidas para que alguém possa publicar um animal ou para que alguém possa adotar um animal.
+
+**Regras para quem deseja publicar um animal para adoção:**
+ * Primeiramente a pessoa deve estar logada, caso contrário deve-se criar um perfil;
+ * A pessoa precisa fornecer os dados de contato;
+Não pode ter dois ou mais bloqueios de publicações;
+ * Tem a obrigação de escolher o melhor destino (solicitante da adoção) para o animal.
+
+**Regras para quem deseja adotar um animal:**
+ * Primeiramente a pessoa deve estar logada, caso contrário deve-se criar um perfil;
+ * A pessoa precisa fornecer os dados de contato;
+ * Precisa fazer o pedido de adoção ao dono do animal.
+
+O sistema deve possuir um sistema de controle de publicações onde haverá os usuários moderadores e os administradores, cada um desses terão poderes diferentes dentro do sistema.
+
+**Poderes do moderador:**
+ * Pode modificar descrições de postagens de outras pessoas;
+ * Pode bloquear uma postagem (Nesse caso o moderador deverá explicar o motivo e se for falsa comunicação o moderador perderá o poder);
+ * O moderador pode desbloquear postagens de outras pessoas.
+
+**Poderes do administrador:**
+O administrador possui todos os poderes do moderador, o mais seguro é haver apenas um administrador, que será o responsável por todos os moderadores, o único poder que o administrador tem a mais do que o moderador é a capacidade de tirar o poder de moderador.
+
+"*Os bloqueios são essenciais para o sistema para garantir que ninguém irá utilizar a plataforma para publicações fora de contexto, portanto, se dois bloqueios forem aplicados em um perfil o mesmo será bloqueado.*"
+
+
+<br>
 
 <h1 id="tecnologias">:rocket: Tecnologias utilizadas</h1>
 
@@ -82,9 +115,13 @@ O desenvolvimento dessa aplicação utiliza como base as seguintes tecnologias e
 - [ ] Adicionar vacina ao cartão de vacina do animal;
 - [ ] Apresentar histórico de vacinação do animal;
 - [ ] Apresentar todos os animais disponíveis para adoção;
-- [ ] Apresentar todos os animais disponíveis para adoção próximos ao usuário logado;
+- [ ] Apresentar todos os animais disponíveis para adoção da cidade do usuário;
 - [ ] Apresentar os meus animais disponíveis para adoção ou adotados;
 - [ ] Solicitar adoção de um animal;
 - [ ] Apresentar todos os pedidos de adoção;
 - [ ] Confirmar ou negar pedido de adoção;
 - [ ] Buscar animal de acordo com o código;
+- [ ] Apresentar todos os usuários cadastrados;
+- [ ] Adicionar ou remover permissão de moderador de um usuário;
+- [ ] O moderador bloqueia uma postagem e informar o motivo do bloqueio;
+- [ ] O administrador bloqueia uma postagem ou um usuário;
