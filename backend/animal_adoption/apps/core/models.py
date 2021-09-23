@@ -18,7 +18,6 @@ class City(models.Model):
 
 class Person(models.Model):
     image = models.ImageField(upload_to=upload_image_formater, blank=True, null=True)
-    name = models.CharField(max_length=150)
     contact = models.CharField(max_length=20)
     latitude = models.CharField(max_length=250, default="")
     longitude = models.CharField(max_length=250, default="")
@@ -29,6 +28,10 @@ class Person(models.Model):
     @property
     def name(self):
         return self.user.first_name
+
+    @property
+    def username(self):
+        return self.user.username
 
     @property
     def is_active(self):
