@@ -5,8 +5,6 @@ from django.contrib.auth.models import User
 
 class StatePersonTestCase(TestCase):
     def set_locations(self):
-        print("=" * 50)
-        print("Setting locations")
         piaui = State.objects.create(name="Piaui")
         City.objects.create(name="Teresina", state=piaui)
         City.objects.create(name="Campo Maior", state=piaui)
@@ -19,8 +17,6 @@ class StatePersonTestCase(TestCase):
         City.objects.create(name="Bacabal", state=maranhao)
 
     def set_persons(self):
-        print("=" * 50)
-        print("Setting Persons")
         city = City.objects.get(pk=1)
         user = User.objects.create(
             username="person", first_name="Person", password="person"

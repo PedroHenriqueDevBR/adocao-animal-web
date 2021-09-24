@@ -104,9 +104,11 @@ class Animal(models.Model):
     )
 
     def block(self, person, reason):
+        self.blocked = True
         reason = BlockedReason(
             person_requester=person, blocked_animal=self, reason=reason
         )
+        self.save()
         reason.save()
 
     @property
@@ -120,6 +122,10 @@ class Animal(models.Model):
     @property
     def all_block_reasons(self):
         return self.blocks_received.all()
+
+    @property
+    def all_adoption_received(self):
+        return self.adoption_requests.all()
 
 
 class AnimalPhoto(models.Model):
