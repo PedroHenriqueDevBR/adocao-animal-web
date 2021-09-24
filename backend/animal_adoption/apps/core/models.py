@@ -10,10 +10,26 @@ def upload_image_formater(instance, filename):
 class State(models.Model):
     name = models.CharField(max_length=150)
 
+    @property
+    def all_cities(self):
+        return self.cities.all()
+
 
 class City(models.Model):
     name = models.CharField(max_length=150)
     state = models.ForeignKey(State, on_delete=models.CASCADE, related_name="cities")
+
+    @property
+    def all_persons(self):
+        return self.residents.all()
+
+    @property
+    def all_not_adopted_animals(self):
+        animals = []
+        persons = self.all_persons
+        for person in persons:
+            animals.extend(person.all_not_adopted_animals)
+        return animals
 
 
 class Person(models.Model):
@@ -34,8 +50,24 @@ class Person(models.Model):
         return self.user.username
 
     @property
+    def password(self):
+        return self.user.password
+
+    @property
     def is_active(self):
         return self.user.is_active
+
+    @property
+    def all_animals(self):
+        return self.animals.all()
+
+    @property
+    def all_unlocked_animals(self):
+        return self.animals.filter(blocked=False)
+
+    @property
+    def all_not_adopted_animals(self):
+        return self.animals.filter(adopted=False)
 
     def remove_image(self, *args, **kwargs):
         if os.path.isfile(self.image.path):
@@ -44,6 +76,18 @@ class Person(models.Model):
 
 class AnimalType(models.Model):
     name = models.CharField(max_length=150)
+
+    @property
+    def all_animals(self):
+        return self.linked_animals.all()
+
+    @property
+    def all_unlocked_animals(self):
+        return self.linked_animals.filter(blocked=False)
+
+    @property
+    def all_not_adopted_animals(self):
+        return self.linked_animals.filter(adopted=False)
 
 
 class Animal(models.Model):
@@ -64,6 +108,18 @@ class Animal(models.Model):
             person_requester=person, blocked_animal=self, reason=reason
         )
         reason.save()
+
+    @property
+    def all_photos(self):
+        return self.photos.all()
+
+    @property
+    def all_vaccines(self):
+        return self.vaccines.all()
+
+    @property
+    def all_block_reasons(self):
+        return self.blocks_received.all()
 
 
 class AnimalPhoto(models.Model):

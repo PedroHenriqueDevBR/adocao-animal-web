@@ -1,3 +1,13 @@
 {
-    "python.formatting.provider": "black"
+    "python.formatting.provider": "black",
+    "python.testing.unittestEnabled": true,
+    "python.testing.pytestPath": "*test*.py",
+    "python.testing.unittestArgs": [
+        "-v",
+        "-s",
+        ".",
+        "-p",
+        "*test*.py"
+    ],
+    "python.testing.pytestEnabled": false
 }
