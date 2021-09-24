@@ -9,9 +9,3 @@ class StateSerializer(ModelSerializer):
     class Meta:
         model = State
         fields = ["id", "name", "cities"]
-
-
-class CreateStateSerializer(ModelSerializer):
-    class Meta:
-        model = State
-        fields = ["id", "name"]

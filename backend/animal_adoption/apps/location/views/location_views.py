@@ -11,10 +11,7 @@ from apps.location.validators.location_validators import (
     city_is_valid_or_errors,
     state_is_valid_or_errors,
 )
-from apps.location.serializers.state_serializers import (
-    CreateStateSerializer,
-    StateSerializer,
-)
+from apps.location.serializers.state_serializers import StateSerializer
 
 
 # List lcoations (States with Cities)
@@ -38,7 +35,7 @@ class StateCreate(APIView):
             return Response(
                 {"errors": form_errors}, status=status.HTTP_406_NOT_ACCEPTABLE
             )
-        serializer = CreateStateSerializer(data=request.data)
+        serializer = StateSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, data=status.HTTP_201_CREATED)
@@ -63,7 +60,7 @@ class StateModify(APIView):
 
     def put(self, request, pk):
         state = self.get_state_from_database(pk)
-        serializer = CreateStateSerializer(state, data=request.data)
+        serializer = StateSerializer(state, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_202_ACCEPTED)

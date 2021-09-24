@@ -1,4 +1,4 @@
-from apps.core.migrations import State, City
+from apps.core.models import State, City
 
 
 def state_is_valid_or_errors(data):
@@ -9,7 +9,7 @@ def state_is_valid_or_errors(data):
         if len(data["name"]) < 3:
             errors.append("O nome deve conter 3 caracteres ou mais")
         elif state_already_registered(data["name"]):
-            errors.append(f"Estado (${data['name']}) já registrado")
+            errors.append(f"Estado {data['name']} já registrado")
     return errors
 
 
@@ -20,7 +20,7 @@ def city_is_valid_or_errors(data):
     elif len(data["name"]) < 3:
         errors.append("O nome deve conter 3 caracteres ou mais")
     elif city_already_registered(data["name"]):
-        errors.append(f"Cidade (${data['name']}) já registrada")
+        errors.append(f"Cidade {data['name']} já registrada")
 
     if not "state" in data:
         errors.append("O estado não foi informado")
@@ -30,12 +30,12 @@ def city_is_valid_or_errors(data):
 
 
 def state_already_registered(name):
-    return State.objects.filter(name=name) > 0
+    return len(State.objects.filter(name=name)) > 0
 
 
 def state_exists(id):
-    return State.objects.filter(id=id) > 0
+    return len(State.objects.filter(id=id)) > 0
 
 
 def city_already_registered(name):
-    return City.objects.filter(name=name) > 0
+    return len(City.objects.filter(name=name)) > 0
