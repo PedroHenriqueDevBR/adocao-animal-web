@@ -26,7 +26,7 @@ Aplicação desenvovida servir de apoio e facilidade na adoção de animais.
  * <strong><a href="#funcionalidades">Funcionalidades</a></strong>
  * <strong><a href="#screenshots">Screenshots</a></strong>
 
-<h1 id="description">:smile: Descrição</h1>
+<h1 id="description">:speech_balloon: Descrição</h1>
 
 **Trata-se do desenvolvimento de uma aplicação para facilitar a comunicação entre quem possui um animal para adoção com quem deseja adotar.**
 
@@ -85,10 +85,6 @@ A modelagem foi criada antes de iniciar o desenvolvimento da aplicação, com o 
 <h2 id="modelagem-mapa-aplicacao">Protótipo versão mobile</h2>
 
 <img width="100%" src="https://raw.githubusercontent.com/PedroHenriqueDevBR/aplicacao-para-adocao-de-animais/main/docs/assets/hight-quality-prototype-mobile.png" />
-
-### Descrição das páginas
-
-* **Login** - A página de login é a primeira página apresentada na aplicação, a função dessa página é controlar o acesso ao resto da aplicação.
 
 <h1 id="requisitos">:warning: Pré-requisitos</h1>
 
