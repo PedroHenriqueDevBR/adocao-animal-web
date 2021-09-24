@@ -1,5 +1,4 @@
 from apps.core.models import Person
-from rest_framework import permissions
 from apps.account.validators.user_validators import person_register_is_valid_or_errors
 from rest_framework import status
 from rest_framework.response import Response
@@ -12,7 +11,7 @@ from apps.account.serializers.user_serializers import (
     UserSerializer,
 )
 
-# Logged person get data and update profile
+
 class PersonDataView(APIView):
     name = "person-data-view"
     permission_classes = [IsAuthenticated]

@@ -1,7 +1,6 @@
-from apps.account.serializers.city_serializers import CitySerializer
-from django.db.models import fields
 from apps.core.models import Person
-from rest_framework.serializers import ModelSerializer, SlugRelatedField
+from rest_framework.serializers import ModelSerializer
+from apps.location.serializers.city_serializers import CitySerializer
 
 
 class UserSerializer(ModelSerializer):
@@ -27,8 +26,9 @@ class CreatePersonSerializer(ModelSerializer):
         model = Person
         fields = [
             "id",
-            "image",
             "contact",
+            "city",
+            "user",
         ]
 
 
@@ -36,10 +36,15 @@ class UpdatePersonSerializer(ModelSerializer):
     class Meta:
         model = Person
         fields = [
-            "name",
             "image",
             "contact",
             "latitude",
             "longitude",
             "city",
         ]
+
+
+class UpdatePersonIamgeSerializer(ModelSerializer):
+    class Meta:
+        model = Person
+        fields = ["image"]
