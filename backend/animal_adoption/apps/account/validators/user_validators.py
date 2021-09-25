@@ -1,3 +1,4 @@
+from apps.core.models import City
 from django.contrib.auth.models import User
 
 def person_register_is_valid_or_errors(data):
@@ -28,7 +29,15 @@ def person_register_is_valid_or_errors(data):
         if len(data["contact"]) < 8:
             errors.append("O contato não é válido")
 
+    if not "city" in data:
+        errors.append("Cidade é obrigatória")
+    elif not city_exists(data['city']):
+        errors.append("A cidade informada não está registrada no nosso banco de dados")
+
     return errors
+
+def city_exists(pk):
+    return len(City.objects.filter(pk=pk)) > 0
 
 
 def username_in_use(username):

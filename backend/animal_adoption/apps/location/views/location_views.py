@@ -27,7 +27,7 @@ class LocationList(APIView):
 # Create a new State
 class StateCreate(APIView):
     name = "state_create"
-    permissions = [IsAuthenticated, IsAdminUser]
+    permission_classes = [IsAuthenticated, IsAdminUser]
 
     def post(self, request):
         form_errors = state_is_valid_or_errors(request.data)
@@ -38,28 +38,28 @@ class StateCreate(APIView):
         serializer = StateSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, data=status.HTTP_201_CREATED)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, data=status.HTTP_406_NOT_ACCEPTABLE)
 
 
 # Modify some state
 class StateModify(APIView):
     name = "state_modify"
-    permissions = [IsAuthenticated, IsAdminUser]
-
-    def get_state_from_database(self, pk):
-        try:
-            return State.objects.get(pk=pk)
-        except:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+    permission_classes = [IsAuthenticated, IsAdminUser]
 
     def get(self, request, pk):
-        state = self.get_state_from_database(pk)
+        try:
+            state = State.objects.get(pk=pk)
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
         serializer = StateSerializer(state, many=False)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def put(self, request, pk):
-        state = self.get_state_from_database(pk)
+        try:
+            state = State.objects.get(pk=pk)
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
         serializer = StateSerializer(state, data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -67,7 +67,10 @@ class StateModify(APIView):
         return Response(serializer.errors, status=status.HTTP_406_NOT_ACCEPTABLE)
 
     def delete(self, request, pk):
-        state = self.get_state_from_database(pk)
+        try:
+            state = State.objects.get(pk=pk)
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
         state.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
@@ -75,7 +78,7 @@ class StateModify(APIView):
 # Create a new City
 class CityCreate(APIView):
     name = "city_create"
-    permissions = [IsAuthenticated, IsAdminUser]
+    permission_classes = [IsAuthenticated, IsAdminUser]
 
     def post(self, request):
         form_errors = city_is_valid_or_errors(request.data)
@@ -86,28 +89,28 @@ class CityCreate(APIView):
         serializer = CreateCitySerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, data=status.HTTP_201_CREATED)
-        return Response(serializer.errors, data=status.HTTP_406_NOT_ACCEPTABLE)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_406_NOT_ACCEPTABLE)
 
 
 # Modify some city
 class CityModify(APIView):
     name = "city_modify"
-    permissions = [IsAuthenticated, IsAdminUser]
-
-    def get_city_from_database(self, pk):
-        try:
-            return City.objects.get(pk=pk)
-        except:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+    permission_classes = [IsAuthenticated, IsAdminUser]
 
     def get(self, request, pk):
-        city = self.get_city_from_database(pk)
+        try:
+            city = City.objects.get(pk=pk)
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
         serializer = CitySerializer(city, many=False)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def put(self, request, pk):
-        city = self.get_city_from_database(pk)
+        try:
+            city = City.objects.get(pk=pk)
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
         serializer = CreateCitySerializer(city, data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -115,6 +118,9 @@ class CityModify(APIView):
         return Response(serializer.errors, status=status.HTTP_406_NOT_ACCEPTABLE)
 
     def delete(self, request, pk):
-        city = self.get_city_from_database(pk)
+        try:
+            city = City.objects.get(pk=pk)
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
         city.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

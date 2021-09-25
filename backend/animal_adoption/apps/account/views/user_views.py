@@ -1,4 +1,4 @@
-from apps.core.models import Person
+from apps.core.models import City, Person
 from apps.account.validators.user_validators import person_register_is_valid_or_errors
 from rest_framework import status
 from rest_framework.response import Response
@@ -41,12 +41,14 @@ class PersonRegisterView(APIView):
             first_name=person_data["name"],
             password=person_data["password"],
         )
-        person_data["user"] = user.id
-        person_serializer = CreatePersonSerializer(data=person_data)
-        if person_serializer.is_valid():
-            person_serializer.save()
-            return Response(person_serializer.data, status=status.HTTP_201_CREATED)
-        return Response(person_serializer.errors, status=status.HTTP_406_NOT_ACCEPTABLE)
+        city = City.objects.get(pk=person_data["city"])
+        person = Person.objects.create(
+            contact=person_data["contact"],
+            city=city,
+            user=user,
+        )
+        person_serializer = UserSerializer(person)
+        return Response(person_serializer.data, status=status.HTTP_201_CREATED)
 
     def post(self, request):
         data = request.data
@@ -55,7 +57,7 @@ class PersonRegisterView(APIView):
             return Response(
                 {"errors": form_errors}, status=status.HTTP_406_NOT_ACCEPTABLE
             )
-        self.create_user(data)
+        return self.create_person(data)
 
 
 # Select Detail from anyone
@@ -77,16 +79,13 @@ class SelectPersonDetail(APIView):
 # Admin user enable moderator from some person
 class EnableModeratorPerson(APIView):
     name = "person_modify_enable_moderator"
-    permissions = [IsAuthenticated, IsAdminUser]
-
-    def get_person_from_database(self, pk):
-        try:
-            return Person.objects.get(pk=pk)
-        except:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+    permission_classes = [IsAuthenticated, IsAdminUser]
 
     def put(self, request, pk):
-        person = self.get_person_from_database(pk)
+        try:
+            person = Person.objects.get(pk=pk)
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
         person.is_moderator = True
         person.save()
         serializer = UserSerializer(person, many=False)
@@ -96,16 +95,13 @@ class EnableModeratorPerson(APIView):
 # Admin user disable moderator from some person
 class DisableModeratorPerson(APIView):
     name = "person_modify_enable_moderator"
-    permissions = [IsAuthenticated, IsAdminUser]
-
-    def get_person_from_database(self, pk):
-        try:
-            return Person.objects.get(pk=pk)
-        except:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+    permission_classes = [IsAuthenticated, IsAdminUser]
 
     def put(self, request, pk):
-        person = self.get_person_from_database(pk)
+        try:
+            person = Person.objects.get(pk=pk)
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
         person.is_moderator = False
         person.save()
         serializer = UserSerializer(person, many=False)
