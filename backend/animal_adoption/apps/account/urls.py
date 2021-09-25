@@ -10,6 +10,7 @@ urlpatterns = [
     path("<int:pk>/detail", SelectPersonDetail.as_view(), name=SelectPersonDetail.name),
     # IsAuthenticated
     path("", PersonDataView.as_view(), name=PersonDataView.name),
+    path("image/", PersonImage.as_view(), name=PersonImage.name),
     # IsAdminUser
     path("<int:pk>/moderator/enable", EnableModeratorPerson.as_view(), name=EnableModeratorPerson.name),
     path("<int:pk>/moderator/disable", DisableModeratorPerson.as_view(), name=DisableModeratorPerson.name),

@@ -1,6 +1,7 @@
 from apps.core.models import City
 from django.contrib.auth.models import User
 
+
 def person_register_is_valid_or_errors(data):
     errors = []
     if not "name" in data:
@@ -14,7 +15,7 @@ def person_register_is_valid_or_errors(data):
     else:
         if len(data["username"]) < 5:
             errors.append("Username deve conter 5 caracteres")
-        elif username_in_use(data['username']):
+        elif username_in_use(data["username"]):
             errors.append("Username já registrado")
 
     if not "password" in data:
@@ -22,7 +23,7 @@ def person_register_is_valid_or_errors(data):
     else:
         if len(data["password"]) < 8:
             errors.append("Password deve conter 8 caracteres")
-            
+
     if not "contact" in data:
         errors.append("Contato é obrigatório")
     else:
@@ -31,10 +32,18 @@ def person_register_is_valid_or_errors(data):
 
     if not "city" in data:
         errors.append("Cidade é obrigatória")
-    elif not city_exists(data['city']):
+    elif not city_exists(data["city"]):
         errors.append("A cidade informada não está registrada no nosso banco de dados")
 
     return errors
+
+
+def image_data_is_valid_or_errors(data):
+    errors = []
+    if not "image" in data:
+        errors.append("A imagem é obrigatória")
+    return errors
+
 
 def city_exists(pk):
     return len(City.objects.filter(pk=pk)) > 0

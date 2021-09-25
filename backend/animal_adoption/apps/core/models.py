@@ -69,9 +69,12 @@ class Person(models.Model):
     def all_not_adopted_animals(self):
         return self.animals.filter(adopted=False)
 
-    def remove_image(self, *args, **kwargs):
+    def remove_image(self, save):
         if os.path.isfile(self.image.path):
             os.remove(self.image.path)
+        self.image = None
+        if save:
+           self.save()
 
 
 class AnimalType(models.Model):

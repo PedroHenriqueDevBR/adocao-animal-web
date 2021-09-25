@@ -1,12 +1,15 @@
 from apps.core.models import City, Person
-from apps.account.validators.user_validators import person_register_is_valid_or_errors
+from apps.account.validators.user_validators import (
+    image_data_is_valid_or_errors,
+    person_register_is_valid_or_errors,
+)
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from django.contrib.auth.models import User
 from apps.account.serializers.user_serializers import (
-    CreatePersonSerializer,
+    UpdatePersonIamgeSerializer,
     UpdatePersonSerializer,
     UserSerializer,
 )
@@ -29,6 +32,32 @@ class PersonDataView(APIView):
             person_serializer.save()
             return Response(person_serializer.data, status=status.HTTP_201_CREATED)
         return Response(person_serializer.errors, status=status.HTTP_406_NOT_ACCEPTABLE)
+
+
+class PersonImage(APIView):
+    name = "person_image"
+    permission_classes = [IsAuthenticated]
+
+    # Update person image
+    def put(self, request):
+        data = request.data
+        person = request.user.person
+        errors = image_data_is_valid_or_errors(data)
+        if len(errors) > 0:
+            return Response(errors, status=status.HTTP_406_NOT_ACCEPTABLE)
+        person.remove_image(save=False)
+        person.image = data['image']
+        person.save()
+        serializer = UserSerializer(person)
+        return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+
+    # delete person image
+    def delete(self, request):
+        person = request.user.person
+        person.remove_image(save=True)
+        serializer = UserSerializer(person)
+        return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+        
 
 
 # Register new persons
