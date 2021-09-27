@@ -15,35 +15,27 @@ export class AnimalModel {
     owner: number;
     type: string;
 
-    photos: PhotoModel[] = [];
-    vaccines: VaccineModel[] = [];
-    blockReasons: BlockReasonModel[] = [];
-    adoptionReceived: AdoptionReceivedModel[] = [];
+    photos: PhotoModel[];
+    vaccines: VaccineModel[];
+    blockReasons: BlockReasonModel[];
+    adoptionReceived: AdoptionReceivedModel[];
 
-    constructor(){
-        this.id = undefined;
-        this.name = '';
-        this.breed = '';
-        this.age = 0;
-        this.adopted = false;
-        this.sex = '';
-        this.blocked = false;
-        this.createAt = new Date(Date.now());
-        this.owner = 0;
-        this.type = '';
-    }
 
-    start(
-        id: number | undefined,
-        name: string,
-        breed: string,
-        age: number,
-        adopted: boolean,
-        sex: string,
-        blocked: boolean,
-        createAt: Date,
-        owner: number,
-        type: string,
+    constructor(
+        id: number | undefined = undefined,
+        name: string = '',
+        breed: string = '',
+        age: number = 0,
+        adopted: boolean = false,
+        sex: string = '',
+        blocked: boolean = false,
+        createAt: Date = new Date(Date.now()),
+        owner: number = 0,
+        type: string = '',
+        photos: PhotoModel[] = [],
+        vaccines: VaccineModel[] = [],
+        blockReasons: BlockReasonModel[] = [],
+        adoptionReceived: AdoptionReceivedModel[] = [],
     ) {
         this.id = id;
         this.name = name;
@@ -55,6 +47,10 @@ export class AnimalModel {
         this.createAt = createAt;
         this.owner = owner;
         this.type = type;
+        this.photos = photos;
+        this.vaccines = vaccines;
+        this.blockReasons = blockReasons;
+        this.adoptionReceived = adoptionReceived;
     }
 
 }

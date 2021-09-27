@@ -3,19 +3,13 @@ export class VaccineModel {
     vaccineName: string;
     date: Date;
 
-    constructor(){
-        this.id = undefined;
-        this.vaccineName = '';
-        this.date = new Date(Date.now());
-    }
-
-    start(
-        id: number | undefined,
-        vaccineName: string,
-        date: Date,
+    constructor(
+        id: number | undefined = undefined,
+        vaccineName: string = '',
+        date: Date = new Date(Date.now()),
     ) {
         this.id = id;
         this.vaccineName = vaccineName;
-        this.date   = date;
+        this.date = date;
     }
 }

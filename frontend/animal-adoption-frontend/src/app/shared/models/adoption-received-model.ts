@@ -6,19 +6,12 @@ export class AdoptionReceivedModel {
     isAcepted?: boolean;
     requester: PersonModel;
 
-    constructor(){
-        this.id = undefined;
-        this.createAt = new Date(Date.now());
-        this.isAcepted = undefined;
-        this.requester = new PersonModel();
-    }
-
-    start(
-        id: number | undefined,
-        createAt: Date,
-        isAcepted: boolean | undefined,
-        requester: PersonModel,
-    ) {
+    constructor(
+        id: number | undefined = undefined,
+        createAt: Date = new Date(Date.now()),
+        isAcepted: boolean | undefined = undefined,
+        requester: PersonModel = new PersonModel(),
+    ){
         this.id = id;
         this.createAt = createAt;
         this.isAcepted = isAcepted;
