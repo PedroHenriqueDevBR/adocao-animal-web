@@ -3,14 +3,19 @@
 @secondary-color: #FFA500;
 @scaffold-color: #EEEEEE;
 
-* {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    text-decoration: none;
-    box-sizing: border-box;
-}
-
 body {
     background-color: @scaffold-color;
+}
+
+.primary-color {
+    background-color: @primary-color;
+}
+
+.secondary-color {
+    background-color: @secondary-color;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center !important;
 }
