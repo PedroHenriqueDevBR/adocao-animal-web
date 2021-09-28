@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { AnimalModel } from 'src/app/shared/models/animal-model';
 
 @Component({
-  selector: 'app-location-animals',
-  templateUrl: './location-animals.component.html',
-  styleUrls: ['./location-animals.component.less']
+  selector: 'app-animals-for-adoption',
+  templateUrl: './animals-for-adoption.component.html',
+  styleUrls: ['./animals-for-adoption.component.less']
 })
-export class LocationAnimalsComponent implements OnInit {
+export class AnimalsForAdoptionComponent implements OnInit {
 
   animals: AnimalModel[] = []
 

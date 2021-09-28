@@ -5,7 +5,9 @@ import { MainRoutingModule } from './main-routing.module';
 import { MainComponent } from './main.component';
 import { HeaderComponent } from './components/header/header.component';
 import { AnimalCardComponent } from './components/animal-card/animal-card.component';
-import { LocationAnimalsComponent } from './components/location-animals/location-animals.component';
+import { AnimalListComponent } from './components/animal-list/animal-list.component';
+import { AnimalsForAdoptionComponent } from './pages/animals-for-adoption/animals-for-adoption.component';
+import { SupportersComponent } from './components/supporters/supporters.component';
 
 
 @NgModule({
@@ -13,7 +15,9 @@ import { LocationAnimalsComponent } from './components/location-animals/location
     MainComponent,
     HeaderComponent,
     AnimalCardComponent,
-    LocationAnimalsComponent
+    AnimalListComponent,
+    AnimalsForAdoptionComponent,
+    SupportersComponent
   ],
   imports: [
     CommonModule,

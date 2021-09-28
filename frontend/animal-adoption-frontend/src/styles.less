@@ -7,6 +7,14 @@
     box-sizing: border-box;
 }
 
+input {
+    accent-color: @secondary-color;
+
+    &[type=radio] {
+        margin-right: 10px;
+    }
+}
+
 body {
     background-color: @scaffold-color;
 }
@@ -22,4 +30,8 @@ body {
 .nav-item {
     display: flex;
     align-items: center !important;
+}
+
+.full-width {
+    width: 100%;
 }
