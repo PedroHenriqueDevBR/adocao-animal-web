@@ -1,0 +1,49 @@
+<div class="content primary-color">
+    <div class="register">
+        <h1 class="title">Registrar-se</h1>
+        <p class="subtitle">Crie um nova conta para publicar os seus aminais para adoção.</p>
+
+        <form>
+            <div class="row g-2">
+                <div class="form-floating mb-3 col">
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Nome completo">
+                    <label for="name">Nome completo</label>
+                </div>
+                <div class="form-floating mb-3 col">
+                    <input type="text" class="form-control" id="username" name="username" placeholder="username">
+                    <label for="username">Username</label>
+                </div>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="v" name="contact" placeholder="Contato">
+                <label for="contact">Contato</label>
+            </div>
+            <div class="row g-2">
+                <div class="form-floating mb-3 col">
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Senha">
+                    <label for="password">Senha</label>
+                </div>
+                <div class="form-floating mb-3 col">
+                    <input type="password" class="form-control" id="repeate-password" name="repeate-password"
+                        placeholder="Repetir senha">
+                    <label for="repeate-password">Repetir senha</label>
+                </div>
+            </div>
+            <div class="row g-2">
+                <select class="form-select col" aria-label="Estado">
+                    <option selected>Estado</option>
+                    <option value="1">Piauí</option>
+                    <option value="2">Maranhão</option>
+                </select>
+                <select class="form-select col mx-2" aria-label="Cidade" disabled>
+                    <option selected>Cidades</option>
+                    <option value="1">Teresina-PI</option>
+                    <option value="2">Timon-MA</option>
+                </select>
+            </div>
+
+            <button class="btn secondary-color text-light full-width mt-3">Entrar</button>
+        </form>
+        <a class="btn mt-3" [routerLink]="['/account/login']" >Já tenho acesso</a>
+    </div>
+</div>

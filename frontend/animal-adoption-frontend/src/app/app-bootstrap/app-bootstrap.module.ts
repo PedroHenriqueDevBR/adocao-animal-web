@@ -1,19 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
-import { ModalModule } from 'ngx-bootstrap/modal';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
-    TooltipModule.forRoot(),
-    ModalModule.forRoot(),
+    BrowserAnimationsModule,
+    TypeaheadModule.forRoot()
+
   ],
   exports: [
-    TooltipModule,
-    ModalModule,
+    BrowserAnimationsModule,
+    TypeaheadModule
   ]
 })
 

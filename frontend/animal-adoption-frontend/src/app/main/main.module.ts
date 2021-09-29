@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { MainRoutingModule } from './main-routing.module';
-import { MainComponent } from './main.component';
 import { HeaderComponent } from './components/header/header.component';
 import { AnimalCardComponent } from './components/animal-card/animal-card.component';
 import { AnimalListComponent } from './components/animal-list/animal-list.component';
@@ -12,7 +11,6 @@ import { SupportersComponent } from './components/supporters/supporters.componen
 
 @NgModule({
   declarations: [
-    MainComponent,
     HeaderComponent,
     AnimalCardComponent,
     AnimalListComponent,

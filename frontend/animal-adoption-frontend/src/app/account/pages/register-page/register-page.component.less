@@ -1,0 +1,37 @@
+.content {
+    height: 100vh;
+    padding: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto;
+
+    .register {
+        width: 95%;
+        background-color: #fff;
+        border-radius: 8px;
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    form {
+        width: 100%;
+    }
+    
+    .form-floating {
+        input {
+            width: 100%;
+        }
+    }
+
+    @media screen and (min-width: 768px) {
+        .register {
+            width: 500px;
+            border-radius: 8px;
+        }
+    }
+}
