@@ -1,0 +1,30 @@
+<div class="person-list">
+
+    <div class="filter p-2 primary-color">
+        <div class="form-floating mb-2">
+            <input type="text" class="form-control" placeholder="Nome completo" [(ngModel)]="search"
+                (ngModelChange)="searchKeyword($event)" [ngModelOptions]="{standalone: true}">
+            <label for="name">Pesquisa...</label>
+        </div>
+
+        <select class="form-select mb-2" aria-label="Estado" (change)="selectState($event)">
+            <option selected value="0">Estados (Todos)</option>
+            <option *ngFor="let state of locations" value="{{state.id}}">{{state.id}}</option>
+        </select>
+        <div *ngIf="selectedLocation != null">
+            <select class="form-select" aria-label="Cidade">
+                <option *ngFor="let city of selectedLocation!.cities" [ngValue]="city.id">{{city.name}}</option>
+            </select>
+        </div>
+    </div>
+
+    <div *ngFor="let person of persons" class="card person-data" (click)="selectPerson(person)">
+        <div class="avatar p-3">
+            <img src="{{profileImage(person)}}" alt="profile-image" width="50px" height="50px">
+        </div>
+        <div class="profile-data">
+            <h5>{{ person.name }}</h5>
+            <p>{{ person.contact }}</p>
+        </div>
+    </div>
+</div>

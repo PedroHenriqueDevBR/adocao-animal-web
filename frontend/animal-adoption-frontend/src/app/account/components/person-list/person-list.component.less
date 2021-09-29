@@ -1,0 +1,26 @@
+.person-list {
+    height: 100%;
+    overflow-y: auto;
+
+    .person-data {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+
+        .avatar {
+            img {
+                border-radius: 8px;
+                object-fit: cover;
+            }
+        }
+
+        & p {
+            margin: 0;
+        }
+
+        &:hover {
+            background-color: #eee;
+        }
+    }
+}
