@@ -9,11 +9,11 @@
 
         <select class="form-select mb-2" aria-label="Estado" (change)="selectState($event)">
             <option selected value="0">Estados (Todos)</option>
-            <option *ngFor="let state of locations" value="{{state.id}}">{{state.id}}</option>
+            <option *ngFor="let state of locations" value="{{state.id}}">{{state.name}}</option>
         </select>
         <div *ngIf="selectedLocation != null">
             <select class="form-select" aria-label="Cidade">
-                <option *ngFor="let city of selectedLocation!.cities" [ngValue]="city.id">{{city.name}}</option>
+                <option *ngFor="let city of selectedLocation!.cities" value="{{city.id}}">{{city.name}}</option>
             </select>
         </div>
     </div>

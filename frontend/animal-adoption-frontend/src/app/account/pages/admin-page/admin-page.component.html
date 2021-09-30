@@ -3,6 +3,11 @@
         <a class="navbar-brand" href="#">
             Administração
         </a>
+        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+            <li class="nav-item">
+                <button class="btn text-light" (click)="openModal(state_modal)">Estados</button>
+            </li>
+        </ul>
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
             aria-controls="offcanvasNavbar">
             <span class="navbar-toggler-icon"></span>
@@ -23,15 +28,18 @@
         </div>
         <div class="person-data p-3 text-center">
             <div class="status">
-                <h1 class="badge primary-color mx-1">{{ selectedPerson != null && selectedPerson.isModerator == true ? 'Moderador' : '' }}</h1>
-                <h1 class="badge bg-danger mx-1">{{ selectedPerson != null && selectedPerson.isActive == false ? 'Bloqueada' : '' }}</h1>
+                <h1 class="badge primary-color mx-1">{{ selectedPerson != null && selectedPerson.isModerator == true ?
+                    'Moderador' : '' }}</h1>
+                <h1 class="badge bg-danger mx-1">{{ selectedPerson != null && selectedPerson.isActive == false ?
+                    'Bloqueada' : '' }}</h1>
             </div>
             <h5>{{ selectedPerson != null ? selectedPerson.name + ' - ' + selectedPerson.username : '' }}</h5>
             <p>{{ selectedPerson != null ? selectedPerson.contact : '' }}</p>
 
             <div class="controls">
                 <button class="btn secondary-color text-light mx-2" (click)="changeModeratorPerson()">
-                    {{ selectedPerson != null && selectedPerson.isModerator == true ? 'Remover moderador' : 'Moderador' }}
+                    {{ selectedPerson != null && selectedPerson.isModerator == true ? 'Remover moderador' : 'Moderador'
+                    }}
                 </button>
                 <button class="btn secondary-color text-light mx-2" (click)="changeBlockPerson()">
                     {{ selectedPerson != null && selectedPerson.isActive == false ? 'Remover bloqueio' : 'Bloquear' }}
@@ -44,9 +52,44 @@
 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
     <div class="offcanvas-header primary-color mb-0">
         <h5 class="offcanvas-title text-light" id="offcanvasExampleLabel">Usuários da aplicação</h5>
-        <button type="button" class="btn-close text-reset bg-light" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <button type="button" class="btn-close text-reset bg-light" data-bs-dismiss="offcanvas"
+            aria-label="Close"></button>
     </div>
     <div class="offcanvas-body p-0">
         <app-person-list [persons]="persons" (personEmit)="selectPerson($event)"></app-person-list>
     </div>
 </div>
+
+<ng-template #state_modal>
+    <div class="modal-header primary-color text-light">
+        <h4 class="modal-title pull-left">Estados</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body p-0">
+        <div class="row">
+            <div class="col-5">
+                <div class="list-group" id="list-tab" role="tablist">
+                    <button class="list-group-item list-group-item-success">Adicionar estado</button>
+                    <ul class="list-group list-group-flush">
+                        <li *ngFor="let state of locations" class="list-group-item" (click)="selectState(state)">{{state.name}}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-7">
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="list-home" role="tabpanel"
+                        aria-labelledby="list-home-list">
+                        <div *ngIf="selectedLocation != null">
+                            <ul class="list-group list-group-flush">
+                                <button class="list-group-item list-group-item-success">Adicionar cidade</button>
+                                <li *ngFor="let city of selectedLocation.cities" class="list-group-item">{{ city.name }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
