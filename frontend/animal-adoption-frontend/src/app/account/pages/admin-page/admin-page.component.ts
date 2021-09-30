@@ -1,5 +1,4 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { Component, OnInit } from '@angular/core';
 import { CityModel } from 'src/app/shared/models/city-model';
 import { PersonModel } from 'src/app/shared/models/person-model';
 import { StateModel } from 'src/app/shared/models/state-model';
@@ -13,11 +12,8 @@ export class AdminPageComponent implements OnInit {
   selectedLocation?: StateModel;
   persons: PersonModel[] = [];
   selectedPerson?: PersonModel;
-  modalRef?: BsModalRef;
 
-  constructor(
-    private modalService: BsModalService
-  ) { }
+  constructor() { }
 
   ngOnInit(): void {
     this.getPersons();
@@ -74,13 +70,6 @@ export class AdminPageComponent implements OnInit {
     if (this.selectedPerson != null) {
       this.selectedPerson.isModerator = !this.selectedPerson.isModerator;
     }
-  }
-
-  openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(
-      template,
-      Object.assign({}, { class: 'gray modal-lg' }),
-    );
   }
 
   selectState(state: StateModel) {

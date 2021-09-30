@@ -5,7 +5,7 @@
         </a>
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
             <li class="nav-item">
-                <button class="btn text-light" (click)="openModal(state_modal)">Estados</button>
+                <button class="btn text-light" (click)="locationModal.show()">Estados</button>
             </li>
         </ul>
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
@@ -60,36 +60,101 @@
     </div>
 </div>
 
-<ng-template #state_modal>
-    <div class="modal-header primary-color text-light">
-        <h4 class="modal-title pull-left">Estados</h4>
-        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
-            <span aria-hidden="true" class="visually-hidden">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body p-0">
-        <div class="row">
-            <div class="col-5">
-                <div class="list-group" id="list-tab" role="tablist">
-                    <button class="list-group-item list-group-item-success">Adicionar estado</button>
-                    <ul class="list-group list-group-flush">
-                        <li *ngFor="let state of locations" class="list-group-item" (click)="selectState(state)">{{state.name}}</li>
-                    </ul>
-                </div>
+<div class="modal fade" bsModal #locationModal="bs-modal" tabindex="-1" role="dialog"
+    aria-labelledby="dialog-nested-name1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header primary-color text-light">
+                <h4 class="modal-title pull-left">Estados</h4>
+                <button type="button" class="btn-close close pull-right" aria-label="Close"
+                    (click)="locationModal.hide()">
+                    <span aria-hidden="true" class="visually-hidden">&times;</span>
+                </button>
             </div>
-            <div class="col-7">
-                <div class="tab-content" id="nav-tabContent">
-                    <div class="tab-pane fade show active" id="list-home" role="tabpanel"
-                        aria-labelledby="list-home-list">
-                        <div *ngIf="selectedLocation != null">
+            <div class="modal-body p-0">
+                <div class="row">
+                    <div class="col-5">
+                        <div class="list-group" id="list-tab" role="tablist">
+                            <button class="list-group-item list-group-item-success"
+                                (click)="createStateModal.show()">Adicionar
+                                estado</button>
                             <ul class="list-group list-group-flush">
-                                <button class="list-group-item list-group-item-success">Adicionar cidade</button>
-                                <li *ngFor="let city of selectedLocation.cities" class="list-group-item">{{ city.name }}</li>
+                                <li *ngFor="let state of locations" class="list-group-item"
+                                    (click)="selectState(state)">
+                                    {{state.name}}</li>
                             </ul>
+                        </div>
+                    </div>
+                    <div class="col-7">
+                        <div class="tab-content" id="nav-tabContent">
+                            <div class="tab-pane fade show active" id="list-home" role="tabpanel"
+                                aria-labelledby="list-home-list">
+                                <div *ngIf="selectedLocation != null">
+                                    <ul class="list-group list-group-flush">
+                                        <button class="list-group-item list-group-item-success"
+                                            (click)="createCityModal.show()">Adicionar
+                                            cidade</button>
+                                        <li *ngFor="let city of selectedLocation.cities" class="list-group-item">{{
+                                            city.name }}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</ng-template>
+</div>
+
+<div class="modal fade" bsModal #createStateModal="bs-modal" tabindex="-1" role="dialog"
+    aria-labelledby="create-state-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="create-state-modal" class="modal-title pull-left">Estado</h4>
+                <button type="button" class="btn-close close pull-right" aria-label="Close"
+                    (click)="createStateModal.hide()">
+                    <span aria-hidden="true" class="visually-hidden">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-floating mb-2">
+                        <input type="text" class="form-control" placeholder="Nome do estado">
+                        <label for="name">Nome do estado</label>
+                    </div>
+                    <button class="btn secondary-color text-light full-width">Salvar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #createCityModal="bs-modal" tabindex="-1" role="dialog"
+    aria-labelledby="create-city-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="create-city-modal" class="modal-title pull-left">Cidade</h4>
+                <button type="button" class="btn-close close pull-right" aria-label="Close"
+                    (click)="createCityModal.hide()">
+                    <span aria-hidden="true" class="visually-hidden">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-floating mb-2">
+                        <input type="text" class="form-control" placeholder="Nome da cidade">
+                        <label for="name">Nome da cidade</label>
+                    </div>
+                    <select class="form-select mb-2" aria-label="Estado">
+                        <option *ngFor="let state of locations" value="{{state.id}}">{{state.name}}</option>
+                    </select>
+                    <button class="btn secondary-color text-light full-width">Salvar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -8,6 +8,7 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { PersonListComponent } from './components/person-list/person-list.component';
 import { FormsModule } from '@angular/forms';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     AccountRoutingModule,
-    FormsModule
+    FormsModule,
+    ModalModule
   ]
 })
 export class AccountModule { }
