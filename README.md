@@ -62,10 +62,10 @@ O administrador possui todos os poderes do moderador, o mais seguro é haver ape
 
 <br>
 
-* <img alt="Dart" src="https://img.shields.io/badge/-Dart-blue"> - Linguagem de programação utilizada no desenvolvimento Front-end.
-* <img alt="Flutter" src="https://img.shields.io/badge/-Flutter-blue"> - Framework utilizado no desenvolvimento da aplicação mobile.
+* <img alt="TypeScript" src="https://img.shields.io/badge/-TypeScript-blue"> - Linguagem de programação utilizada no desenvolvimento Front-end.
+* <img alt="Angular" src="https://img.shields.io/badge/-Angular-blue"> - Framework utilizado no desenvolvimento da aplicação fton-end.
 * <img alt="Python" src="https://img.shields.io/badge/-Python-green"> - Linguagem de programação utilizada no desenvolvimento Back-end.
-* <img alt="Python" src="https://img.shields.io/badge/-Django-green"> - Framework utilizado no desenvolvimento da REST API.
+* <img alt="Django" src="https://img.shields.io/badge/-Django-green"> - Framework utilizado no desenvolvimento da REST API.
 * <img alt="DRF" src="https://img.shields.io/badge/-DRF-red"> - Toolkit utilizado junto do Django para facilitar a criação da REST API.
 
 <h1 id="modelagem">:bulb: Modelagem da aplicação</h1>
@@ -82,16 +82,12 @@ A modelagem foi criada antes de iniciar o desenvolvimento da aplicação, com o 
 
 <img width="100%" src="https://raw.githubusercontent.com/PedroHenriqueDevBR/aplicacao-para-adocao-de-animais/main/docs/assets/hight-quality-prototype-web.png" />
 
-<h2 id="modelagem-mapa-aplicacao">Protótipo versão mobile</h2>
-
-<img width="100%" src="https://raw.githubusercontent.com/PedroHenriqueDevBR/aplicacao-para-adocao-de-animais/main/docs/assets/hight-quality-prototype-mobile.png" />
-
 <h1 id="requisitos">:warning: Pré-requisitos</h1>
 
-O desenvolvimento dessa aplicação utiliza como base as seguintes tecnologias e versões apresentadas abaixo. Caso ocorra algum erro na execução da aplicação ou mesmo nos comandos de configurações, verifique se a versão do Dart e do Flutter no seu computador estão devidamente atualizados.
+O desenvolvimento dessa aplicação utiliza como base as seguintes tecnologias e versões apresentadas abaixo.
 
-1. Dart 2.12.0 ou superior
-2. Flutter 2.2.0 ou superior
+1. Node: 14.17.6
+2. Angular CLI: 12.2.5
 3. Python 3.6 ou superior
 4. Django 3.2.6 ou superior
 5. git version 2.17.1
@@ -103,21 +99,36 @@ O desenvolvimento dessa aplicação utiliza como base as seguintes tecnologias e
 
 <h2 id="funcionalidades">:heavy_check_mark: Funcionalidades</h2>
 
-- [ ] Registro de usuário;
-- [ ] Adicionar o imagem ao perfil no usuário logado;
-- [ ] Adicionar o contato ao perfil no usuário logado;
-- [ ] Registrar animal para adoção;
-- [ ] Adicionar imagem do animal;
-- [ ] Adicionar vacina ao cartão de vacina do animal;
-- [ ] Apresentar histórico de vacinação do animal;
-- [ ] Apresentar todos os animais disponíveis para adoção;
-- [ ] Apresentar todos os animais disponíveis para adoção da cidade do usuário;
-- [ ] Apresentar os meus animais disponíveis para adoção ou adotados;
-- [ ] Solicitar adoção de um animal;
-- [ ] Apresentar todos os pedidos de adoção;
-- [ ] Confirmar ou negar pedido de adoção;
-- [ ] Buscar animal de acordo com o código;
-- [ ] Apresentar todos os usuários cadastrados;
-- [ ] Adicionar ou remover permissão de moderador de um usuário;
-- [ ] O moderador bloqueia uma postagem e informar o motivo do bloqueio;
-- [ ] O administrador bloqueia uma postagem ou um usuário;
+- [ ] Sprint 01 (Contas e localizações)
+   - [ ] Registro de usuário;
+   - [ ] Login de usuário;
+   - [ ] Adicionar o imagem ao perfil no usuário logado;
+   - [ ] Atualizar dados do perfil logado;
+   - [ ] Criar estado;
+   - [ ] Editar estado;
+   - [ ] Remover estado;
+   - [ ] Criar cidade e vincular a um estado;
+   - [ ] Editar cidade;
+   - [ ] Remover cidade;
+   - [ ] Adicionar poder de moderador a um determinado perfil (admin only);
+   - [ ] Remover poder de moderador a um determinado perfil (admin only);
+   - [ ] Bloquear um determinado perfil perfil (admin only).
+- [ ] Sprint 02 (Animal e metadados)
+   - [ ] Registrar animal;
+   - [ ] Editar dados do animal;
+   - [ ] remover animal;
+   - [ ] Adicionar imagem do animal;
+   - [ ] Adicionar vacina ao cartão de vacina do animal;
+   - [ ] Apresentar histórico de vacinação do animal;
+   - [ ] Apresentar todos os animais disponíveis para adoção da cidade do usuário logado;
+   - [ ] Apresentar os meus animais;
+- [ ] Sprint 03 (Adoção e controle de moderadores)
+   - [ ] Solicitar adoção de um animal;
+   - [ ] Apresentar todos os pedidos de adoção;
+   - [ ] Confirmar ou negar pedido de adoção;
+   - [ ] Buscar animal de acordo com o código;
+   - [ ] Bloquear postagem (Moderador ou admin)
+- [ ] Sprint 04 (Patrocinadores)
+   - [ ] registrar patrocinado
+   - [ ] Listar patrocinadores na home page
+
