@@ -100,9 +100,10 @@ O desenvolvimento dessa aplicação utiliza como base as seguintes tecnologias e
 <h2 id="funcionalidades">:heavy_check_mark: Funcionalidades</h2>
 
 - [ ] Sprint 01 (Contas e localizações)
-   - [ ] Registro de usuário;
-   - [ ] Login de usuário;
-   - [ ] Adicionar o imagem ao perfil no usuário logado;
+   - [X] Registro de usuário;
+   - [X] Login de usuário;
+   - [X] Adicionar o imagem ao perfil no usuário logado;
+   - [X] Remover imagem do perfil logado
    - [ ] Atualizar dados do perfil logado;
    - [ ] Criar estado;
    - [ ] Editar estado;
