@@ -167,4 +167,9 @@ export class ProfilePageComponent implements OnInit {
     }
   }
 
+  // TODO: implement
+  updateProfileData(){
+
+  }
+
 }
