@@ -70,11 +70,12 @@ class Person(models.Model):
         return self.animals.filter(adopted=False)
 
     def remove_image(self, save):
-        if os.path.isfile(self.image.path):
-            os.remove(self.image.path)
-        self.image = None
-        if save:
-           self.save()
+        if self.image != None and self.image != '':
+            if os.path.isfile(self.image.path):
+                os.remove(self.image.path)
+            self.image = None
+            if save:
+                self.save()
 
 
 class AnimalType(models.Model):
