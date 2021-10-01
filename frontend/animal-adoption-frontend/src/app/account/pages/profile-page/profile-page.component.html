@@ -1,49 +1,53 @@
 <div id="content">
 
-    <div class="header secondary-color">
+    <div class="header primary-color">
         <div class="image-container">
-            <img [src]="imageSrc" alt="profile image" width="100%">
-            <button class="btn text-light mt-3" (click)="openModal(change_image_modal)">Atualizar imagem</button>
+            <img [src]="getProfileImage" alt="profile image" width="100%">
+            <div class="image-control">
+                <button class="btn text-light bg-success" (click)="openModal(change_image_modal)">Atualizar
+                    imagem</button>
+                <button class="btn text-light bg-danger" (click)="openModal(remove_image_modal)">Remover imagem</button>
+            </div>
         </div>
     </div>
 
     <div class="profile-data">
         <h1 class="title">Dados pessoais</h1>
-        <form class="mt-3">
+        <form class="mt-3" [formGroup]="formPerson">
             <div class="row g-2">
                 <div class="form-floating mb-3 col">
-                    <input type="text" class="form-control" id="name" name="name" placeholder="Nome completo">
+                    <input type="text" class="form-control" id="name" formControlName="name"
+                        placeholder="Nome completo">
                     <label for="name">Nome completo</label>
                 </div>
                 <div class="form-floating mb-3 col">
-                    <input type="text" class="form-control" id="username" name="username" placeholder="username">
+                    <input type="text" class="form-control" id="username" formControlName="username"
+                        placeholder="username">
                     <label for="username">Username</label>
                 </div>
             </div>
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="v" name="contact" placeholder="Contato">
+                <input type="text" class="form-control" id="contact" formControlName="contact" placeholder="Contato">
                 <label for="contact">Contato</label>
             </div>
             <div class="row g-2">
                 <div class="form-floating mb-3 col">
-                    <input type="password" class="form-control" id="password" name="password" placeholder="Senha">
+                    <input type="password" class="form-control" id="password" formControlName="password"
+                        placeholder="Senha" autocomplete="off">
                     <label for="password">Senha</label>
                 </div>
             </div>
             <div class="row g-2">
                 <select class="form-select col" aria-label="Estado">
-                    <option selected>Estado</option>
-                    <option value="1">Piauí</option>
-                    <option value="2">Maranhão</option>
+                    <option *ngFor="let state of locations" value="{{ state.id }}">{{ state.name }}</option>
                 </select>
-                <select class="form-select col mx-2" aria-label="Cidade" disabled>
-                    <option selected>Cidades</option>
-                    <option value="1">Teresina-PI</option>
-                    <option value="2">Timon-MA</option>
+                <select class="form-select col mx-2" aria-label="Cidade" formControlName="cityId">
+                    <option *ngFor="let city of selectedState.cities" value="{{ city.id }}">{{ city.name }}</option>
                 </select>
             </div>
 
-            <button class="btn secondary-color text-light full-width mt-3">Atualizar</button>
+            <button class="btn secondary-color text-light full-width mt-3"
+                [attr.disabled]="formIsValid ? null : true">Registrar</button>
         </form>
     </div>
 </div>
@@ -63,7 +67,16 @@
                 <label for="formFile" class="form-label">Nova imagem</label>
                 <input class="form-control" type="file" accept='image/*' id="formFile" (change)="updateImage($event)">
             </div>
-            <button class="btn secondary-color text-light full-width">Atualizar</button>
+            <button class="btn secondary-color text-light full-width" [attr.disabled]="imageIsValid ? null : true"
+                (click)="confirmImageChange()">Atualizar</button>
         </form>
+    </div>
+</ng-template>
+
+<ng-template #remove_image_modal>
+    <div class="modal-body text-center">
+        <p>Deseja remover a foto de perfil?</p>
+        <button type="button" class="btn btn-default" (click)="removerImage()">Yes</button>
+        <button type="button" class="btn btn-default" (click)="modalRef?.hide()">No</button>
     </div>
 </ng-template>

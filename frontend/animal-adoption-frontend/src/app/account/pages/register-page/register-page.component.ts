@@ -29,10 +29,10 @@ export class RegisterPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.verifyLogedUser();
     this.getLocations();
   }
 
-  // TODO: Verify logged user
   verifyLogedUser(): void {
     if (this.storage.userIsLogged()) {
       this.router.navigateByUrl('/account');
@@ -118,7 +118,6 @@ export class RegisterPageComponent implements OnInit {
         errors => {
           if (errors.status > 500) this.toast.error('Servidor indisponível');
           else {
-            console.log(errors);
             this.toast.error('Erro interno');
           } 
         }

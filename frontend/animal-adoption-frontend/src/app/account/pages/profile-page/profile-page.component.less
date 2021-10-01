@@ -31,15 +31,17 @@
 
         .header {
             display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                padding: 16px;
-                border-radius: 8px 8px 0 0;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+            border-radius: 8px 8px 0 0;
 
             .image-container {
                 width: 50%;
                 border-radius: 8px;
+                background-color: #616161;
+                padding: 0;
                 
                 img {
                     max-height: 300px;
@@ -47,10 +49,17 @@
                     padding: 0;
                     object-fit: scale-down;
                 }
-            
-                .btn {
+
+                .image-control {
                     width: 100%;
+                    display: flex;
+                    padding: 0;
+
+                    .btn {
+                        width: 100%;
+                    }
                 }
+            
             }
         }
     }

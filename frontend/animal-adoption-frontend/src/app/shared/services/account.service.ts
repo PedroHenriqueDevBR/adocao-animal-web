@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { PersonModel } from '../models/person-model';
 import { Observable } from 'rxjs';
 import { JWTResponseModel } from './models/jwt-response-model';
+import { LocalstorageService } from './localstorage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ export class AccountService {
 
   constructor(
     private http: HttpClient,
+    private storage: LocalstorageService,
   ) { }
 
   public loginUser(person: PersonModel): Observable<JWTResponseModel> {
@@ -23,6 +25,25 @@ export class AccountService {
     return this.http.post(`${this.BASE_URL}/user/register`, person.toRegister());
   }
 
+  public getLoggedPersonData(): Observable<PersonModel> {
+    return this.http.get<PersonModel>(
+      `${this.BASE_URL}/user/`,
+      { headers: this.storage.getHeader() },
+    );
+  }
 
+  public updateImage(data: FormData): Observable<PersonModel> {
+    return this.http.put<PersonModel>(
+      `${this.BASE_URL}/user/image/`,
+      data,
+      { headers: this.storage.getHeader() },
+    );
+  }
 
+  public removeImage(): Observable<any> {
+    return this.http.delete(
+      `${this.BASE_URL}/user/image/`,
+      { headers: this.storage.getHeader() },
+    );
+  }
 }
