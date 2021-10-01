@@ -1,5 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { LocalstorageService } from 'src/app/shared/services/localstorage.service';
 
 @Component({
   templateUrl: './profile-page.component.html',
@@ -10,10 +12,19 @@ export class ProfilePageComponent implements OnInit {
   imageSrc: string = '/assets/images/person.jpg';
 
   constructor(
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private router: Router,
+    private storage: LocalstorageService,
   ) { }
 
   ngOnInit(): void {
+    this.verifyLogedUser();
+  }
+
+  verifyLogedUser(): void {
+    if (!this.storage.userIsLogged()) {
+      this.router.navigateByUrl('/account/login');
+    }
   }
 
   openModal(template: TemplateRef<any>): void {

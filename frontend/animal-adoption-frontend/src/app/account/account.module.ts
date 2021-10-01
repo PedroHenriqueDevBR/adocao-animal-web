@@ -7,7 +7,7 @@ import { RegisterPageComponent } from './pages/register-page/register-page.compo
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { PersonListComponent } from './components/person-list/person-list.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
 
 
@@ -24,7 +24,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     CommonModule,
     AccountRoutingModule,
     FormsModule,
-    ModalModule
+    ReactiveFormsModule,
+    ModalModule,
   ]
 })
 export class AccountModule { }
