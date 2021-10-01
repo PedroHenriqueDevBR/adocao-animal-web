@@ -3,46 +3,43 @@
         <h1 class="title">Registrar-se</h1>
         <p class="subtitle">Crie um nova conta para publicar os seus aminais para adoção.</p>
 
-        <form>
+        <form (submit)="submit()" [formGroup]="formRegisterPerson">
             <div class="row g-2">
                 <div class="form-floating mb-3 col">
-                    <input type="text" class="form-control" id="name" name="name" placeholder="Nome completo">
+                    <input type="text" class="form-control" id="name" formControlName="name" placeholder="Nome completo" >
                     <label for="name">Nome completo</label>
                 </div>
                 <div class="form-floating mb-3 col">
-                    <input type="text" class="form-control" id="username" name="username" placeholder="username">
+                    <input type="text" class="form-control" id="username" formControlName="username" placeholder="username">
                     <label for="username">Username</label>
                 </div>
             </div>
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="v" name="contact" placeholder="Contato">
+                <input type="text" class="form-control" id="contact" matInput mask="(00) 00000-0000" formControlName="contact" placeholder="Contato">
                 <label for="contact">Contato</label>
             </div>
             <div class="row g-2">
                 <div class="form-floating mb-3 col">
-                    <input type="password" class="form-control" id="password" name="password" placeholder="Senha">
+                    <input type="password" class="form-control" id="password" formControlName="password" placeholder="Senha" autocomplete="on">
                     <label for="password">Senha</label>
                 </div>
                 <div class="form-floating mb-3 col">
-                    <input type="password" class="form-control" id="repeate-password" name="repeate-password"
-                        placeholder="Repetir senha">
+                    <input type="password" class="form-control" id="repeate-password" formControlName="repeatPassword"
+                        placeholder="Repetir senha" autocomplete="off">
                     <label for="repeate-password">Repetir senha</label>
                 </div>
             </div>
             <div class="row g-2">
-                <select class="form-select col" aria-label="Estado">
-                    <option selected>Estado</option>
-                    <option value="1">Piauí</option>
-                    <option value="2">Maranhão</option>
+                <select class="form-select col" aria-label="Estado" (change)="selectState($event)">
+                    <option *ngFor="let state of locations" value="{{state.id}}">{{state.name}}</option>
                 </select>
-                <select class="form-select col mx-2" aria-label="Cidade" disabled>
-                    <option selected>Cidades</option>
-                    <option value="1">Teresina-PI</option>
-                    <option value="2">Timon-MA</option>
+                <select class="form-select col mx-2" aria-label="Cidade" formControlName="cityId">
+                    <option value="0" selected>Cidade</option>
+                    <option *ngFor="let city of selectedState.cities" value="{{city.id}}">{{city.name}}</option>
                 </select>
             </div>
 
-            <button class="btn secondary-color text-light full-width mt-3">Registrar</button>
+            <button class="btn secondary-color text-light full-width mt-3" [attr.disabled]="formIsValid ? null : true">Registrar</button>
         </form>
         <a class="btn mt-3" [routerLink]="['/account/login']" >Já tenho acesso</a>
     </div>

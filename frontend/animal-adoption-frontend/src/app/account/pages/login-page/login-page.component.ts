@@ -24,7 +24,15 @@ export class LoginPageComponent implements OnInit {
     this.formLogin = this.createFormLogin();
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.verifyLogedUser();
+  }
+
+  verifyLogedUser(): void {
+    if (this.storage.userIsLogged()) {
+      this.router.navigateByUrl('/account');
+    }
+  }
 
   createFormLogin(): FormGroup {
     return new FormGroup({
@@ -50,7 +58,7 @@ export class LoginPageComponent implements OnInit {
         this.loginSuccess(data);
       },
       errors => {
-        if (errors.status > 500) this.toast.error('Servidor indisponível');
+        if (errors.status == 404 || errors.status > 500) this.toast.error('Servidor indisponível');
         else if (errors.status == 401) this.toast.error('Username ou senha inválidos');
         else {
           console.log(errors);

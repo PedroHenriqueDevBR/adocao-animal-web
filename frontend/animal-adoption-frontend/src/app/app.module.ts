@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { AppBootstrapModule } from './app-bootstrap/app-bootstrap.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,9 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    NgxMaskModule.forRoot({
+      dropSpecialCharacters: false,
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -22,4 +22,12 @@ export class LocalstorageService {
   public logout(): void {
     localStorage.removeItem(this.JWT_KEY);
   }
+
+  public getHeader() {
+    return { "Authorization": this.getJWTKey() };
+  }
+
+  private getJWTKey(): string {
+    return 'Bearer ' + localStorage.getItem(this.JWT_KEY) || '';
+  }
 }

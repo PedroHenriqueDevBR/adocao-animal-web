@@ -9,6 +9,7 @@ import { ProfilePageComponent } from './pages/profile-page/profile-page.componen
 import { PersonListComponent } from './components/person-list/person-list.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { NgxMaskModule } from 'ngx-mask';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     FormsModule,
     ReactiveFormsModule,
     ModalModule,
+    NgxMaskModule.forChild(),
   ]
 })
 export class AccountModule { }

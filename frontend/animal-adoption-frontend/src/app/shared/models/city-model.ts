@@ -2,17 +2,14 @@ import { AnimalModel } from "./animal-model";
 
 export class CityModel {
     id?: number;
-    name: string;
-    
-    animals: AnimalModel[];
+    name: string = '';
+    stateId: number = 0;
+    animals: AnimalModel[] = [];
 
-    constructor(
-        id: number | undefined = undefined,
-        name: string = '',
-        animals: AnimalModel[] = [],
-    ) {
-        this.id = id;
-        this.name = name;
-        this.animals = animals;
+    toCreate() {
+        return {
+            name: this.name,
+            state: this.stateId,
+        }
     }
 }
