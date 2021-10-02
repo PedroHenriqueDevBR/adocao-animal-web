@@ -104,7 +104,7 @@ O desenvolvimento dessa aplicação utiliza como base as seguintes tecnologias e
    - [X] Login de usuário;
    - [X] Adicionar o imagem ao perfil no usuário logado;
    - [X] Remover imagem do perfil logado
-   - [ ] Atualizar dados do perfil logado;
+   - [X] Atualizar dados do perfil logado;
    - [ ] Criar estado;
    - [ ] Editar estado;
    - [ ] Remover estado;

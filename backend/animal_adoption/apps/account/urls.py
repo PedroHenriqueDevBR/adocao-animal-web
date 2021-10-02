@@ -9,9 +9,8 @@ urlpatterns = [
     path("login/refresh/", jwt_views.TokenRefreshView.as_view(), name="token_refresh"),
     path("<int:pk>/detail", SelectPersonDetail.as_view(), name=SelectPersonDetail.name),
     # IsAuthenticated
-    path("", PersonDataView.as_view(), name=PersonDataView.name),
+    path("", PersonDataAndUpdateView.as_view(), name=PersonDataAndUpdateView.name),
     path("image/", PersonImage.as_view(), name=PersonImage.name),
-    path("update/", PersonUpdateView.as_view(), name=PersonUpdateView.name),
     # IsAdminUser
     path("<int:pk>/moderator/enable", EnableModeratorPerson.as_view(), name=EnableModeratorPerson.name),
     path("<int:pk>/moderator/disable", DisableModeratorPerson.as_view(), name=DisableModeratorPerson.name),

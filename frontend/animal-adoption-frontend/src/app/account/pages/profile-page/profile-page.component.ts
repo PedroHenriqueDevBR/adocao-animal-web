@@ -21,6 +21,7 @@ export class ProfilePageComponent implements OnInit {
   formPerson: FormGroup;
   locations: StateModel[] = [];
   selectedState: StateModel = new StateModel();
+  selectedCityID: number = 0;
 
   constructor(
     private modalService: BsModalService,
@@ -30,8 +31,8 @@ export class ProfilePageComponent implements OnInit {
     private locationService: LocationService,
     private toast: ToastrService,
   ) {
-    this.getLocations();
     this.getPersonData();
+    this.getLocations();
     this.formPerson = this.createFormPersonData();
   }
 
@@ -51,7 +52,18 @@ export class ProfilePageComponent implements OnInit {
     this.locationService.getLocations().subscribe(
       (data: StateModel[]) => {
         this.locations = data;
-        if (data.length > 0) this.selectedState = data[0];
+        for (let location of data) {
+          if (location.id == this.person.city.state) {
+            this.selectedState = location;
+            for (let city of location.cities) {
+              if (city.id == this.person.city.id) {
+                this.selectedCityID = city.id!;
+                break;
+              }
+            }
+            break;
+          }
+        }
       },
       errors => {
         if (errors.status > 500) {
@@ -68,6 +80,7 @@ export class ProfilePageComponent implements OnInit {
     this.accountService.getLoggedPersonData().subscribe(
       (data: PersonModel) => {
         this.person = data;
+        return;
       },
       errors => {
         if (errors.status >= 500) {
@@ -81,13 +94,23 @@ export class ProfilePageComponent implements OnInit {
 
   createFormPersonData(): FormGroup {
     return new FormGroup({
-      name: new FormControl(this.person.username, [Validators.required, Validators.minLength(3)]),
-      username: new FormControl(this.person.username, [Validators.required, Validators.minLength(5)]),
+      name: new FormControl(this.person.name, [Validators.required, Validators.minLength(3)]),
       contact: new FormControl(this.person.contact, [Validators.required, Validators.minLength(11)]),
       password: new FormControl(this.person.password, [Validators.required, Validators.minLength(8)]),
-      repeatPassword: new FormControl(this.person.password, [Validators.required, Validators.minLength(8)]),
-      cityId: new FormControl(this.person.cityId, [Validators.required]),
+      stateId: new FormControl(this.person.city?.state),
     });
+  }
+
+  selectState(event: any) {
+    const stateId = event.target.value;
+    const state = this.locations.find(el => el.id == stateId);
+    if (state!.cities.length > 0) this.selectedCityID = state!.cities[0].id!;
+    this.selectedState = state!;
+  }
+
+  selectCity(event: any) {
+    const cityId = event.target.value;
+    this.selectedCityID = cityId!;
   }
 
   get formIsValid(): boolean {
@@ -167,9 +190,51 @@ export class ProfilePageComponent implements OnInit {
     }
   }
 
-  // TODO: implement
-  updateProfileData(){
+  compareUpdateData(): Object {
+    const name = this.formPerson.get('name')?.value;
+    const contact = this.formPerson.get('contact')?.value;
+    const password = this.formPerson.get('password')?.value;
 
+    let formatedData: {[key: string]: any} = {};
+    if (name != '') formatedData['name'] = name;
+    if (password != '') formatedData['password'] = password;
+    if (contact != '') formatedData['contact'] = contact;
+    if (this.selectedCityID != this.person.city.id && this.selectedCityID != 0) formatedData['city'] = this.selectedCityID;
+
+    return formatedData;
+  }
+
+  validateUpdateData(data: Object): boolean {
+    if (Object.keys(data).length === 0 && data.constructor === Object) {
+      this.toast.warning('Nenhuma dado alterado');
+      return false
+    };
+    if (this.selectedCityID == 0) {
+      this.toast.warning('Nenhuma cidade selecionada');
+      return false;
+    }
+    return true;
+  }
+
+  updateProfileData() {
+    const formData = this.compareUpdateData();
+    if (this.validateUpdateData(formData)) {
+      this.accountService.updateData(formData).subscribe(
+        data => {
+          this.toast.success('Dados atualizados');
+          this.getPersonData();
+        },
+        errors => {
+          if (errors.status >= 500) {
+            this.toast.error('Servidor indisponível');
+          } else if (errors.status == 406) {
+            for (let error of errors.error.errors) {
+              this.toast.error(error);
+            }
+          }
+        }
+      );
+    }
   }
 
 }

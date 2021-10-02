@@ -69,7 +69,7 @@ export class RegisterPageComponent implements OnInit {
       contact: new FormControl(this.person.contact, [Validators.required, Validators.minLength(11)]),
       password: new FormControl(this.person.password, [Validators.required, Validators.minLength(8)]),
       repeatPassword: new FormControl(this.person.password, [Validators.required, Validators.minLength(8)]),
-      cityId: new FormControl(this.person.cityId, [Validators.required]),
+      cityId: new FormControl(Number, [Validators.required]),
     });
   }
 
@@ -105,7 +105,7 @@ export class RegisterPageComponent implements OnInit {
       this.person.username = this.formRegisterPerson.get('username')?.value;
       this.person.password = this.formRegisterPerson.get('password')?.value;
       this.person.contact = this.formRegisterPerson.get('contact')?.value;
-      this.person.cityId = this.formRegisterPerson.get('cityId')?.value;
+      this.person.city.id = this.formRegisterPerson.get('cityId')?.value;
   }
 
   submit(): void {

@@ -32,6 +32,14 @@ export class AccountService {
     );
   }
 
+  public updateData(data: Object): Observable<any> {
+    return this.http.put(
+      `${this.BASE_URL}/user/`,
+      data,
+      { headers: this.storage.getHeader() },
+    );
+  }
+
   public updateImage(data: FormData): Observable<PersonModel> {
     return this.http.put<PersonModel>(
       `${this.BASE_URL}/user/image/`,
@@ -45,5 +53,9 @@ export class AccountService {
       `${this.BASE_URL}/user/image/`,
       { headers: this.storage.getHeader() },
     );
+  }
+
+  public logout(){
+    this.storage.logout();
   }
 }

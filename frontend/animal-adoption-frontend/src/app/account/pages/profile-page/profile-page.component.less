@@ -34,20 +34,20 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 16px;
+            padding: 8px;
             border-radius: 8px 8px 0 0;
 
             .image-container {
                 width: 50%;
                 border-radius: 8px;
-                background-color: #616161;
                 padding: 0;
                 
                 img {
+                    width: auto;
                     max-height: 300px;
                     border-radius: 8px;
                     padding: 0;
-                    object-fit: scale-down;
+                    object-fit: contain;
                 }
 
                 .image-control {
@@ -56,7 +56,15 @@
                     padding: 0;
 
                     .btn {
-                        width: 100%;
+                        padding: 16px;
+                    }
+
+                    .btn:first-child {
+                        text-align: right;
+                    }
+
+                    .btn:last-child {
+                        text-align: left;
                     }
                 }
             

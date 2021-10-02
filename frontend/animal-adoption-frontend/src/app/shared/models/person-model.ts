@@ -1,4 +1,5 @@
 import { AnimalModel } from "./animal-model";
+import { CityModel } from "./city-model";
 
 export class PersonModel {
     id?: number;
@@ -11,7 +12,7 @@ export class PersonModel {
     longitude: string = '';
     isModerator: boolean = false;
     isActive: boolean = false;
-    cityId: number = 0;
+    city: CityModel = new CityModel();
 
     animals: AnimalModel[] = [];
 
@@ -28,7 +29,7 @@ export class PersonModel {
             username: this.username,
             password: this.password,
             contact: this.contact,
-            city: this.cityId,
+            city: this.city?.id,
         };
     }
 }

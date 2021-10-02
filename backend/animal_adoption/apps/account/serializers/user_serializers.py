@@ -1,10 +1,10 @@
 from apps.core.models import Person
 from rest_framework.serializers import ModelSerializer
-from apps.location.serializers.city_serializers import CitySerializer
+from apps.location.serializers.city_serializers import CitySerializer, CreateCitySerializer
 
 
 class UserSerializer(ModelSerializer):
-    city = CitySerializer(many=False, read_only=True)
+    city = CreateCitySerializer(many=False, read_only=True)
 
     class Meta:
         model = Person

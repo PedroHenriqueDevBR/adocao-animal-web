@@ -15,8 +15,8 @@ from apps.account.serializers.user_serializers import (
 )
 
 
-class PersonDataView(APIView):
-    name = "person-data-view"
+class PersonDataAndUpdateView(APIView):
+    name = "person-data-and-update-view"
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
@@ -25,13 +25,28 @@ class PersonDataView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def put(self, request):
-        person = request.user.person
         data = request.data
-        person_serializer = UpdatePersonSerializer(person, data=data)
-        if person_serializer.is_valid():
-            person_serializer.save()
-            return Response(person_serializer.data, status=status.HTTP_201_CREATED)
-        return Response(person_serializer.errors, status=status.HTTP_406_NOT_ACCEPTABLE)
+        errors = person_update_is_valid_or_errors(data)
+        if len(errors) > 0:
+            return Response({"errors": errors}, status=status.HTTP_406_NOT_ACCEPTABLE)
+        user = request.user
+        person = user.person
+        if "name" in data:
+            user.first_name = data["name"]
+            user.save()
+        if "password" in data:
+            user.set_password(data["password"])
+        if 'contact' in data:
+            person.contact = data['contact']
+        if 'latitude' in data:
+            person.latitude = data['latitude']
+        if 'longitude' in data:
+            person.longitude = data['longitude']
+        if 'city' in data:
+            city = City.objects.get(pk=data['city'])
+            person.city = city
+        person.save()
+        return Response(status=status.HTTP_202_ACCEPTED)
 
 
 class PersonImage(APIView):
@@ -86,29 +101,6 @@ class PersonRegisterView(APIView):
                 {"errors": form_errors}, status=status.HTTP_406_NOT_ACCEPTABLE
             )
         return self.create_person(data)
-
-
-# Update person data
-class PersonUpdateView(APIView):
-    name = "person-update-view"
-
-    def put(self, request):
-        data = request.data
-        errors = person_update_is_valid_or_errors(data)
-        if len(errors) > 0:
-            return Response({"errors": errors}, status=status.HTTP_406_NOT_ACCEPTABLE)
-        user = request.user
-        person = user.person
-        if data["name"]:
-            user.first_name = data["name"]
-            user.save()
-        if data["password"]:
-            user.set_password(data["password"])
-        serializer = UpdatePersonSerializer(person, data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
-        return Response(serializer.errors, status=status.HTTP_406_NOT_ACCEPTABLE)
 
 
 # Select Detail from anyone
