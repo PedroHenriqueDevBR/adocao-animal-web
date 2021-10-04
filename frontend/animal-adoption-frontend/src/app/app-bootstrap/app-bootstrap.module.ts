@@ -1,16 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ToastrModule } from 'ngx-toastr';
+import { HeaderComponent } from '../shared/components/header/header.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    HeaderComponent,
+  ],
   imports: [
     CommonModule,
+    RouterModule,
     ModalModule.forRoot(),
-    BrowserAnimationsModule,
     ToastrModule.forRoot({
       closeButton: true,
       progressBar: true,
@@ -18,8 +21,9 @@ import { ToastrModule } from 'ngx-toastr';
   ],
   exports: [
     ModalModule,
-    BrowserAnimationsModule,
     ToastrModule,
+    HeaderComponent,
+    RouterModule,
   ]
 })
 
