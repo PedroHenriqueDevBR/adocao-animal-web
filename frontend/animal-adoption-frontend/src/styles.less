@@ -3,6 +3,20 @@
 @secondary-color: #FFA500;
 @scaffold-color: #EEEEEE;
 
+::-webkit-scrollbar {
+    width: 7px;
+
+    @media screen and (min-width: 768px) {
+        width: 10px;
+    }
+}
+
+
+::-webkit-scrollbar-thumb {
+    background-color: @secondary-color;
+}
+
+
 * {
     box-sizing: border-box;
 }

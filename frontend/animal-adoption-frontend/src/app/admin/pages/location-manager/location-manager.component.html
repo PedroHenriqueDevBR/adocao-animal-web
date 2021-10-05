@@ -1,1 +1,89 @@
-<p>location-manager works!</p>
+<main>
+    <div class="col states">
+        <ul>
+            <button class="btn full-width text-left secondary-color text-light" (click)="editOrCreateStateModal(createStateModal)">Novo
+                estado</button>
+            <li *ngFor="let state of locations" class="state-item">
+                <div class="item-content">
+                    <p>{{ state.name }}</p>
+                    <button class="btn"><span class="material-icons text-primary" (click)="editOrCreateStateModal(createStateModal, state)">edit</span></button>
+                    <button class="btn"><span class="material-icons text-danger" (click)="openModal(deleteStatePrompt)">delete</span></button>
+                </div>
+                <ul>
+                    <li *ngFor="let city of state.cities" class="city-item">
+                        <div class="item-content">
+                            <p>{{ city.name }}</p>
+                            <button class="btn"><span class="material-icons text-primary" (click)="editOrCreateCityModal(createCityModal, city)">edit</span></button>
+                            <button class="btn"><span class="material-icons text-danger" (click)="openModal(deleteCityPrompt)">delete</span></button>
+                        </div>
+                    </li>
+                    <button class="btn full-width text-left city-item" (click)="editOrCreateCityModal(createCityModal)">Adicionar
+                        cidade</button>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</main>
+
+
+<ng-template #createStateModal >
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 id="create-state-modal" class="modal-title pull-left">Estado</h4>
+            <button type="button" class="btn-close close pull-right" aria-label="Close"
+                (click)="decline()">
+                <span aria-hidden="true" class="visually-hidden">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="form-floating mb-2">
+                    <input type="text" class="form-control" placeholder="Nome do estado" value="{{ selectedState != null ? selectedState.name : '' }}">
+                    <label for="name">Nome do estado</label>
+                </div>
+                <button class="btn secondary-color text-light full-width">Salvar</button>
+            </form>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #createCityModal>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 id="create-city-modal" class="modal-title pull-left">Cidade</h4>
+            <button type="button" class="btn-close close pull-right" aria-label="Close"
+                (click)="decline()">
+                <span aria-hidden="true" class="visually-hidden">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="form-floating mb-2">
+                    <input type="text" class="form-control" placeholder="Nome da cidade" value="{{ selectedCity != null ? selectedCity.name : '' }}">
+                    <label for="name">Nome da cidade</label>
+                </div>
+                <select class="form-select mb-2" aria-label="Estado">
+                    <option *ngFor="let state of locations" value="{{ state.id }}">{{ state.name }}</option>
+                </select>
+                <button class="btn secondary-color text-light full-width">Salvar</button>
+            </form>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #deleteCityPrompt>
+    <div class="modal-body text-center">
+        <p>Deletar a cidade selecionada?</p>
+        <button type="button" class="btn btn-default" (click)="confirm()">Sim</button>
+        <button type="button" class="btn btn-default" (click)="decline()">Não</button>
+    </div>
+</ng-template>
+
+
+<ng-template #deleteStatePrompt>
+    <div class="modal-body text-center">
+        <p>Deletar o estado selecionado?</p>
+        <button type="button" class="btn btn-default" (click)="confirm()">Sim</button>
+        <button type="button" class="btn btn-default" (click)="decline()">Não</button>
+    </div>
+</ng-template>
