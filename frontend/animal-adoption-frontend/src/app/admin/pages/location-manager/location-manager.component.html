@@ -36,12 +36,12 @@
             </button>
         </div>
         <div class="modal-body">
-            <form>
+            <form [formGroup]="stateForm">
                 <div class="form-floating mb-2">
-                    <input type="text" class="form-control" placeholder="Nome do estado" value="{{ selectedState != null ? selectedState.name : '' }}">
+                    <input type="text" class="form-control" formControlName="name" placeholder="Nome do estado" value="{{ selectedState != null ? selectedState.name : '' }}">
                     <label for="name">Nome do estado</label>
                 </div>
-                <button class="btn secondary-color text-light full-width">Salvar</button>
+                <button class="btn secondary-color text-light full-width" (click)="createOrUpdateState()">Salvar</button>
             </form>
         </div>
     </div>
@@ -57,12 +57,12 @@
             </button>
         </div>
         <div class="modal-body">
-            <form>
+            <form [formGroup]="cityForm">
                 <div class="form-floating mb-2">
-                    <input type="text" class="form-control" placeholder="Nome da cidade" value="{{ selectedCity != null ? selectedCity.name : '' }}">
+                    <input type="text" class="form-control" formControlName="name" placeholder="Nome da cidade" value="{{ selectedCity != null ? selectedCity.name : '' }}">
                     <label for="name">Nome da cidade</label>
                 </div>
-                <select class="form-select mb-2" aria-label="Estado">
+                <select class="form-select mb-2" aria-label="Estado" formControlName="state">
                     <option *ngFor="let state of locations" value="{{ state.id }}">{{ state.name }}</option>
                 </select>
                 <button class="btn secondary-color text-light full-width">Salvar</button>

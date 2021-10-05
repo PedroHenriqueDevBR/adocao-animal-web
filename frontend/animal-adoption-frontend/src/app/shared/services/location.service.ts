@@ -21,8 +21,8 @@ export class LocationService {
     return this.http.get<StateModel[]>(`${this.BASE_URL}/location/`);
   }
 
-  public createState(state: StateModel): Observable<any> {
-    return this.http.post(
+  public createState(state: StateModel): Observable<StateModel> {
+    return this.http.post<StateModel>(
       `${this.BASE_URL}/location/state`,
       state.toCreate(),
       { "headers": this.storage.getHeader() },
