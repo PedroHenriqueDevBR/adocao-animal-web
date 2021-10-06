@@ -15,6 +15,16 @@ from apps.account.serializers.user_serializers import (
 )
 
 
+class AllPersonsView(APIView):
+    name = "all-persons-view"
+    permission_classes = [IsAuthenticated, IsAdminUser]
+
+    def get(self, request):
+        persons = Person.objects.all()
+        serializer = UserSerializer(persons, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
 class PersonDataAndUpdateView(APIView):
     name = "person-data-and-update-view"
     permission_classes = [IsAuthenticated]
@@ -36,14 +46,14 @@ class PersonDataAndUpdateView(APIView):
             user.save()
         if "password" in data:
             user.set_password(data["password"])
-        if 'contact' in data:
-            person.contact = data['contact']
-        if 'latitude' in data:
-            person.latitude = data['latitude']
-        if 'longitude' in data:
-            person.longitude = data['longitude']
-        if 'city' in data:
-            city = City.objects.get(pk=data['city'])
+        if "contact" in data:
+            person.contact = data["contact"]
+        if "latitude" in data:
+            person.latitude = data["latitude"]
+        if "longitude" in data:
+            person.longitude = data["longitude"]
+        if "city" in data:
+            city = City.objects.get(pk=data["city"])
             person.city = city
         person.save()
         return Response(status=status.HTTP_202_ACCEPTED)

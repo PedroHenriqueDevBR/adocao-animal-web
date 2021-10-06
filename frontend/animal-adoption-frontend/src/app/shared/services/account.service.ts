@@ -58,4 +58,11 @@ export class AccountService {
   public logout(){
     this.storage.logout();
   }
+
+  public allPersons(): Observable<PersonModel[]> {
+    return this.http.get<PersonModel[]>(
+      `${this.BASE_URL}/user/all/`,
+      { headers: this.storage.getHeader() },
+    );
+  }
 }

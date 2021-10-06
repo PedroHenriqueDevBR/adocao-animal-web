@@ -12,6 +12,7 @@ urlpatterns = [
     path("", PersonDataAndUpdateView.as_view(), name=PersonDataAndUpdateView.name),
     path("image/", PersonImage.as_view(), name=PersonImage.name),
     # IsAdminUser
+    path("all/", AllPersonsView.as_view(), name=AllPersonsView.name),
     path("<int:pk>/moderator/enable", EnableModeratorPerson.as_view(), name=EnableModeratorPerson.name),
     path("<int:pk>/moderator/disable", DisableModeratorPerson.as_view(), name=DisableModeratorPerson.name),
 ]
