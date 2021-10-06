@@ -115,13 +115,25 @@ export class RegisterPageComponent implements OnInit {
         data => {
           this.registerSuccess();
         },
-        errors => {
-          if (errors.status > 500) this.toast.error('Servidor indisponível');
-          else {
-            this.toast.error('Erro interno');
-          } 
-        }
+        errors => this.verifyStatusError(errors),
       );
+    }
+  }
+
+  verifyStatusError(errors: any) {
+    if (errors.status >= 500) {
+      this.toast.error('Servidor indisponível');
+    } else if (errors.status == 406) {
+      if (errors.error.errors) {
+        for (let error of errors.error.errors) {
+          this.toast.error(error);
+        }
+      }
+    } else if (errors.status == 403) {
+      this.toast.error("Sem permissão");
+    } else {
+      this.toast.error('Erro interno');
+      console.log(errors);
     }
   }
 }

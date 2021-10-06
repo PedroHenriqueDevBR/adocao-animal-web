@@ -101,6 +101,8 @@ export class PersonManagerComponent implements OnInit {
           this.toast.error(error);
         }
       }
+    } else if (errors.status == 403) {
+      this.toast.error("Sem permissão");
     } else {
       this.toast.error('Erro interno');
       console.log(errors);

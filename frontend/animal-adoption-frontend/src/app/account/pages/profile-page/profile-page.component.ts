@@ -237,4 +237,9 @@ export class ProfilePageComponent implements OnInit {
     }
   }
 
+  logout() {
+    this.accountService.logout();
+    this.verifyLogedUser();
+  }
+
 }

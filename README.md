@@ -99,7 +99,7 @@ O desenvolvimento dessa aplicação utiliza como base as seguintes tecnologias e
 
 <h2 id="funcionalidades">:heavy_check_mark: Funcionalidades</h2>
 
-- [ ] Sprint 01 (Contas e localizações)
+- [X] Sprint 01 (Contas e localizações)
    - [X] Registro de usuário;
    - [X] Login de usuário;
    - [X] Adicionar o imagem ao perfil no usuário logado;
@@ -113,7 +113,7 @@ O desenvolvimento dessa aplicação utiliza como base as seguintes tecnologias e
    - [X] Remover cidade;
    - [X] Adicionar poder de moderador a um determinado perfil (admin only);
    - [X] Remover poder de moderador a um determinado perfil (admin only);
-   - [ ] Bloquear um determinado perfil (admin only).
+   - [X] Bloquear um determinado perfil (admin only).
 - [ ] Sprint 02 (Animal e metadados)
    - [ ] Registrar animal;
    - [ ] Editar dados do animal;

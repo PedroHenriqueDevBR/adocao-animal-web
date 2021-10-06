@@ -16,7 +16,10 @@ def person_register_is_valid_or_errors(data):
         if len(data["username"]) < 5:
             errors.append("Username deve conter 5 caracteres")
         elif username_in_use(data["username"]):
-            errors.append("Username já registrado")
+            if user_is_inactive(data["username"]):
+                errors.append("Username banido do grupo")
+            else:
+                errors.append("Username já registrado")
 
     if not "password" in data:
         errors.append("Password é obrigatório")
@@ -72,3 +75,7 @@ def city_exists(pk):
 
 def username_in_use(username):
     return len(User.objects.filter(username=username)) > 0
+
+def user_is_inactive(username):
+    user = User.objects.get(username=username)
+    return user.is_active == False
