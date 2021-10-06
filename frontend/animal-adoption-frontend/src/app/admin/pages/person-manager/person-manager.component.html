@@ -9,7 +9,7 @@
     
     <div id="content" class="row">
         <div class="person-container col col-sm-auto">
-            <app-person-list [persons]="persons" (personEmit)="selectPerson($event)"></app-person-list>
+            <app-person-list [persons]="persons" [allPersons]="persons" (personEmit)="selectPerson($event)"></app-person-list>
         </div>
     
         <div class="person-detail col">
@@ -20,9 +20,9 @@
             </div>
             <div class="person-data p-3 text-center">
                 <div class="status">
-                    <h1 class="badge primary-color mx-1">{{ selectedPerson != null && selectedPerson.isModerator == true ?
+                    <h1 class="badge primary-color mx-1">{{ selectedPerson != null && selectedPerson.is_moderator == true ?
                         'Moderador' : '' }}</h1>
-                    <h1 class="badge bg-danger mx-1">{{ selectedPerson != null && selectedPerson.isActive == false ?
+                    <h1 class="badge bg-danger mx-1">{{ selectedPerson != null && selectedPerson.is_active == false ?
                         'Bloqueada' : '' }}</h1>
                 </div>
                 <h5>{{ selectedPerson != null ? selectedPerson.name + ' - ' + selectedPerson.username : '' }}</h5>
@@ -30,11 +30,11 @@
     
                 <div class="controls">
                     <button class="btn secondary-color text-light mx-2" (click)="changeModeratorPerson()">
-                        {{ selectedPerson != null && selectedPerson.isModerator == true ? 'Remover moderador' : 'Moderador'
+                        {{ selectedPerson != null && selectedPerson.is_moderator == true ? 'Remover moderador' : 'Moderador'
                         }}
                     </button>
                     <button class="btn secondary-color text-light mx-2" (click)="changeBlockPerson()">
-                        {{ selectedPerson != null && selectedPerson.isActive == false ? 'Remover bloqueio' : 'Bloquear' }}
+                        {{ selectedPerson != null && selectedPerson.is_active == false ? 'Remover bloqueio' : 'Bloquear' }}
                     </button>
                 </div>
             </div>
@@ -49,6 +49,6 @@
             aria-label="Close"></button>
     </div>
     <div class="offcanvas-body p-0">
-        <app-person-list [persons]="persons" (personEmit)="selectPerson($event)"></app-person-list>
+        <app-person-list [persons]="persons" [allPersons]="persons" (personEmit)="selectPerson($event)"></app-person-list>
     </div>
 </div>

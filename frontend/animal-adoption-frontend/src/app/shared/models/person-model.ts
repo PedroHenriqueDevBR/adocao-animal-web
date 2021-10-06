@@ -10,8 +10,8 @@ export class PersonModel {
     contact: string = '';
     latitude: string = '';
     longitude: string = '';
-    isModerator: boolean = false;
-    isActive: boolean = false;
+    is_moderator: boolean = false;
+    is_active: boolean = false;
     city: CityModel = new CityModel();
 
     animals: AnimalModel[] = [];

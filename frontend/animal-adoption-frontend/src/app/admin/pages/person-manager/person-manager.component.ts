@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { CityModel } from 'src/app/shared/models/city-model';
 import { PersonModel } from 'src/app/shared/models/person-model';
 import { StateModel } from 'src/app/shared/models/state-model';
+import { AccountService } from 'src/app/shared/services/account.service';
+import { LocationService } from 'src/app/shared/services/location.service';
 
 @Component({
   templateUrl: './person-manager.component.html',
@@ -9,43 +12,25 @@ import { StateModel } from 'src/app/shared/models/state-model';
 })
 export class PersonManagerComponent implements OnInit {
 
-  locations: StateModel[] = [];
   selectedLocation?: StateModel;
   persons: PersonModel[] = [];
   selectedPerson?: PersonModel;
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor(
+    private toast: ToastrService,
+    private accountService: AccountService,
+    private locationService: LocationService,
+  ) {
     this.getPersons();
-    this.getStates();
   }
 
-  getStates(): void {
-    for (let i = 0; i < 3; i++) {
-      let state = new StateModel()
-      state.id = i + 1;
-      state.name = `Estado ${i + 1}`;
-      for (let j = 0; j < 3; j++) {
-        let city = new CityModel()
-        city.id = j + 1;
-        city.name = `Cidade ${i * j}`;
-        state.cities.push(city);
-      }
-      this.locations.push(state);
-    }
-  }
+  ngOnInit(): void {}
 
   getPersons(): void {
-    for (let i = 0; i < 10; i++) {
-      const person = new PersonModel();
-      person.id = i + 1;
-      person.name = `Person ${i + 1}`;
-      person.username = `username${i + 1}`;
-      person.contact = '(86) 91234-5678';
-      person.image = 'https://images.pexels.com/photos/3569409/pexels-photo-3569409.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940';
-      this.persons.push(person);
-    }
+    this.accountService.allPersons().subscribe(
+      (data: PersonModel[]) => this.persons = data,
+      error => this.verifyStatusError(error),
+    );
   }
 
   profileImage(): string {
@@ -54,7 +39,7 @@ export class PersonManagerComponent implements OnInit {
     } else if (this.selectedPerson.image == null || this.selectedPerson.image == '') {
       return '/assets/images/avatar.png';
     }
-    return this.selectedPerson.image;
+    return '/server' +  this.selectedPerson.image;
   }
 
   selectPerson(person: PersonModel) {
@@ -63,13 +48,30 @@ export class PersonManagerComponent implements OnInit {
 
   changeBlockPerson() {
     if (this.selectedPerson != null) {
-      this.selectedPerson.isActive = !this.selectedPerson.isActive;
+      this.selectedPerson.is_active = !this.selectedPerson.is_active;
     }
   }
 
   changeModeratorPerson() {
     if (this.selectedPerson != null) {
-      this.selectedPerson.isModerator = !this.selectedPerson.isModerator;
+      if (this.selectedPerson.is_moderator) {
+        this.accountService.disableModerator(this.selectedPerson).subscribe(
+          data => {
+            this.toast.success('Moderador desabilitado');
+            this.selectedPerson!.is_moderator = false;
+          },
+          error => this.verifyStatusError(error),
+        );
+      } else {
+        this.accountService.enableModerator(this.selectedPerson).subscribe(
+          data => {
+            this.toast.success('Moderador habilitado');
+            this.selectedPerson!.is_moderator = true;
+          },
+          error => this.verifyStatusError(error),
+        );
+      }
+      
     }
   }
 
@@ -77,5 +79,19 @@ export class PersonManagerComponent implements OnInit {
     this.selectedLocation = state;
   }
 
+  verifyStatusError(errors: any) {
+    if (errors.status >= 500) {
+      this.toast.error('Servidor indisponível');
+    } else if (errors.status == 406) {
+      if (errors.error.errors) {
+        for (let error of errors.error.errors) {
+          this.toast.error(error);
+        }
+      }
+    } else {
+      this.toast.error('Erro interno');
+      console.log(errors);
+    }
+  }
 
 }

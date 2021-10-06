@@ -65,4 +65,20 @@ export class AccountService {
       { headers: this.storage.getHeader() },
     );
   }
+
+  public enableModerator(person: PersonModel): Observable<any> {
+    return this.http.put<PersonModel>(
+      `${this.BASE_URL}/user/${person.id}/moderator/enable`,
+      {},
+      { headers: this.storage.getHeader() },
+    ); 
+  }
+
+  public disableModerator(person: PersonModel): Observable<any> {
+    return this.http.put<PersonModel>(
+      `${this.BASE_URL}/user/${person.id}/moderator/disable`,
+      {},
+      { headers: this.storage.getHeader() },
+    ); 
+  }
 }

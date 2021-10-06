@@ -111,9 +111,9 @@ O desenvolvimento dessa aplicação utiliza como base as seguintes tecnologias e
    - [X] Criar cidade e vincular a um estado;
    - [X] Editar cidade;
    - [X] Remover cidade;
-   - [ ] Adicionar poder de moderador a um determinado perfil (admin only);
-   - [ ] Remover poder de moderador a um determinado perfil (admin only);
-   - [ ] Bloquear um determinado perfil perfil (admin only).
+   - [X] Adicionar poder de moderador a um determinado perfil (admin only);
+   - [X] Remover poder de moderador a um determinado perfil (admin only);
+   - [ ] Bloquear um determinado perfil (admin only).
 - [ ] Sprint 02 (Animal e metadados)
    - [ ] Registrar animal;
    - [ ] Editar dados do animal;
