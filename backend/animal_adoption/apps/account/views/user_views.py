@@ -159,3 +159,35 @@ class DisableModeratorPerson(APIView):
         person.save()
         serializer = UserSerializer(person, many=False)
         return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+
+class BlockPerson(APIView):
+    name = "block_person"
+    permission_classes = [IsAuthenticated, IsAdminUser]
+
+    def put(self, request, pk):
+        try:
+            person = Person.objects.get(pk=pk)
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        user = person.user
+        user.is_active = False
+        user.save()
+        serializer = UserSerializer(person, many=False)
+        return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+
+
+# Admin user disable moderator from some person
+class UnlockPerson(APIView):
+    name = "unlock_person"
+    permission_classes = [IsAuthenticated, IsAdminUser]
+
+    def put(self, request, pk):
+        try:
+            person = Person.objects.get(pk=pk)
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        user = person.user
+        user.is_active = True
+        user.save()
+        serializer = UserSerializer(person, many=False)
+        return Response(serializer.data, status=status.HTTP_202_ACCEPTED)

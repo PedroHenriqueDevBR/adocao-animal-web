@@ -81,4 +81,20 @@ export class AccountService {
       { headers: this.storage.getHeader() },
     ); 
   }
+
+  public blockPerson(person: PersonModel): Observable<any> {
+    return this.http.put<PersonModel>(
+      `${this.BASE_URL}/user/${person.id}/block`,
+      {},
+      { headers: this.storage.getHeader() },
+    ); 
+  }
+
+  public unlockPerson(person: PersonModel): Observable<any> {
+    return this.http.put<PersonModel>(
+      `${this.BASE_URL}/user/${person.id}/unlock`,
+      {},
+      { headers: this.storage.getHeader() },
+    ); 
+  }
 }

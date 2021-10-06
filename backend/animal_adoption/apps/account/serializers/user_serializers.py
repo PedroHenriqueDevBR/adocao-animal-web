@@ -17,6 +17,7 @@ class UserSerializer(ModelSerializer):
             "latitude",
             "longitude",
             "is_moderator",
+            "is_active",
             "city",
         ]
 

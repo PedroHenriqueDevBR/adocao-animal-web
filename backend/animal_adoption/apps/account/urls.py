@@ -15,4 +15,6 @@ urlpatterns = [
     path("all/", AllPersonsView.as_view(), name=AllPersonsView.name),
     path("<int:pk>/moderator/enable", EnableModeratorPerson.as_view(), name=EnableModeratorPerson.name),
     path("<int:pk>/moderator/disable", DisableModeratorPerson.as_view(), name=DisableModeratorPerson.name),
+    path("<int:pk>/block", BlockPerson.as_view(), name=BlockPerson.name),
+    path("<int:pk>/unlock", UnlockPerson.as_view(), name=UnlockPerson.name),
 ]

@@ -8,10 +8,9 @@ import { LocationService } from 'src/app/shared/services/location.service';
 
 @Component({
   templateUrl: './person-manager.component.html',
-  styleUrls: ['./person-manager.component.less']
+  styleUrls: ['./person-manager.component.less'],
 })
 export class PersonManagerComponent implements OnInit {
-
   selectedLocation?: StateModel;
   persons: PersonModel[] = [];
   selectedPerson?: PersonModel;
@@ -19,7 +18,7 @@ export class PersonManagerComponent implements OnInit {
   constructor(
     private toast: ToastrService,
     private accountService: AccountService,
-    private locationService: LocationService,
+    private locationService: LocationService
   ) {
     this.getPersons();
   }
@@ -28,55 +27,69 @@ export class PersonManagerComponent implements OnInit {
 
   getPersons(): void {
     this.accountService.allPersons().subscribe(
-      (data: PersonModel[]) => this.persons = data,
-      error => this.verifyStatusError(error),
+      (data: PersonModel[]) => (this.persons = data),
+      (error) => this.verifyStatusError(error)
     );
   }
 
   profileImage(): string {
     if (this.selectedPerson == null) {
       return '/assets/images/avatar.png';
-    } else if (this.selectedPerson.image == null || this.selectedPerson.image == '') {
+    } else if (
+      this.selectedPerson.image == null ||
+      this.selectedPerson.image == ''
+    ) {
       return '/assets/images/avatar.png';
     }
-    return '/server' +  this.selectedPerson.image;
+    return '/server' + this.selectedPerson.image;
   }
 
   selectPerson(person: PersonModel) {
     this.selectedPerson = person;
   }
 
-  changeBlockPerson() {
-    if (this.selectedPerson != null) {
-      this.selectedPerson.is_active = !this.selectedPerson.is_active;
-    }
-  }
-
   changeModeratorPerson() {
     if (this.selectedPerson != null) {
       if (this.selectedPerson.is_moderator) {
         this.accountService.disableModerator(this.selectedPerson).subscribe(
-          data => {
+          (data) => {
             this.toast.success('Moderador desabilitado');
             this.selectedPerson!.is_moderator = false;
           },
-          error => this.verifyStatusError(error),
+          (error) => this.verifyStatusError(error)
         );
       } else {
         this.accountService.enableModerator(this.selectedPerson).subscribe(
-          data => {
+          (data) => {
             this.toast.success('Moderador habilitado');
             this.selectedPerson!.is_moderator = true;
           },
-          error => this.verifyStatusError(error),
+          (error) => this.verifyStatusError(error)
         );
       }
-      
     }
   }
 
-  selectState(state: StateModel) {
-    this.selectedLocation = state;
+  changeBlockPerson() {
+    if (this.selectedPerson != null) {
+      if (this.selectedPerson.is_active) {
+        this.accountService.blockPerson(this.selectedPerson).subscribe(
+          (data) => {
+            this.toast.success('Perfil bloqueado');
+            this.selectedPerson!.is_active = false;
+          },
+          (error) => this.verifyStatusError(error)
+        );
+      } else {
+        this.accountService.unlockPerson(this.selectedPerson).subscribe(
+          (data) => {
+            this.toast.success('Perfil desbloqueado');
+            this.selectedPerson!.is_active = true;
+          },
+          (error) => this.verifyStatusError(error)
+        );
+      }
+    }
   }
 
   verifyStatusError(errors: any) {
@@ -93,5 +106,4 @@ export class PersonManagerComponent implements OnInit {
       console.log(errors);
     }
   }
-
 }
