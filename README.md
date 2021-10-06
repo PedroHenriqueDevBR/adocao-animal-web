@@ -105,12 +105,12 @@ O desenvolvimento dessa aplicação utiliza como base as seguintes tecnologias e
    - [X] Adicionar o imagem ao perfil no usuário logado;
    - [X] Remover imagem do perfil logado
    - [X] Atualizar dados do perfil logado;
-   - [ ] Criar estado;
-   - [ ] Editar estado;
-   - [ ] Remover estado;
-   - [ ] Criar cidade e vincular a um estado;
-   - [ ] Editar cidade;
-   - [ ] Remover cidade;
+   - [X] Criar estado;
+   - [X] Editar estado;
+   - [X] Remover estado;
+   - [X] Criar cidade e vincular a um estado;
+   - [X] Editar cidade;
+   - [X] Remover cidade;
    - [ ] Adicionar poder de moderador a um determinado perfil (admin only);
    - [ ] Remover poder de moderador a um determinado perfil (admin only);
    - [ ] Bloquear um determinado perfil perfil (admin only).

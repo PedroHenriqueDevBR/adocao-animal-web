@@ -1,23 +1,23 @@
 <main>
     <div class="col states">
         <ul>
-            <button class="btn full-width text-left secondary-color text-light" (click)="editOrCreateStateModal(createStateModal)">Novo
+            <button class="btn full-width text-left secondary-color text-light" (click)="stateEditModal(createStateModal)">Novo
                 estado</button>
             <li *ngFor="let state of locations" class="state-item">
                 <div class="item-content">
                     <p>{{ state.name }}</p>
-                    <button class="btn"><span class="material-icons text-primary" (click)="editOrCreateStateModal(createStateModal, state)">edit</span></button>
-                    <button class="btn"><span class="material-icons text-danger" (click)="openModal(deleteStatePrompt)">delete</span></button>
+                    <button class="btn"><span class="material-icons text-primary" (click)="stateEditModal(createStateModal, state)">edit</span></button>
+                    <button class="btn"><span class="material-icons text-danger" (click)="stateDeleteConfirmModal(deleteStatePrompt, state)">delete</span></button>
                 </div>
                 <ul>
                     <li *ngFor="let city of state.cities" class="city-item">
                         <div class="item-content">
                             <p>{{ city.name }}</p>
-                            <button class="btn"><span class="material-icons text-primary" (click)="editOrCreateCityModal(createCityModal, city)">edit</span></button>
-                            <button class="btn"><span class="material-icons text-danger" (click)="openModal(deleteCityPrompt)">delete</span></button>
+                            <button class="btn"><span class="material-icons text-primary" (click)="cityEditModal(createCityModal, city, state.id)">edit</span></button>
+                            <button class="btn"><span class="material-icons text-danger" (click)="cityDeleteConfirmModal(deleteCityPrompt, city)">delete</span></button>
                         </div>
                     </li>
-                    <button class="btn full-width text-left city-item" (click)="editOrCreateCityModal(createCityModal)">Adicionar
+                    <button class="btn full-width text-left city-item" (click)="cityEditModal(createCityModal, undefined, state.id)">Adicionar
                         cidade</button>
                 </ul>
             </li>
@@ -41,7 +41,7 @@
                     <input type="text" class="form-control" formControlName="name" placeholder="Nome do estado" value="{{ selectedState != null ? selectedState.name : '' }}">
                     <label for="name">Nome do estado</label>
                 </div>
-                <button class="btn secondary-color text-light full-width" (click)="createOrUpdateState()">Salvar</button>
+                <button class="btn secondary-color text-light full-width" (click)="stateUpdate()">Salvar</button>
             </form>
         </div>
     </div>
@@ -63,9 +63,9 @@
                     <label for="name">Nome da cidade</label>
                 </div>
                 <select class="form-select mb-2" aria-label="Estado" formControlName="state">
-                    <option *ngFor="let state of locations" value="{{ state.id }}">{{ state.name }}</option>
+                    <option *ngFor="let state of locations" value="{{ state.id }}" [attr.selected]="cityForm.get('state')?.value! == state.id ? true : null">{{ state.name }}</option>
                 </select>
-                <button class="btn secondary-color text-light full-width">Salvar</button>
+                <button class="btn secondary-color text-light full-width" (click)="cityUpdate()">Salvar</button>
             </form>
         </div>
     </div>
@@ -74,7 +74,7 @@
 <ng-template #deleteCityPrompt>
     <div class="modal-body text-center">
         <p>Deletar a cidade selecionada?</p>
-        <button type="button" class="btn btn-default" (click)="confirm()">Sim</button>
+        <button type="button" class="btn btn-default" (click)="deleteCity()">Sim</button>
         <button type="button" class="btn btn-default" (click)="decline()">Não</button>
     </div>
 </ng-template>
@@ -83,7 +83,7 @@
 <ng-template #deleteStatePrompt>
     <div class="modal-body text-center">
         <p>Deletar o estado selecionado?</p>
-        <button type="button" class="btn btn-default" (click)="confirm()">Sim</button>
+        <button type="button" class="btn btn-default" (click)="deleteState()">Sim</button>
         <button type="button" class="btn btn-default" (click)="decline()">Não</button>
     </div>
 </ng-template>
