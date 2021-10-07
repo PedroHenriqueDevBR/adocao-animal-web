@@ -31,21 +31,19 @@ export class ProfilePageComponent implements OnInit {
     private locationService: LocationService,
     private toast: ToastrService,
   ) {
-    this.getPersonData();
-    this.getLocations();
+    this.verifyLogedUser();
     this.formPerson = this.createFormPersonData();
   }
 
-  ngOnInit(): void {
-    this.verifyLogedUser();
-  }
+  ngOnInit() {}
 
-  verifyLogedUser(): void {
+  verifyLogedUser() {
     if (!this.storage.userIsLogged()) {
       this.router.navigateByUrl('/account/login');
       return;
     }
     this.getPersonData();
+    this.getLocations();
   }
 
   getLocations() {
