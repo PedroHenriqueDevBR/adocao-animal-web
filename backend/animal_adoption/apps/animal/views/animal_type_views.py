@@ -1,15 +1,14 @@
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.serializers import Serializer
 from rest_framework.views import APIView
+from apps.animal.serializers.animal_type_serializers import AnimalTypeSerializer
+from apps.animal.validators.animal_type_validator import animal_type_is_valid_or_errors
+from apps.core.models import AnimalType
 from rest_framework.permissions import (
     IsAuthenticated,
     IsAdminUser,
     IsAuthenticatedOrReadOnly,
 )
-from apps.animal.serializers.animal_type_serializers import AnimalTypeSerializer
-from apps.animal.validators.animal_type_validator import animal_type_is_valid_or_errors
-from apps.core.models import AnimalType, Animal, AnimalPhoto
 
 
 class AnimalTypeListWithAnimals(APIView):
