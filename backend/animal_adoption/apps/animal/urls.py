@@ -1,8 +1,8 @@
+from django.urls import path
 from apps.animal.views.animal_type_views import *
 from apps.animal.views.animal_views import *
-from django.urls import path
+from apps.animal.views.vaccine_views import *
 
-from apps.animal.views.animal_views import AnimalListFilter, AnimalListForAdoption
 
 urlpatterns = [
     # Open
@@ -12,6 +12,8 @@ urlpatterns = [
     # IsAuthenticated
     path("my", AnimalListAndCreate.as_view(), name=AnimalListAndCreate.name),
     path("my/<int:pk>", AnimalEditAndDelete.as_view(), name=AnimalEditAndDelete.name),
+    path("vaccine", VaccineCreate.as_view(), name=VaccineCreate.name),
+    path("vaccine/<int:pk>", VaccineEditAndDelete.as_view(), name=VaccineEditAndDelete.name),
     # Admin
     path("all_types", AnimalTypeList.as_view(), name=AnimalTypeList.name),
     path("type/<int:pk>", AnimalTypeEdit.as_view(), name=AnimalTypeEdit.name),

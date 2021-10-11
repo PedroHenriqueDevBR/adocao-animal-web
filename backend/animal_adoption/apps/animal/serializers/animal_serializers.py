@@ -1,4 +1,5 @@
 from apps.account.serializers.user_serializers import UserSerializer
+from apps.animal.serializers.vaccine_serializer import VaccineSerializer
 from apps.core.models import Animal, AnimalType
 from rest_framework.serializers import ModelSerializer, SlugRelatedField
 
@@ -6,6 +7,7 @@ from rest_framework.serializers import ModelSerializer, SlugRelatedField
 class AnimalSerializer(ModelSerializer):
     type = SlugRelatedField(many=False, read_only=True, slug_field="name")
     owner = UserSerializer(many=False, read_only=True)
+    all_vaccines = VaccineSerializer(many=True, read_only=True)
 
     class Meta:
         model = Animal
