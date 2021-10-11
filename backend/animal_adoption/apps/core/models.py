@@ -145,6 +145,17 @@ class AnimalPhoto(models.Model):
     photo = models.ImageField(upload_to=upload_image_formater, blank=True, null=True)
     animal = models.ForeignKey(Animal, on_delete=models.CASCADE, related_name="photos")
 
+    def has_image(self):
+        return self.photo != None and self.photo != ''
+
+    def remove_image(self, save):
+        if self.has_image():
+            if os.path.isfile(self.photo.path):
+                os.remove(self.photo.path)
+            self.photo = None
+            if save:
+                self.save()
+
     def delete(self, *args, **kwargs):
         if os.path.isfile(self.photo.path):
             os.remove(self.photo.path)
