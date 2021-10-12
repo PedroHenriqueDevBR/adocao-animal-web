@@ -7,6 +7,9 @@ import { AnimalListComponent } from './components/animal-list/animal-list.compon
 import { AnimalsForAdoptionComponent } from './pages/animals-for-adoption/animals-for-adoption.component';
 import { SupportersComponent } from './components/supporters/supporters.component';
 import { AppBootstrapModule } from '../app-bootstrap/app-bootstrap.module';
+import { MyAnimalsComponent } from './pages/my-animals/my-animals.component';
+import { AnimalFormComponent } from './components/animal-form/animal-form.component';
+import { EditAnimalCardComponent } from './components/edit-animal-card/edit-animal-card.component';
 
 
 @NgModule({
@@ -15,6 +18,9 @@ import { AppBootstrapModule } from '../app-bootstrap/app-bootstrap.module';
     AnimalListComponent,
     AnimalsForAdoptionComponent,
     SupportersComponent,
+    MyAnimalsComponent,
+    AnimalFormComponent,
+    EditAnimalCardComponent,
   ],
   imports: [
     CommonModule,

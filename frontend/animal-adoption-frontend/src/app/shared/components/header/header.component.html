@@ -24,10 +24,10 @@
             <div class="offcanvas-body">
                 <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                     <li class="nav-item">
-                        <a class="nav-link active" [routerLink]="['/app']" routerLinkActive="router-link-active"  [routerLinkActive]="'router-link-active'">Home</a>
+                        <a class="nav-link" [routerLink]="['/app']" [routerLinkActive]="'router-link-active'" [routerLinkActiveOptions]="{exact: true}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" [routerLinkActive]="'router-link-active'">Meus animais</a>
+                        <a class="nav-link" [routerLink]="['/app/meus']" [routerLinkActive]="'router-link-active'">Meus animais</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" [routerLink]="['/account']" >

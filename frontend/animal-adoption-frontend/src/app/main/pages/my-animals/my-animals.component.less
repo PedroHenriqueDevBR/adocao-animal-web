@@ -1,0 +1,80 @@
+.filter-animals {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    span {
+        width: fit-content ;
+    }
+
+    .btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    @media screen and (min-width: 768px) {
+        display: none;
+    }
+}
+
+.content {
+    display: flex;
+
+    aside {
+        width: fit-content;
+        height: fit-content;
+        position: sticky;
+        top: 24px;
+        margin-top: 24px;
+        display: flex;
+        flex-direction: column;
+        
+        .filter-animals-aside {
+            padding: 25px;
+            width: 300px;    
+        }
+
+        @media screen and (max-width: 768px) {
+            display: none;
+        }
+    }
+}
+
+.my-city-animals-card {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 24px 0;
+    width: 100%;
+
+    p {
+        width: fit-content;
+        word-wrap: break-word;
+    }
+    
+    .btn {
+        width: max-content;
+    }
+}
+
+.data-head {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+
+}
+
+.animal-list {
+    box-sizing: border-box;
+}
+
+.animal-card {
+    padding: 0 !important;
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+    margin: 0;
+}
