@@ -1,5 +1,16 @@
 .card {
     margin: 0;
+    width: auto;
+
+    min-width: 190px;
+
+    @media screen and (min-width: 792px) {
+        min-width: 200px;
+    }
+
+    @media screen and (min-width: 992px) {
+        min-width: 300px;
+    }
 }
 
 .card-img-top {

@@ -1,42 +1,42 @@
-<form>
-    <div class="form-floating mb-3">
-        <input type="text" class="form-control" placeholder="Nome">
-        <label for="floatingInput">Nome</label>
-    </div>
-    <div class="row">
-        <div class="col">
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control" placeholder="Raça">
-                <label for="floatingInput">Raça</label>
+<div>
+    <form (submit)="submit()" [formGroup]="formAnimal">
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" formControlName="name" placeholder="Nome">
+            <label for="floatingInput">Nome</label>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" formControlName="breed" placeholder="Raça">
+                    <label for="floatingInput">Raça</label>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-floating mb-3">
+                    <input type="number" class="form-control" min="0" formControlName="age" placeholder="Idade">
+                    <label for="floatingInput">Idade</label>
+                </div>
             </div>
         </div>
-        <div class="col">
-            <div class="form-floating mb-3">
-                <input type="number" class="form-control" placeholder="Idade">
-                <label for="floatingInput">Idade</label>
+        <div class="row mb-3">
+            <div class="col">
+                <div class="form-floating">
+                    <select class="form-select" aria-label="Tipo de animal" formControlName="type">
+                        <option *ngFor="let type of types" value="{{ type.id }}">{{ type.name }}</option>
+                    </select>
+                    <label for="floatingSelect">Tipo de animal</label>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-floating">
+                    <select class="form-select" aria-label="Sexo do animal" formControlName="sex">
+                        <option value="M">Macho</option>
+                        <option value="F">Fêmea</option>
+                    </select>
+                    <label for="floatingSelect">Sexo do animal</label>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="row mb-3">
-        <div class="col">
-            <div class="form-floating">
-                <select class="form-select" aria-label="Tipo de animal">
-                    <option value="1">Cachorro</option>
-                    <option value="2">Gato</option>
-                    <option value="2">Porquinho da índia</option>
-                </select>
-                <label for="floatingSelect">Tipo de animal</label>
-            </div>
-        </div>
-        <div class="col">
-            <div class="form-floating">
-                <select class="form-select" aria-label="Sexo do animal">
-                    <option value="1">Macho</option>
-                <option value="2">Fêmea</option>
-                </select>
-                <label for="floatingSelect">Sexo do animal</label>
-            </div>
-        </div>
-    </div>
-    <button class="btn secondary-color text-light full-width">Salvar</button>
-</form>
+        <button class="btn secondary-color text-light full-width">Salvar</button>
+    </form>
+</div>

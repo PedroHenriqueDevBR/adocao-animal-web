@@ -14,4 +14,22 @@ export class EditAnimalCardComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  profileImage(): string {
+    if (this.animal?.owner.image == null) {
+      return '/assets/images/avatar.png';
+    }
+    return '/server' + this.animal?.owner.image;
+  }
+
+  animalImage(): string {
+    if (this.animal?.all_photos.length == 0) {
+      if (this.animal?.type == 'Cachorro') {
+        return '/assets/images/adopt-dog.png';
+      } else if (this.animal?.type == 'Gato') {
+        return '/assets/images/adopt-cat.png';
+      }
+    }
+    return '/server' + this.animal?.all_photos[0];
+  }
+
 }

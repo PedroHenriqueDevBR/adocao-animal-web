@@ -10,6 +10,7 @@ import { AppBootstrapModule } from '../app-bootstrap/app-bootstrap.module';
 import { MyAnimalsComponent } from './pages/my-animals/my-animals.component';
 import { AnimalFormComponent } from './components/animal-form/animal-form.component';
 import { EditAnimalCardComponent } from './components/edit-animal-card/edit-animal-card.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -26,6 +27,8 @@ import { EditAnimalCardComponent } from './components/edit-animal-card/edit-anim
     CommonModule,
     MainRoutingModule,
     AppBootstrapModule,
+    FormsModule,
+    ReactiveFormsModule,
   ]
 })
 export class MainModule { }

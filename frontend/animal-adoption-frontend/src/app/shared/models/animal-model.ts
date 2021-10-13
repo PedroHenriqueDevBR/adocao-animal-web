@@ -11,13 +11,23 @@ export class AnimalModel {
     adopted: boolean = false;
     sex: string = '';
     blocked: boolean = false;
-    createAt: Date = new Date(Date.now());
-    owner: number = 0;
-    type: string = '';
+    create_at: Date = new Date(Date.now());
+    owner: any;
+    type: any;
 
-    photos: PhotoModel[] = [];
-    vaccines: VaccineModel[] = [];
+    all_photos: PhotoModel[] = [];
+    all_vaccines: VaccineModel[] = [];
     blockReasons: BlockReasonModel[] = [];
-    adoptionReceived: AdoptionReceivedModel[] = [];
+    all_adoption_received: AdoptionReceivedModel[] = [];
+
+    toCreate() {
+        return {
+            name: this.name,
+            breed: this.breed,
+            age: this.age,
+            sex: this.sex,
+            type: this.type,
+        };
+    }
 
 }
