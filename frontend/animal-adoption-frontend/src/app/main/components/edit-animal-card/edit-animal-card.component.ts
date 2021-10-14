@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AnimalModel } from 'src/app/shared/models/animal-model';
 
 @Component({
@@ -9,6 +9,12 @@ import { AnimalModel } from 'src/app/shared/models/animal-model';
 export class EditAnimalCardComponent implements OnInit {
   @Input()
   animal: AnimalModel | undefined;
+
+  @Output()
+  editAnimal = new EventEmitter();
+
+  @Output()
+  deleteAnimal = new EventEmitter();
 
   constructor() { }
 
@@ -30,6 +36,14 @@ export class EditAnimalCardComponent implements OnInit {
       }
     }
     return '/server' + this.animal?.all_photos[0];
+  }
+
+  editEmit() {
+    this.editAnimal.emit(true);
+  }
+
+  deleteEmit() {
+    this.deleteAnimal.emit(true);
   }
 
 }

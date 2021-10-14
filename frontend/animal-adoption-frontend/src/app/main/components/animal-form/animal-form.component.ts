@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { AnimalModel } from 'src/app/shared/models/animal-model';
@@ -13,9 +13,14 @@ import { AnimalService } from 'src/app/shared/services/animal.service';
 export class AnimalFormComponent implements OnInit {
 
   formAnimal: FormGroup;
-  animal: AnimalModel | undefined;
   animalFormData: AnimalModel = new AnimalModel();
   types: AnimalTypeModel[] = [];
+  
+  @Input()
+  animal: AnimalModel | undefined;
+  
+  @Output() 
+  animalOutput = new EventEmitter();
 
   constructor(
     private toast: ToastrService,
@@ -28,9 +33,25 @@ export class AnimalFormComponent implements OnInit {
     this.getAnimalTypes();
   }
 
+  setAnimalData() {
+    if (this.animal != undefined) {
+      this.formAnimal.get('name')?.setValue(this.animal.name);
+      this.formAnimal.get('breed')?.setValue(this.animal.breed);
+      this.formAnimal.get('age')?.setValue(this.animal.age);
+      this.formAnimal.get('sex')?.setValue(this.animal.sex);
+      
+      for (const type of this.types) {
+        if (type.name == this.animal.type) {
+          this.formAnimal.get('type')?.setValue(type.id);
+          break;
+        }
+      }
+    }
+  }
+
   createFormRegisterPerson(): FormGroup {
     return new FormGroup({
-      name: new FormControl(this.animalFormData.name, [Validators.required, Validators.minLength(3)]),
+      name: new FormControl(this.animalFormData.name, [Validators.required, Validators.minLength(3)], ),
       breed: new FormControl(this.animalFormData.breed, [Validators.required]),
       age: new FormControl(this.animalFormData.age, [Validators.required]),
       sex: new FormControl(this.animalFormData.sex, [Validators.required]),
@@ -40,7 +61,10 @@ export class AnimalFormComponent implements OnInit {
 
   getAnimalTypes() {
     this.animalService.getAnimalTypes().subscribe(
-      (data: AnimalTypeModel[]) => this.types = data,
+      (data: AnimalTypeModel[]) => {
+        this.types = data;
+        this.setAnimalData();
+      },
       error => this.verifyStatusError(error),
     );
   }
@@ -63,10 +87,25 @@ export class AnimalFormComponent implements OnInit {
     animal.sex = sex;
     animal.type = type;
 
-    this.animalService.createAnimal(animal).subscribe(
-      data => this.toast.success('Animal registrado'),
-      error => this.verifyStatusError(error),
-    )
+    if (this.animal == undefined) {
+      this.animalService.createAnimal(animal).subscribe(
+        (data: AnimalModel) => {
+          this.toast.success('Animal registrado');
+          this.animalOutput.emit(data);
+        },
+        error => this.verifyStatusError(error),
+      )
+    } else {
+      animal.id = this.animal.id;
+      this.animalService.updateAnimal(animal).subscribe(
+        (data: AnimalModel) => {
+          this.toast.success('Dados atualizados');
+          this.animalOutput.emit(data);
+        },
+        error => this.verifyStatusError(error),
+      )
+    }
+
   }
 
   verifyStatusError(errors: any) {
@@ -82,7 +121,6 @@ export class AnimalFormComponent implements OnInit {
       this.toast.error("Sem permissão");
     } else {
       this.toast.error('Erro interno');
-      console.log(errors);
     }
   }
 

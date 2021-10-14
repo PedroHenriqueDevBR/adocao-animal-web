@@ -14,6 +14,7 @@ class AnimalSerializer(ModelSerializer):
     class Meta:
         model = Animal
         fields = [
+            "id",
             "name",
             "breed",
             "age",

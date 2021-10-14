@@ -15,8 +15,10 @@
         </p>
     </div>
     <div class="card-footer">
-        <button class="btn btn-default">Deletar</button>
-        <button class="btn btn-default">Editar</button>
+        <div class="row mb-2">
+            <div class="col"><button class="btn btn-default" (click)="deleteEmit()">Deletar</button></div>
+            <div class="col"><button class="btn btn-default" (click)="editEmit()">Editar</button></div>
+        </div>
         <button class="btn primary-color text-light">Solicitações</button>
     </div>
 </div>

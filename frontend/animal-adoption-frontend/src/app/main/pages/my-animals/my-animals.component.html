@@ -51,11 +51,16 @@
             <section>
                 <div class="card mx-3 mt-4 p-2 data-head">
                     <h5>meus animais</h5>
-                    <button class="btn secondary-color text-light" (click)="animalEditModal(createAnimalModal)">Adicionar novo</button>
+                    <button class="btn secondary-color text-light" (click)="animalEditModal(createAnimalModal)">Adicionar</button>
                 </div>
                 <div class="animal-list">
                     <div class="animal-card row row-cols-1 row-cols-md-2 g-4">
-                        <app-edit-animal-card *ngFor="let animal of animals" [animal]="animal"></app-edit-animal-card>
+                        <app-edit-animal-card 
+                        *ngFor="let animal of animals" 
+                        [animal]="animal" 
+                        (editAnimal)="animalEditModal(createAnimalModal, animal)"
+                        (deleteAnimal)="deleteAnimal(animal)"
+                        ></app-edit-animal-card>
                     </div>
                 </div>
             </section>
@@ -113,7 +118,15 @@
             </button>
         </div>
         <div class="modal-body">
-            <app-animal-form></app-animal-form>
+            <app-animal-form [animal]="selectedAnimal" (animalOutput)="addAnimal($event)"></app-animal-form>
         </div>
     </div>
+</ng-template>
+
+<ng-template #confirmDelete>
+  <div class="modal-body text-center">
+    <p>Deseja deletar "{{ selectedAnimal!.name }}"?</p>
+    <button type="button" class="btn btn-default" (click)="deleteAnimalFromDatabase()" >Sim</button>
+    <button type="button" class="btn btn-default" (click)="decline()" >Não</button>
+  </div>
 </ng-template>
