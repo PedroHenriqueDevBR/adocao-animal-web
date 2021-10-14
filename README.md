@@ -115,14 +115,14 @@ O desenvolvimento dessa aplicação utiliza como base as seguintes tecnologias e
    - [X] Remover poder de moderador a um determinado perfil (admin only);
    - [X] Bloquear um determinado perfil (admin only).
 - [ ] Sprint 02 (Animal e metadados)
-   - [ ] Registrar animal;
-   - [ ] Editar dados do animal;
-   - [ ] remover animal;
+   - [X] Registrar animal;
+   - [X] Editar dados do animal;
+   - [X] remover animal;
    - [ ] Adicionar imagem do animal;
    - [ ] Adicionar vacina ao cartão de vacina do animal;
    - [ ] Apresentar histórico de vacinação do animal;
-   - [ ] Apresentar todos os animais disponíveis para adoção da cidade do usuário logado;
-   - [ ] Apresentar os meus animais;
+   - [X] Apresentar todos os animais disponíveis para adoção da cidade do usuário logado;
+   - [X] Apresentar os meus animais;
 - [ ] Sprint 03 (Adoção e controle de moderadores)
    - [ ] Solicitar adoção de um animal;
    - [ ] Apresentar todos os pedidos de adoção;
