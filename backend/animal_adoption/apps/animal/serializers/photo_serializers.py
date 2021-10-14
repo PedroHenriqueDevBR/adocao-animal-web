@@ -7,6 +7,7 @@ class PhotoSerializer(ModelSerializer):
     class Meta:
         model = AnimalPhoto
         fields = [
+            'id',
             'photo',
             'animal',
         ]

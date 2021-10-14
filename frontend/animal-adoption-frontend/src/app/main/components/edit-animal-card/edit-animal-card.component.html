@@ -7,7 +7,10 @@
     </div>
     <img [src]="animalImage()" class="card-img-top" alt="{{ animal!.name }}">
     <div class="card-body">
-        <h5 class="card-title">{{ animal!.name }}</h5>
+        <div class="d-flex justify-content-between">
+            <h5 class="card-title">{{ animal!.name }}</h5>
+            <button class="btn secondary-color text-light" (click)="parentModal.show()">Foto</button>
+        </div>
         <p class="card-text">
             <b>Tipo</b>: {{ animal!.type }}<br>
             <b>Raça</b>: {{ animal!.breed }}<br>
@@ -22,3 +25,50 @@
         <button class="btn primary-color text-light">Solicitações</button>
     </div>
 </div>
+
+<div class="modal fade" bsModal #parentModal="bs-modal" tabindex="-1" role="dialog"
+    aria-labelledby="dialog-nested-name1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="create-state-modal" class="modal-title pull-left">Imagens</h4>
+                <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="parentModal.hide()">
+                    <span aria-hidden="true" class="visually-hidden">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h4 *ngIf="animal!.all_photos.length == 0" class="text-center py-5">
+                    Nenhuma imagem adicionada!
+                </h4>
+                <div class="images">
+                    <div *ngFor="let image of animal!.all_photos" class="image-content">
+                        <img [src]="formatImage(image.photo)" alt="">
+                        <button class="btn" (click)="removeImage(image)">Remover</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn primary-color text-light" (click)="openImageModal(change_image_modal)">Adicionar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #change_image_modal>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Fotos</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <img [src]="imageSrc" alt="animal image" width="100%" height="400px" style="object-fit: contain;">
+        <form>
+            <div class="my-3">
+                <input class="form-control" type="file" accept='image/*' id="formFile" (change)="updateImage($event)">
+            </div>
+            <button type="submit" class="btn full-width primary-color text-light" (click)="confirmImageChange()">Enviar</button>
+        </form>
+    </div>
+</ng-template>
