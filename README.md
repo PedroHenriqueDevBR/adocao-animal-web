@@ -119,8 +119,8 @@ O desenvolvimento dessa aplicação utiliza como base as seguintes tecnologias e
    - [X] Editar dados do animal;
    - [X] remover animal;
    - [X] Adicionar imagem do animal;
-   - [ ] Adicionar vacina ao cartão de vacina do animal;
-   - [ ] Apresentar histórico de vacinação do animal;
+   - [X] Adicionar vacina ao cartão de vacina do animal;
+   - [X] Apresentar histórico de vacinação do animal;
    - [X] Apresentar todos os animais disponíveis para adoção da cidade do usuário logado;
    - [X] Apresentar os meus animais;
 - [ ] Sprint 03 (Adoção e controle de moderadores)

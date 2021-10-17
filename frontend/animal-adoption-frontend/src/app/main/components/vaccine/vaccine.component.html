@@ -1,11 +1,11 @@
-<form>
+<form [formGroup]="formVaccine">
     <div class="my-3">
         <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="floatingInput" required placeholder="Nome da vacina">
+            <input type="text" class="form-control" id="floatingInput" formControlName="name" required placeholder="Nome da vacina">
             <label for="floatingInput">Nome da vacina</label>
         </div>
     </div>
-    <button type="submit" class="btn full-width primary-color text-light">Adicionar</button>
+    <button type="submit" class="btn full-width primary-color text-light" (click)="createVaccine()">Adicionar</button>
 </form>
 <hr>
 <ol class="list-group list-group-flush list-group-numbered">
@@ -21,7 +21,7 @@
 <ng-template #confirmDelete>
     <div class="modal-body text-center" style="background-color: #eceff1;">
         <p>Deseja remover a vacina '{{ selectedVaccine?.vaccine_name }}'?</p>
-        <button type="button" class="btn btn-default">Sim</button>
+        <button type="button" class="btn btn-default" (click)="confirmDeleteVaccine()">Sim</button>
         <button type="button" class="btn btn-default" (click)="decline()">Não</button>
     </div>
 </ng-template>
