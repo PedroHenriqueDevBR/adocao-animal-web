@@ -1,0 +1,35 @@
+main {
+    height: calc(100vh - 56px);
+
+    @media screen and (min-width: 768px) {
+        margin: 5vh 10vw;
+        height: calc(80vh);
+        display: flex;
+        flex-direction: row;
+    }
+}
+
+#btn-show-animal-list {
+    @media screen and (min-width: 768px) {
+        display: none;
+    }
+}
+
+.map-container {
+    flex-grow: 1;
+    
+
+    @media screen and (max-width: 768px) {
+    
+    }
+}
+
+.animal-list {
+    width: 350px;
+    overflow-y: auto;
+    padding: 16px;
+
+    @media screen and (max-width: 768px) {
+        display: none;
+    }
+}

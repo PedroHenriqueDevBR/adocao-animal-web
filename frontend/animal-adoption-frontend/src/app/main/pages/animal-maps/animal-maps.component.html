@@ -1,0 +1,31 @@
+<app-header></app-header>
+
+<main class="card bg-light p-0">
+    
+    <aside class="animal-list">
+        <h5>Animais próximos</h5>
+        <div class="mb-3" *ngFor="let animal of animals">
+            <app-animal-card [animal]="animal"></app-animal-card>
+        </div>
+    </aside>
+    <div id="ol-map" class="map-container"></div>
+
+    <button id="btn-show-animal-list" class="btn secondary-color text-light m-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAnimals"
+        aria-controls="offcanvasAnimals">
+        Listar animals
+    </button>
+
+</main>
+
+
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasAnimals" aria-labelledby="offcanvasAnimalsLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasAnimalsLabel">Animais próximos</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div class="mb-3" *ngFor="let animal of animals">
+            <app-animal-card [animal]="animal"></app-animal-card>
+        </div>
+    </div>
+</div>
