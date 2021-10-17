@@ -23,13 +23,13 @@ export class AnimalCardComponent implements OnInit {
   }
 
   animalImage(): string {
-    if (this.animal?.all_photos.length == 0) {
+    if (this.animal!.all_photos.length == 0) {
       if (this.animal?.type == 'Cachorro') {
         return '/assets/images/adopt-dog.png';
       } else if (this.animal?.type == 'Gato') {
         return '/assets/images/adopt-cat.png';
       }
     }
-    return '/server' + this.animal?.all_photos[0];
+    return '/server' + this.animal!.all_photos[0].photo;
   }
 }

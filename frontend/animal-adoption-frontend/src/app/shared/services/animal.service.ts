@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { AnimalModel } from '../models/animal-model';
 import { AnimalTypeModel } from '../models/animal-type-model';
 import { PhotoModel } from '../models/photo-model';
+import { VaccineModel } from '../models/vaccine-model';
 import { LocalstorageService } from './localstorage.service';
 
 @Injectable({
@@ -65,17 +66,48 @@ export class AnimalService {
   }
 
   public addImage(data: FormData): Observable<PhotoModel> {
-    return this.http.post<PhotoModel>(
-      `${this.BASE_URL}/animal/photo`,
-      data,
-      {headers: this.storage.getHeader()}
-    );
+    return this.http.post<PhotoModel>(`${this.BASE_URL}/animal/photo`, data, {
+      headers: this.storage.getHeader(),
+    });
   }
 
   public removeImage(photo: PhotoModel): Observable<any> {
-    return this.http.delete(
-      `${this.BASE_URL}/animal/photo/${photo.id}`,
-      {headers: this.storage.getHeader()}
+    return this.http.delete(`${this.BASE_URL}/animal/photo/${photo.id}`, {
+      headers: this.storage.getHeader(),
+    });
+  }
+
+  public addVaccine(
+    animal: AnimalModel,
+    vaccine: VaccineModel
+  ): Observable<VaccineModel> {
+    return this.http.post<VaccineModel>(
+      `${this.BASE_URL}/animal/vaccine`,
+      {
+        vaccine_name: vaccine.vaccine_name,
+        animal: animal.id,
+      },
+      { headers: this.storage.getHeader() }
     );
+  }
+
+  public updateVaccine(
+    animal: AnimalModel,
+    vaccine: VaccineModel
+  ): Observable<VaccineModel> {
+    return this.http.put<VaccineModel>(
+      `${this.BASE_URL}/animal/vaccine/${vaccine.id}`,
+      {
+        vaccine_name: vaccine.vaccine_name,
+        animal: animal.id,
+      },
+      { headers: this.storage.getHeader() }
+    );
+  }
+
+  public removeVaccine(vaccine: VaccineModel): Observable<any> {
+    return this.http.delete(`${this.BASE_URL}/animal/vaccine/${vaccine.id}`, {
+      headers: this.storage.getHeader(),
+    });
   }
 }

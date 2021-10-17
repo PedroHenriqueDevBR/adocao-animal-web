@@ -1,9 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { AnimalModel } from 'src/app/shared/models/animal-model';
 import { PhotoModel } from 'src/app/shared/models/photo-model';
+import { VaccineModel } from 'src/app/shared/models/vaccine-model';
 import { AnimalService } from 'src/app/shared/services/animal.service';
 
 @Component({
@@ -16,7 +16,7 @@ export class EditAnimalCardComponent implements OnInit {
   imageSrc: string = '/assets/images/cat-dog.png';
   file: any;
   photoModel: PhotoModel = new PhotoModel;
-  selectedPhoto: PhotoModel | undefined;
+  selectedVaccine: VaccineModel | undefined;
 
   @Input()
   animal: AnimalModel | undefined;
@@ -118,12 +118,18 @@ export class EditAnimalCardComponent implements OnInit {
     this.modalRef = this.modalService.show(template, { id: 1, class: 'modal-lg modal-dialog modal-dialog-scrollable' });
   }
 
+  openModalConfirmDeleteVaccine(template: TemplateRef<any>, vaccine: VaccineModel) {
+    this.selectedVaccine = vaccine;
+    this.modalRef = this.modalService.show(template, { id: 1, class: 'modal-sm modal-dialog modal-dialog-scrollable' });
+  }
+
   openImageModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template, { id: 2, class: 'modal-lg modal-dialog modal-dialog-scrollable' });
   }
 
   decline(): void {
     this.modalRef?.hide();
+    this.selectedVaccine = undefined;
   }
 
   verifyStatusError(errors: any) {

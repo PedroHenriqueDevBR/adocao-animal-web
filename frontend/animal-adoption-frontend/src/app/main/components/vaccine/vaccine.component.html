@@ -1,0 +1,27 @@
+<form>
+    <div class="my-3">
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="floatingInput" required placeholder="Nome da vacina">
+            <label for="floatingInput">Nome da vacina</label>
+        </div>
+    </div>
+    <button type="submit" class="btn full-width primary-color text-light">Adicionar</button>
+</form>
+<hr>
+<ol class="list-group list-group-flush list-group-numbered">
+    <li *ngFor="let vaccine of vaccines" class="list-group-item d-flex justify-content-between align-items-start">
+        <div class="ms-2 me-auto">
+            <div class="fw-bold">{{ vaccine.vaccine_name }}</div>
+            Registrada em: {{ vaccine.date | date: 'dd/MM/yyyy' }}
+        </div>
+        <button class="btn btn-danger" (click)="openModalConfirmDeleteVaccine(confirmDelete, vaccine)">Remover</button>
+    </li>
+</ol>
+
+<ng-template #confirmDelete>
+    <div class="modal-body text-center" style="background-color: #eceff1;">
+        <p>Deseja remover a vacina '{{ selectedVaccine?.vaccine_name }}'?</p>
+        <button type="button" class="btn btn-default">Sim</button>
+        <button type="button" class="btn btn-default" (click)="decline()">Não</button>
+    </div>
+</ng-template>

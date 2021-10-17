@@ -11,6 +11,7 @@ import { MyAnimalsComponent } from './pages/my-animals/my-animals.component';
 import { AnimalFormComponent } from './components/animal-form/animal-form.component';
 import { EditAnimalCardComponent } from './components/edit-animal-card/edit-animal-card.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { VaccineComponent } from './components/vaccine/vaccine.component';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MyAnimalsComponent,
     AnimalFormComponent,
     EditAnimalCardComponent,
+    VaccineComponent,
   ],
   imports: [
     CommonModule,

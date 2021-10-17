@@ -4,6 +4,19 @@
             <img [src]="profileImage()" class="avatar-image">
             <p class="owner-name">{{animal!.owner.name}}</p>
         </div>
+        <div class="dropdown">
+            <button class="btn" type="button" id="dropdownMenuOptions" data-bs-toggle="dropdown" aria-expanded="false">
+                <span class="material-icons">more_vert</span>
+            </button>
+            <ul class="dropdown-menu p-0" aria-labelledby="dropdownMenuOptions">
+                <li><button class="dropdown-item" (click)="editEmit()">Editar</button></li>
+                <li><button class="dropdown-item" (click)="deleteEmit()">Deletar</button></li>
+                <li>
+                    <hr class="dropdown-divider m-0">
+                </li>
+                <li><button class="dropdown-item" (click)="vaccineModal.show()">Vacinas</button></li>
+            </ul>
+        </div>
     </div>
     <img [src]="animalImage()" class="card-img-top" alt="{{ animal!.name }}">
     <div class="card-body">
@@ -17,12 +30,8 @@
             <span class="text-muted">Registrado em {{ animal!.create_at | date: 'dd/MM/yyyy' }}</span><br>
         </p>
     </div>
-    <div class="card-footer">
-        <div class="row mb-2">
-            <div class="col"><button class="btn btn-default" (click)="deleteEmit()">Deletar</button></div>
-            <div class="col"><button class="btn btn-default" (click)="editEmit()">Editar</button></div>
-        </div>
-        <button class="btn primary-color text-light">Solicitações</button>
+    <div class="card-footer p-0">
+        <button class="btn primary-color text-light full-width m-0">Solicitações</button>
     </div>
 </div>
 
@@ -32,7 +41,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 id="create-state-modal" class="modal-title pull-left">Imagens</h4>
-                <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="parentModal.hide()">
+                <button type="button" class="btn-close close pull-right" aria-label="Close"
+                    (click)="parentModal.hide()">
                     <span aria-hidden="true" class="visually-hidden">&times;</span>
                 </button>
             </div>
@@ -48,12 +58,12 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn primary-color text-light" (click)="openImageModal(change_image_modal)">Adicionar</button>
+                <button class="btn primary-color text-light"
+                    (click)="openImageModal(change_image_modal)">Adicionar</button>
             </div>
         </div>
     </div>
 </div>
-
 
 <ng-template #change_image_modal>
     <div class="modal-header">
@@ -68,7 +78,24 @@
             <div class="my-3">
                 <input class="form-control" type="file" accept='image/*' id="formFile" (change)="updateImage($event)">
             </div>
-            <button type="submit" class="btn full-width primary-color text-light" (click)="confirmImageChange()">Enviar</button>
+            <button type="submit" class="btn full-width primary-color text-light"
+                (click)="confirmImageChange()">Enviar</button>
         </form>
     </div>
 </ng-template>
+
+<div class="modal fade" bsModal #vaccineModal="bs-modal" tabindex="-1" role="dialog" aria-labelledby="dialog-vaccine">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Controle de vacinas</h4>
+                <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="vaccineModal.hide()">
+                    <span aria-hidden="true" class="visually-hidden">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <app-vaccine [vaccines]="animal!.all_vaccines"></app-vaccine>
+            </div>
+        </div>
+    </div>
+</div>
