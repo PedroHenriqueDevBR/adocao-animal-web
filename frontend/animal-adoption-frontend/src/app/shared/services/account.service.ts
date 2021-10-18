@@ -40,6 +40,14 @@ export class AccountService {
     );
   }
 
+  public updateLocation(data: Object): Observable<any> {
+    return this.http.put(
+      `${this.BASE_URL}/user/`,
+      data,
+      { headers: this.storage.getHeader() },
+    );
+  }
+
   public updateImage(data: FormData): Observable<PersonModel> {
     return this.http.put<PersonModel>(
       `${this.BASE_URL}/user/image/`,

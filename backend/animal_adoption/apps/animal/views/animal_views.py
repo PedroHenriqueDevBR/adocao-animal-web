@@ -20,6 +20,27 @@ class AnimalListForAdoption(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
+class AnimalLocationList(APIView):
+    name = "animal_location_list"
+    permission_classes = [IsAuthenticated]
+
+    # List all animals with adoption enable in logget person region
+    def get(self, request):
+        logged_person = request.user.person
+        animals = Animal.objects.filter(
+            blocked=False, 
+            owner__city=logged_person.city
+        ).exclude(
+            owner__latitude='', 
+            owner__longitude='',
+        ).exclude(
+            owner__latitude='0',
+            owner__longitude='0'
+        )
+        serializer = AnimalSerializer(animals, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
 class AnimalListFilter(APIView):
     name = "animal_list_filter"
 

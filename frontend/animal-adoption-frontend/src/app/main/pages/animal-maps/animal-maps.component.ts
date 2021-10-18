@@ -34,7 +34,6 @@ export class AnimalMapsComponent implements OnInit {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position: GeolocationPosition) => {
-          console.log('Pegoua posição')
           this.createMap(position.coords.latitude, position.coords.longitude, 14);
         }
       );
@@ -64,7 +63,7 @@ export class AnimalMapsComponent implements OnInit {
   }
 
   getAnimals(): void {
-    this.animalService.getAllAimalsForAdoption().subscribe(
+    this.animalService.getAimalsFromMyLocation().subscribe(
       (data: AnimalModel[]) => {
         this.animals = data;
       },

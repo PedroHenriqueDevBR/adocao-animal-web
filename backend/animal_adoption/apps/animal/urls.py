@@ -9,6 +9,7 @@ urlpatterns = [
     # Open
     path("type", AnimalTypeCreate.as_view(), name=AnimalTypeCreate.name),
     path("", AnimalListForAdoption.as_view(), name=AnimalListForAdoption.name),
+    path("location/", AnimalLocationList.as_view(), name=AnimalLocationList.name),
     # path("filter/", AnimalListFilter.as_view(), name=AnimalListFilter.name), TODO: Implementar o filtro dos animais
     # IsAuthenticated
     path("my", AnimalListAndCreate.as_view(), name=AnimalListAndCreate.name),

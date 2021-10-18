@@ -35,7 +35,25 @@ export class ProfilePageComponent implements OnInit {
     this.formPerson = this.createFormPersonData();
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getCurrentLocation();
+  }
+
+  getCurrentLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position: GeolocationPosition) => {  
+          this.accountService.updateLocation({
+            "latitude": position.coords.latitude,
+            "longitude": position.coords.longitude,
+          }).subscribe(
+            data => console.log('Localização atualizada'),
+            error => console.log(error),
+          );
+        }
+      );
+    }
+  }
 
   verifyLogedUser() {
     if (!this.storage.userIsLogged()) {

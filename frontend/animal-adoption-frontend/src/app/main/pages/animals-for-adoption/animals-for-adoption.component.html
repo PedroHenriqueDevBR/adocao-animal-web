@@ -37,7 +37,7 @@
                         </div>
                     </form>
                     <button type="button" class="btn secondary-color text-light mt-3 full-width">Filtrar</button>
-                    <button class="btn my-city-animals-card btn-light">
+                    <button class="btn my-city-animals-card btn-light" [routerLink]="['/app/mapa']">
                         <b>Ver mapa</b>
                         <span class="material-icons">
                             place
@@ -60,7 +60,7 @@
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <button class="btn my-city-animals-card btn-light">
+            <button class="btn my-city-animals-card btn-light" [routerLink]="['/app/mapa']">
                 <b>Ver mapa</b>
                 <span class="material-icons">
                     place
