@@ -1,0 +1,32 @@
+<div class="filter-animals-aside card border-0">
+    <form>
+        <p class="text-muted"><b>Tipo de animal</b></p>
+        <div>
+            <input type="radio" name="animal_type" id="animal_type_0" value="0" checked>
+            <label for="animal_type_0">Todos</label><br>
+            <input type="radio" name="animal_type" id="animal_type_1" value="1">
+            <label for="animal_type_1">Cachorro</label><br>
+            <input type="radio" name="animal_type" id="animal_type_2" value="2">
+            <label for="animal_type_2">Gato</label><br>
+            <input type="radio" name="animal_type" id="animal_type_3" value="3">
+            <label for="animal_type_3">Porquinho da índia</label><br>
+        </div>
+
+        <p class="mt-3 text-muted"><b>Sexo do animal</b></p>
+        <div>
+            <input type="radio" name="animal_sex" id="animal_sex_0" value="0" checked>
+            <label for="animal_sex_0">Todos</label><br>
+            <input type="radio" name="animal_sex" id="animal_sex_1" value="1">
+            <label for="animal_sex_1">Macho</label><br>
+            <input type="radio" name="animal_sex" id="animal_sex_2" value="2">
+            <label for="animal_sex_2">Fêmea</label><br>
+        </div>
+    </form>
+    <button type="button" class="btn secondary-color text-light mt-3 full-width">Filtrar</button>
+    <button class="btn my-city-animals-card btn-light" [routerLink]="['/app/mapa']">
+        <b>Ver mapa</b>
+        <span class="material-icons">
+            place
+        </span>
+    </button>
+</div>

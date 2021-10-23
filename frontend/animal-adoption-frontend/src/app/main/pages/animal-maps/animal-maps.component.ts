@@ -8,6 +8,13 @@ import View from 'ol/View';
 import OSM from 'ol/source/OSM';
 import * as olProj from 'ol/proj';
 import TileLayer from 'ol/layer/Tile';
+import { Feature } from 'ol';
+import Geometry from 'ol/geom/Geometry';
+import Point from 'ol/geom/Point';
+import VectorSource from 'ol/source/Vector';
+import VectorLayer from 'ol/layer/Vector';
+import Style from 'ol/style/Style';
+import Icon from 'ol/style/Icon';
 
 @Component({
   templateUrl: './animal-maps.component.html',
@@ -16,59 +23,124 @@ import TileLayer from 'ol/layer/Tile';
 export class AnimalMapsComponent implements OnInit {
   animals: AnimalModel[] = [];
 
-  map: Map | undefined;
   lat: number = -5.090104;
-  long: number = -42.810530;
+  long: number = -42.81053;
+  map: Map | undefined;
+  points: Array<Feature<Geometry>> = [];
+  vectorSource: VectorSource<Geometry> | undefined;
+  vectorLayer: VectorLayer<VectorSource<Geometry>> | undefined;
+  selectedAnimal: AnimalModel | undefined;
 
   constructor(
     private animalService: AnimalService,
     private toast: ToastrService
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this.getAnimals();
+  }
+
+  async createPoints(): Promise<void> {
+    for (const animal of this.animals) {
+      const long = animal.owner.longitude;
+      const lat = animal.owner.latitude;
+      this.points.push(
+        new Feature({
+          geometry: new Point(olProj.fromLonLat([long, lat])),
+        }),
+      );
+    }
+
+    for (let point of this.points) {
+      const style = new Style({
+        image: new Icon({
+          color: '#8959A8',
+          crossOrigin: 'anonymous',
+          src: 'assets/images/marker.svg',
+          imgSize: [20, 20],
+        }),
+      });
+
+      point.setStyle(style);
+    }
+
+    this.vectorSource = new VectorSource({
+      features: this.points,
+    });
+
+    this.vectorLayer = new VectorLayer({
+      source: this.vectorSource!,
+    });
+
     this.startMap();
   }
-  
+
   startMap() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position: GeolocationPosition) => {
-          this.createMap(position.coords.latitude, position.coords.longitude, 14);
+          this.lat = position.coords.latitude;
+          this.long = position.coords.longitude;
+          this.createMap(
+            position.coords.latitude,
+            position.coords.longitude,
+            14
+          );
         }
       );
     } else {
       this.createMap(this.lat, this.long);
     }
-
-
   }
-  
+
   createMap(lat: number, long: number, zoom?: number) {
     if (zoom == undefined) {
       zoom = 5;
     }
-    this.map = new Map({
-      target: 'ol-map',
-      layers: [
-        new TileLayer({
-          source: new OSM(),
+
+    if (this.map == undefined) {
+      this.map = new Map({
+        target: 'ol-map',
+        layers: [
+          new TileLayer({
+            source: new OSM(),
+          }),
+          this.vectorLayer!,
+        ],
+        view: new View({
+          center: olProj.fromLonLat([long, lat]),
+          zoom: zoom,
         }),
-      ],
-      view: new View({
+      });
+    } else {
+      const view = new View({
         center: olProj.fromLonLat([long, lat]),
         zoom: zoom,
-      }),
-    });  
+      });
+      this.map.setView(view);
+    }
   }
 
   getAnimals(): void {
     this.animalService.getAimalsFromMyLocation().subscribe(
       (data: AnimalModel[]) => {
         this.animals = data;
+        this.createPoints();
       },
       (error) => this.verifyStatusError(error)
     );
+  }
+
+  selectAnimal(animal: AnimalModel) {
+    if (this.selectedAnimal == animal) {
+      this.createMap(this.lat, this.long, 14);
+      this.selectedAnimal = undefined;
+    } else {
+      const long = animal.owner.longitude;
+      const lat = animal.owner.latitude;
+      this.createMap(lat, long, 17);
+      this.selectedAnimal = animal;
+    }
   }
 
   verifyStatusError(errors: any) {

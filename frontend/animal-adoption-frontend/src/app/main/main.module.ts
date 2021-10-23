@@ -13,6 +13,7 @@ import { EditAnimalCardComponent } from './components/edit-animal-card/edit-anim
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { VaccineComponent } from './components/vaccine/vaccine.component';
 import { AnimalMapsComponent } from './pages/animal-maps/animal-maps.component';
+import { AnimalFilterComponent } from './components/animal-filter/animal-filter.component';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { AnimalMapsComponent } from './pages/animal-maps/animal-maps.component';
     EditAnimalCardComponent,
     VaccineComponent,
     AnimalMapsComponent,
+    AnimalFilterComponent,
   ],
   imports: [
     CommonModule,

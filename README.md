@@ -123,6 +123,9 @@ O desenvolvimento dessa aplicação utiliza como base as seguintes tecnologias e
    - [X] Apresentar histórico de vacinação do animal;
    - [X] Apresentar todos os animais disponíveis para adoção da cidade do usuário logado;
    - [X] Apresentar os meus animais;
+   - [X] Apresentar os animais da minha localdiade no mapa
+   - [X] Selecionar um animal e mostrar a localização dele
+   - [ ] Filtrar animais
 - [ ] Sprint 03 (Adoção e controle de moderadores)
    - [ ] Solicitar adoção de um animal;
    - [ ] Apresentar todos os pedidos de adoção;
