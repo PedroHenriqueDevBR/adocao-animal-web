@@ -14,6 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { VaccineComponent } from './components/vaccine/vaccine.component';
 import { AnimalMapsComponent } from './pages/animal-maps/animal-maps.component';
 import { AnimalFilterComponent } from './components/animal-filter/animal-filter.component';
+import { ShowAnimalComponent } from './pages/show-animal/show-animal.component';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { AnimalFilterComponent } from './components/animal-filter/animal-filter.
     VaccineComponent,
     AnimalMapsComponent,
     AnimalFilterComponent,
+    ShowAnimalComponent,
   ],
   imports: [
     CommonModule,
