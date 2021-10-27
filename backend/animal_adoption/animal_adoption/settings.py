@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     "apps.core",
     "apps.account",
     "apps.location",
+    "apps.adoption",
 ]
 
 REST_FRAMEWORK = {

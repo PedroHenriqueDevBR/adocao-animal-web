@@ -8,4 +8,5 @@ urlpatterns = [
     path("user/", include("apps.account.urls")),
     path("location/", include("apps.location.urls")),
     path("animal/", include("apps.animal.urls")),
+    path("adoption/", include("apps.adoption.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
