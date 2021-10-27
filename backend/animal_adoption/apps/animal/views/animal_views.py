@@ -76,6 +76,20 @@ class AnimalListAndCreate(APIView):
         )
 
 
+class AnimalShow(APIView):
+    name = "animal-show"
+    permission_classes = [IsAuthenticated]
+
+    # Select data from animal (if logged person is wouner)
+    def get(self, request, pk):
+        try:
+            animal = Animal.objects.get(pk=pk)
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        serializer = AnimalSerializer(animal, many=False)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
 class AnimalEditAndDelete(APIView):
     name = "animal_edit_and_delete"
     permission_classes = [IsAuthenticated]

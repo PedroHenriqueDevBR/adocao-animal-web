@@ -17,7 +17,11 @@
             </aside>
     
             <section>
-                <app-animal-list [animals]="animals"></app-animal-list>
+                <div class="animal-list">
+                    <div class="animal-card row row-cols-1 row-cols-md-2 g-4">
+                        <app-animal-card *ngFor="let animal of animals" [animal]="animal" [routerLink]="['/app/detalhes/' + animal.id]"></app-animal-card>
+                    </div>
+                </div>
             </section>
         </div>
     </div>

@@ -47,7 +47,16 @@ export class LoginPageComponent implements OnInit {
 
   loginSuccess(data: JWTResponseModel): void {
     this.storage.saveJWT(data);
-    this.router.navigateByUrl('/app');
+    this.accountService.getLoggedPersonData().subscribe(
+      (data: PersonModel) => {
+        this.storage.saveLoggedData(data);
+        this.router.navigateByUrl('/app');
+      },
+      error => {
+        this.storage.logout();
+        this.verifyStatusError(error);
+      }
+    );
   }
 
   submit(): void {
@@ -66,6 +75,23 @@ export class LoginPageComponent implements OnInit {
         } 
       }
     );
+  }
+
+  verifyStatusError(errors: any) {
+    if (errors.status >= 500) {
+      this.toast.error('Servidor indisponível');
+    } else if (errors.status == 406) {
+      if (errors.error.errors) {
+        for (let error of errors.error.errors) {
+          this.toast.error(error);
+        }
+      }
+    } else if (errors.status == 403) {
+      this.toast.error("Sem permissão");
+    } else {
+      this.toast.error('Erro interno');
+      console.log(errors);
+    }
   }
 
 }

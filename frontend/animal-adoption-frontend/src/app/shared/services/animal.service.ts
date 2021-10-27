@@ -46,7 +46,7 @@ export class AnimalService {
   }
 
   public getAimalsByID(id: number): Observable<AnimalModel> {
-    return this.http.get<AnimalModel>(`${this.BASE_URL}/animal/my/${id}`, {
+    return this.http.get<AnimalModel>(`${this.BASE_URL}/animal/${id}`, {
       headers: this.storage.getHeader(),
     });
   }

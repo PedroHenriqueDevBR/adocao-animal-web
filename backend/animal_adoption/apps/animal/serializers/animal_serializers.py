@@ -26,7 +26,6 @@ class AnimalSerializer(ModelSerializer):
             "type",
             "all_photos",
             "all_vaccines",
-            "all_adoption_received",
         ]
 
 

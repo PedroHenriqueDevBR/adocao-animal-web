@@ -23,7 +23,6 @@ export class ShowAnimalComponent implements OnInit {
     private toast: ToastrService,
     private modalService: BsModalService,
   ) {
-    console.log('constructor');
   }
   
   ngOnInit(): void {
@@ -41,18 +40,29 @@ export class ShowAnimalComponent implements OnInit {
   }
 
   getAnimalFromDatabase(id: number) {
-    console.log('getAnimalFromDatabase');
     this.animalService.getAimalsByID(id).subscribe(
       (data: AnimalModel) => {
-        console.log(data);
         this.animalShow = data;
       },
       error => this.verifyStatusError(error),
     );
   }
 
+  animalImage(): string {
+    if (this.animalShow!.all_photos.length == 0) {
+      if (this.animalShow?.type == 'Cachorro') {
+        return '/assets/images/adopt-dog.png';
+      } else if (this.animalShow?.type == 'Gato') {
+        return '/assets/images/adopt-cat.png';
+      } else {
+        return '/assets/images/cat-dog.png';
+      }
+    }
+    return '/server' + this.animalShow!.all_photos[0].photo;
+  }
+
   notFoundRedirect() {
-    this.routerService.navigateByUrl('/404');
+    this.routerService.navigateByUrl('/app');
   }
 
   serverPhoto(photo: string): string {
@@ -69,11 +79,10 @@ export class ShowAnimalComponent implements OnInit {
   }
 
   verifyStatusError(errors: any) {
-    console.error(errors);
     if (errors.status >= 500) {
       this.toast.error('Servidor indisponível');
     } else if (errors.status == 404) {
-      this.routerService.navigateByUrl('/404');
+      this.notFoundRedirect();
     } else if (errors.status == 406) {
       if (errors.error.errors) {
         for (let error of errors.error.errors) {
