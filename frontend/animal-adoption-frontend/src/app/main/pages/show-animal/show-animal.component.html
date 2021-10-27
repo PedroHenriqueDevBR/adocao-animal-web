@@ -8,9 +8,9 @@
 
     <section class="animal-data p-3">
         <div class="text-center">
-            <h1>Nome do animal</h1>
-            <p>Tipo do animal - Raça</p>
-            <p>Idade: 2 anos</p>
+            <h1>{{ animalShow.name }}</h1>
+            <p>{{ animalShow.type }} - {{ animalShow.breed }}</p>
+            <p>Idade: {{ animalShow.age }} anos</p>
         </div>
 
         <table class="table table-striped table-hover">
@@ -22,29 +22,33 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Mark</td>
-                    <td>Otto</td>
+                <tr *ngFor="let vaccine of animalShow.all_vaccines">
+                    <td>{{ vaccine.date | date: 'dd/MM/yyyy' }}</td>
+                    <td>{{ vaccine.vaccine_name }}</td>
                 </tr>
-                <tr>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                </tr>
-                <tr>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                </tr>
+                
             </tbody>
         </table>
 
         <button class="btn secondary-color text-light full-width py-2">Solicitar adoção</button>
 
         <div class="images my-4 full-width">
-            <img src="assets/images/adopt-dog.png" alt="Animal">
-            <img src="assets/images/adopt-dog.png" alt="Animal">
-            <img src="assets/images/adopt-dog.png" alt="Animal">
-            <img src="assets/images/adopt-dog.png" alt="Animal">
+            <img *ngFor="let photo of animalShow.all_photos" [src]="serverPhoto(photo.photo)" alt="Animal" (click)="showAnimal(photo.photo, showAnimalTemplate)">
         </div>
     </section>
 
 </main>
+
+<ng-template #showAnimalTemplate>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 id="create-state-modal" class="modal-title pull-left">Foto</h4>
+            <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="decline()">
+                <span aria-hidden="true" class="visually-hidden">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body p-0">
+            <img src="{{ selectedPhoto }}" alt="Apresentação" width="100%">
+        </div>
+    </div>
+</ng-template>
