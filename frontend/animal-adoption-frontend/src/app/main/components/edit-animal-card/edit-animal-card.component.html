@@ -19,8 +19,11 @@
         </div>
     </div>
     <img [src]="animalImage()" class="card-img-top" alt="{{ animal!.name }}">
+    <div *ngIf="animal?.adopted == true" class="secondary-color p-2">
+        <h6 class="m-0 text-light">Adotado</h6>
+    </div>
     <div class="card-body">
-        <div class="d-flex justify-content-between">
+        <div class="d-flex justify-content-between align-items-center">
             <h5 class="card-title">{{ animal!.name }}</h5>
             <button class="btn secondary-color text-light" (click)="parentModal.show()">Foto</button>
         </div>
@@ -31,7 +34,8 @@
         </p>
     </div>
     <div class="card-footer p-0">
-        <button class="btn primary-color text-light full-width m-0">Solicitações</button>
+        <button class="btn primary-color text-light full-width m-0"
+            (click)="openModal(showAdoptionRequests)">Solicitações</button>
     </div>
 </div>
 
@@ -89,7 +93,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title pull-left">Controle de vacinas</h4>
-                <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="vaccineModal.hide()">
+                <button type="button" class="btn-close close pull-right" aria-label="Close"
+                    (click)="vaccineModal.hide()">
                     <span aria-hidden="true" class="visually-hidden">&times;</span>
                 </button>
             </div>
@@ -99,3 +104,34 @@
         </div>
     </div>
 </div>
+
+<ng-template #showAdoptionRequests>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 id="create-state-modal" class="modal-title pull-left">Solicitações de adoção</h4>
+            <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="decline()">
+                <span aria-hidden="true" class="visually-hidden">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body p-0">
+            <ul class="list-group">
+                <div *ngIf="animal != undefined">
+                    <li *ngFor="let adoption_request of adoptionRequests" class="list-group-item d-flex justify-content-between align-items-center"
+                    [ngClass]="{'adopted': adoption_request.is_acepted == true, 'rejected': adoption_request.is_acepted == false}">
+                        <div class="requester-data align-items-center">
+                            <h5 class="m-0">{{ adoption_request.requester.name }}</h5>
+                            <p class="m-0">{{ adoption_request.requester.contact }}</p>
+                        </div>
+                        <div *ngIf="showAdoptButtons(adoption_request)" class="options">
+                            <button class="btn"><span class="material-icons text-success" (click)="confirmAdoptionRequest(adoption_request)">check</span></button>
+                            <button class="btn"><span class="material-icons text-danger" (click)="rejectAdoptionRequest(adoption_request)">close</span></button>
+                        </div>
+                        <div *ngIf="showDeleteAdoptButton(adoption_request)" class="options">
+                            <button class="btn btn-danger" (click)="deleteAdoptionRequest(adoption_request)">Deletar</button>
+                        </div>
+                    </li>
+                </div>
+            </ul>
+        </div>
+    </div>
+</ng-template>

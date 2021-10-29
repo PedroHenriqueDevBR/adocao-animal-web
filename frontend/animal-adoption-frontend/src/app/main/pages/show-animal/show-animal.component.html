@@ -30,7 +30,17 @@
             </tbody>
         </table>
 
-        <button class="btn secondary-color text-light full-width py-2">Solicitar adoção</button>
+        <div *ngIf="adotionRequestCreated;else solicitarAdocao">
+            <div *ngIf="animalShow.adopted == undefined;else cancelButtonDisabled">
+                <button class="btn btn-danger full-width py-2" (click)="cancelAdoption()">Cancelar solicitação</button>
+            </div>
+            <ng-template #cancelButtonDisabled>
+                <button class="btn btn-secondary full-width py-2">Animal adotado</button>
+            </ng-template>
+        </div>
+        <ng-template #solicitarAdocao>
+            <button class="btn secondary-color text-light full-width py-2" (click)="requestAdoption()">Solicitar adoção</button>
+        </ng-template>
 
         <div class="images my-4 full-width">
             <img *ngFor="let photo of animalShow.all_photos" [src]="serverPhoto(photo.photo)" alt="Animal" (click)="showAnimal(photo.photo, showAnimalTemplate)">

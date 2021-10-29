@@ -15,7 +15,7 @@ class AnimalListForAdoption(APIView):
 
     # List all animals with adoption enable in logget person region
     def get(self, request):
-        animals = Animal.objects.filter(blocked=False)
+        animals = Animal.objects.filter(blocked=False, adopted=False)
         serializer = AnimalSerializer(animals, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -78,7 +78,6 @@ class AnimalListAndCreate(APIView):
 
 class AnimalShow(APIView):
     name = "animal-show"
-    permission_classes = [IsAuthenticated]
 
     # Select data from animal (if logged person is wouner)
     def get(self, request, pk):

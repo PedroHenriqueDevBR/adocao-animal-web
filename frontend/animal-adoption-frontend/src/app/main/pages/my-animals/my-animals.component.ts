@@ -1,8 +1,10 @@
 import { Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { AnimalModel } from 'src/app/shared/models/animal-model';
 import { AnimalService } from 'src/app/shared/services/animal.service';
+import { LocalstorageService } from 'src/app/shared/services/localstorage.service';
 
 @Component({
   templateUrl: './my-animals.component.html',
@@ -17,12 +19,23 @@ export class MyAnimalsComponent implements OnInit {
 
   constructor(
     private animalService: AnimalService,
+    private storage: LocalstorageService,
+    private router: Router,
     private modalService: BsModalService,
     private toast: ToastrService
-  ) { }
+  ) {
+    this.verifyLoggedPerson();
+  }
 
   ngOnInit(): void {
     this.getAnimals();
+  }
+
+  verifyLoggedPerson() {
+    if (!this.storage.userIsLogged()) {
+      this.router.navigateByUrl('/account/login');
+      return;
+    }
   }
 
   getAnimals(): void {

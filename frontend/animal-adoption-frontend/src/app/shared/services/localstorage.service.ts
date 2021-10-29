@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { AdoptionReceivedModel } from '../models/adoption-received-model';
 import { PersonModel } from '../models/person-model';
 import { JWTResponseModel } from './models/jwt-response-model';
 
@@ -8,6 +9,7 @@ import { JWTResponseModel } from './models/jwt-response-model';
 export class LocalstorageService {
   private JWT_KEY: string = 'jwt';
   private PROFILE_DATA: string = 'profile-data';
+  private ADOPTION_REQUESTS: string = 'adoption-requests';
 
   constructor() {}
 
@@ -48,6 +50,24 @@ export class LocalstorageService {
 
   public getLoggedPersonData() {
     const data = localStorage.getItem(this.PROFILE_DATA) || '{}';
+    return JSON.parse(data);
+  }
+
+  public saveAdoptionRequests(requests: AdoptionReceivedModel[]) {
+    localStorage.setItem(
+      this.ADOPTION_REQUESTS,
+      JSON.stringify(requests)
+    );
+  }
+
+  public addAdoptionRequests(request: AdoptionReceivedModel) {
+    let requests: AdoptionReceivedModel[] = this.getAdoptionRequests();
+    requests.push(request);
+    this.saveAdoptionRequests(requests);
+  }
+
+  public getAdoptionRequests(): AdoptionReceivedModel[] {
+    const data = localStorage.getItem(this.ADOPTION_REQUESTS) || '[]';
     return JSON.parse(data);
   }
 }

@@ -192,6 +192,7 @@ class AdoptionRequest(models.Model):
     def accept(self):
         self.animal.adopted = True
         self.is_acepted = True
+        self.animal.save()
         self.save()
 
     def reject(self):

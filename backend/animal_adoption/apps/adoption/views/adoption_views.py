@@ -104,5 +104,11 @@ class AnimalAdoptionDelete(APIView):
             assert(animal.owner == person or adoption.requester == person)
         except:
             return Response(status=status.HTTP_404_NOT_FOUND)
+
+        if adoption.is_acepted:
+            animal = adoption.animal
+            animal.adopted = False
+            animal.save()
+
         adoption.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

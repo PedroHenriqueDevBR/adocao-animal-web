@@ -1,9 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
+import { AdoptionReceivedModel } from 'src/app/shared/models/adoption-received-model';
 import { AnimalModel } from 'src/app/shared/models/animal-model';
 import { PhotoModel } from 'src/app/shared/models/photo-model';
 import { VaccineModel } from 'src/app/shared/models/vaccine-model';
+import { AdoptionService } from 'src/app/shared/services/adoption.service';
 import { AnimalService } from 'src/app/shared/services/animal.service';
 
 @Component({
@@ -27,19 +29,33 @@ export class EditAnimalCardComponent implements OnInit {
   @Output()
   deleteAnimal = new EventEmitter();
 
+  adoptionRequests: Array<AdoptionReceivedModel> = [];
+
   constructor(
     private modalService: BsModalService,
     private toast: ToastrService,
     private animalService: AnimalService,
+    private adoptionService: AdoptionService,
   ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getAdoptionRequests();
+  }
 
   profileImage(): string {
     if (this.animal?.owner.image == null) {
       return '/assets/images/avatar.png';
     }
     return '/server' + this.animal?.owner.image;
+  }
+
+  getAdoptionRequests() {
+    this.adoptionService.getAdoptionsFromAnimal(this.animal!).subscribe(
+      (data: Array<AdoptionReceivedModel>) => {
+        this.adoptionRequests = data;
+      }, 
+      error => this.verifyStatusError(error),
+    );
   }
 
   formatImage(image: string): string {
@@ -114,6 +130,53 @@ export class EditAnimalCardComponent implements OnInit {
     this.deleteAnimal.emit(true);
   }
 
+  confirmAdoptionRequest(adoption: AdoptionReceivedModel) {
+    if (this.animal != undefined){
+      if (this.animal.adopted) {
+        this.toast.warning('Animal já adotado');
+      } else {
+        this.adoptionService.acceptAdoptionRequest(this.animal, adoption).subscribe(
+          data => {
+            this.animal!.adopted = true;
+            adoption.is_acepted = true;
+            this.toast.success('Solicitação aceita')
+          },
+          error => this.verifyStatusError(error),
+        );
+      }
+    }
+  }
+
+  rejectAdoptionRequest(adoption: AdoptionReceivedModel) {
+    if (this.animal != undefined){
+      if (this.animal.adopted) {
+        this.toast.warning('Animal já adotado');
+      } else {
+        this.adoptionService.rejectAdoptionRequest(this.animal, adoption).subscribe(
+          data => {
+            this.animal!.adopted = false;
+            adoption.is_acepted = false;
+            this.toast.success('Solicitação rejeitada')
+          },
+          error => this.verifyStatusError(error),
+        );
+      }
+    }
+  }
+
+  deleteAdoptionRequest(adoption: AdoptionReceivedModel) {
+    if (this.animal != undefined){
+      this.adoptionService.deleteAdoptionRequest(this.animal, adoption).subscribe(
+        data => {
+          const adoptionIndex = this.adoptionRequests.indexOf(adoption);
+          this.adoptionRequests.splice(adoptionIndex, 1);
+          this.toast.success('Solicitação deletada');
+        },
+        error => this.verifyStatusError(error),
+      );
+    }
+  }
+
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template, { id: 1, class: 'modal-lg modal-dialog modal-dialog-scrollable' });
   }
@@ -130,6 +193,14 @@ export class EditAnimalCardComponent implements OnInit {
   decline(): void {
     this.modalRef?.hide();
     this.selectedVaccine = undefined;
+  }
+
+  showAdoptButtons(adoption: AdoptionReceivedModel) {
+    return this.animal?.adopted == false && adoption.is_acepted == undefined;
+  }
+
+  showDeleteAdoptButton(adoption: AdoptionReceivedModel) {
+    return this.animal?.adopted == true && adoption.is_acepted != undefined;
   }
 
   verifyStatusError(errors: any) {

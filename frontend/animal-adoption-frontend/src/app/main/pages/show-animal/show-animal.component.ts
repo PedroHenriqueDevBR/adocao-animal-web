@@ -2,8 +2,12 @@ import { Component, Input, OnInit, TemplateRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
+import { AdoptionReceivedModel } from 'src/app/shared/models/adoption-received-model';
 import { AnimalModel } from 'src/app/shared/models/animal-model';
+import { AccountService } from 'src/app/shared/services/account.service';
+import { AdoptionService } from 'src/app/shared/services/adoption.service';
 import { AnimalService } from 'src/app/shared/services/animal.service';
+import { LocalstorageService } from 'src/app/shared/services/localstorage.service';
 
 @Component({
   templateUrl: './show-animal.component.html',
@@ -15,15 +19,18 @@ export class ShowAnimalComponent implements OnInit {
   animalShow: AnimalModel = new AnimalModel();
   modalRef?: BsModalRef;
   selectedPhoto: string = '';
+  loggedPerson: boolean = false;
+  adotionRequestCreated: AdoptionReceivedModel | undefined;
 
   constructor(
     private route: ActivatedRoute,
     private routerService: Router,
+    private storage: LocalstorageService,
     private animalService: AnimalService,
+    private adoptionService: AdoptionService,
     private toast: ToastrService,
     private modalService: BsModalService,
-  ) {
-  }
+  ) {}
   
   ngOnInit(): void {
     if (this.animal == undefined) {
@@ -36,6 +43,7 @@ export class ShowAnimalComponent implements OnInit {
       }
     } else {
       this.animalShow = this.animal;
+      this.verifyLoggedPerson();
     }
   }
 
@@ -43,6 +51,7 @@ export class ShowAnimalComponent implements OnInit {
     this.animalService.getAimalsByID(id).subscribe(
       (data: AnimalModel) => {
         this.animalShow = data;
+        this.verifyLoggedPerson();
       },
       error => this.verifyStatusError(error),
     );
@@ -59,6 +68,52 @@ export class ShowAnimalComponent implements OnInit {
       }
     }
     return '/server' + this.animalShow!.all_photos[0].photo;
+  }
+
+  verifyLoggedPerson() {
+    if (this.storage.userIsLogged()) {
+      this.loggedPerson = true;
+      this.verifyAdoptionRequestCreated();
+    }
+  }
+
+  verifyAdoptionRequestCreated() {
+    this.adoptionService.loggedPersonAdoptionsCreated().subscribe(
+      (data: AdoptionReceivedModel[]) => {
+       for (const adoptionRequest of data)  {
+         console.log(`${adoptionRequest.animal} == ${this.animalShow.id}`);
+         if (adoptionRequest.animal == this.animalShow.id) {
+           this.adotionRequestCreated = adoptionRequest;
+           break;
+         }
+       }
+      },
+      error => this.verifyStatusError(error),
+    );
+  }
+
+  requestAdoption() {
+    if (!this.loggedPerson) {
+      this.routerService.navigateByUrl('/account/login');
+      return;
+    }
+    this.adoptionService.createAdoptionRequest(this.animalShow).subscribe(
+      (data: AdoptionReceivedModel) => {
+        this.adotionRequestCreated = data;
+        this.toast.success('Solicitação enviada');
+      },
+      error => this.verifyStatusError(error),
+    );
+  }
+
+  cancelAdoption() {
+    this.adoptionService.deleteAdoptionRequest(this.animalShow, this.adotionRequestCreated!).subscribe(
+      data => {
+        this.adotionRequestCreated = undefined;
+        this.toast.success('Solicitação cancelada');
+      },
+      error => this.verifyStatusError(error),
+    );
   }
 
   notFoundRedirect() {
