@@ -1,4 +1,4 @@
-from rest_framework import status
+from rest_framework import serializers, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
@@ -7,7 +7,19 @@ from apps.adoption.validators.adoption_validator import adoption_register_is_val
 from apps.core.models import AdoptionRequest, Animal
 from apps.adoption.serializers.adoption_serializer import AdoptionCreateSerializer, AdoptionSerializer
 
-# Create your views here.
+
+class MyAdoptionRequests(APIView):
+    name = "my_adoption_request"
+    permission_classes = [IsAuthenticated]
+
+    # Get all adoption requests from animal
+    def get(self, request):
+        person = request.user.person
+        adoption_requests = person.my_adoption_requests.all()
+        serializer = AdoptionSerializer(adoption_requests, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
 class AnimalAdoptionRequests(APIView):
     name = "animal_adoption_request"
     permission_classes = [IsAuthenticated]
@@ -42,8 +54,8 @@ class AnimalAdoptionRequests(APIView):
         
 
 
-class AnimalAdoptionModify(APIView):
-    name = "animal_adoption_modify"
+class AnimalAdoptionAccept(APIView):
+    name = "animal_adoption_accept"
     permission_classes = [IsAuthenticated]
 
     # Accept adoption request
@@ -59,8 +71,13 @@ class AnimalAdoptionModify(APIView):
         serializer = AdoptionSerializer(adoption, many=False)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+
+class AnimalAdoptionReject(APIView):
+    name = "animal_adoption_reject"
+    permission_classes = [IsAuthenticated]
+
     # Recuse adoption request
-    def delete(self, request, pk, adoption_pk):
+    def put(self, request, pk, adoption_pk):
         try:
             animal = Animal.objects.get(pk=pk)
             adoption = AdoptionRequest.objects.get(pk=adoption_pk)
@@ -71,3 +88,21 @@ class AnimalAdoptionModify(APIView):
         adoption.reject()
         serializer = AdoptionSerializer(adoption, many=False)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class AnimalAdoptionDelete(APIView):
+    name = "animal_adoption_delete"
+    permission_classes = [IsAuthenticated]
+
+    # Recuse adoption request
+    def delete(self, request, pk, adoption_pk):
+        try:
+            animal = Animal.objects.get(pk=pk)
+            adoption = AdoptionRequest.objects.get(pk=adoption_pk)
+            person = request.user.person
+            assert(adoption.animal == animal)
+            assert(animal.owner == person or adoption.requester == person)
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        adoption.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

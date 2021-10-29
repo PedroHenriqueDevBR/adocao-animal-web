@@ -184,7 +184,7 @@ class BlockedReason(models.Model):
 class AdoptionRequest(models.Model):
     create_at = models.DateField(auto_now_add=True)
     is_acepted = models.BooleanField(null=True, blank=True)
-    requester = models.ForeignKey(Person, on_delete=models.CASCADE)
+    requester = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='my_adoption_requests')
     animal = models.ForeignKey(
         Animal, on_delete=models.CASCADE, related_name="adoption_requests"
     )
