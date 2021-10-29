@@ -127,10 +127,10 @@ O desenvolvimento dessa aplicação utiliza como base as seguintes tecnologias e
    - [X] Selecionar um animal e mostrar a localização dele
    - [ ] Filtrar animais
 - [ ] Sprint 03 (Adoção e controle de moderadores)
-   - [ ] Solicitar adoção de um animal;
-   - [ ] Apresentar todos os pedidos de adoção;
-   - [ ] Confirmar ou negar pedido de adoção;
-   - [ ] Buscar animal de acordo com o código;
+   - [X] Solicitar adoção de um animal;
+   - [X] Apresentar todos os pedidos de adoção;
+   - [X] Confirmar ou negar pedido de adoção;
+   - [X] Buscar animal de acordo com o código;
    - [ ] Bloquear postagem (Moderador ou admin)
 - [ ] Sprint 04 (Patrocinadores)
    - [ ] registrar patrocinado
