@@ -57,7 +57,7 @@ export class ProfilePageComponent implements OnInit {
 
   verifyLogedUser() {
     if (!this.storage.userIsLogged()) {
-      this.router.navigateByUrl('/account/login');
+      this.router.navigateByUrl('/account/login', {replaceUrl:true});
       return;
     }
     this.getPersonData();

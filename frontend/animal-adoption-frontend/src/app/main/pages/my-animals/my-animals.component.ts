@@ -33,7 +33,7 @@ export class MyAnimalsComponent implements OnInit {
 
   verifyLoggedPerson() {
     if (!this.storage.userIsLogged()) {
-      this.router.navigateByUrl('/account/login');
+      this.router.navigateByUrl('/account/login', {replaceUrl:true});
       return;
     }
   }

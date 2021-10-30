@@ -117,7 +117,7 @@ export class ShowAnimalComponent implements OnInit {
   }
 
   notFoundRedirect() {
-    this.routerService.navigateByUrl('/app');
+    this.routerService.navigateByUrl('/404', {replaceUrl:true});
   }
 
   serverPhoto(photo: string): string {

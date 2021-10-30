@@ -30,7 +30,7 @@ export class LoginPageComponent implements OnInit {
 
   verifyLogedUser(): void {
     if (this.storage.userIsLogged()) {
-      this.router.navigateByUrl('/account');
+      this.router.navigateByUrl('/account', {replaceUrl:true});
     }
   }
 
