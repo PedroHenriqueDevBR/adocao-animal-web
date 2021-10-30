@@ -8,8 +8,8 @@ import { AnimalModel } from 'src/app/shared/models/animal-model';
 })
 export class AnimalCardComponent implements OnInit {
 
-  @Input()
-  animal: AnimalModel | undefined;
+  @Input() animal: AnimalModel | undefined;
+  @Input() showButton: boolean = false;
 
   constructor() { }
 
@@ -31,5 +31,9 @@ export class AnimalCardComponent implements OnInit {
       }
     }
     return '/server' + this.animal!.all_photos[0].photo;
+  }
+
+  showAnimalString(): string {
+    return `/app/detalhes/${this.animal!.id}`;
   }
 }

@@ -15,6 +15,7 @@ import VectorSource from 'ol/source/Vector';
 import VectorLayer from 'ol/layer/Vector';
 import Style from 'ol/style/Style';
 import Icon from 'ol/style/Icon';
+import { LocalstorageService } from 'src/app/shared/services/localstorage.service';
 
 @Component({
   templateUrl: './animal-maps.component.html',
@@ -33,6 +34,7 @@ export class AnimalMapsComponent implements OnInit {
 
   constructor(
     private animalService: AnimalService,
+    private storage: LocalstorageService,
     private toast: ToastrService
   ) {}
 
@@ -122,13 +124,23 @@ export class AnimalMapsComponent implements OnInit {
   }
 
   getAnimals(): void {
-    this.animalService.getAimalsFromMyLocation().subscribe(
-      (data: AnimalModel[]) => {
-        this.animals = data;
-        this.createPoints();
-      },
-      (error) => this.verifyStatusError(error)
-    );
+    if (this.storage.userIsLogged()) {
+      this.animalService.getAimalsFromMyLocation().subscribe(
+        (data: AnimalModel[]) => {
+          this.animals = data;
+          this.createPoints();
+        },
+        (error) => this.verifyStatusError(error)
+      );
+    } else {
+      this.animalService.getAllAimalsForAdoption().subscribe(
+        (data: AnimalModel[]) => {
+          this.animals = data;
+          this.createPoints();
+        },
+        (error) => this.verifyStatusError(error)
+      );
+    }
   }
 
   selectAnimal(animal: AnimalModel) {

@@ -19,9 +19,16 @@
         </div>
     </div>
     <img [src]="animalImage()" class="card-img-top" alt="{{ animal!.name }}">
-    <div *ngIf="animal?.adopted == true" class="secondary-color p-2">
+
+    <div *ngIf="animal?.adopted == true; else adoptAvailable" class="secondary-color p-2">
         <h6 class="m-0 text-light">Adotado</h6>
     </div>
+    <ng-template #adoptAvailable>
+        <div class="p-2">
+            <h6 class="m-0">Disponível para adoção</h6>
+        </div>
+    </ng-template>
+    
     <div class="card-body">
         <div class="d-flex justify-content-between align-items-center">
             <h5 class="card-title">{{ animal!.name }}</h5>

@@ -28,7 +28,8 @@ class AnimalLocationList(APIView):
     def get(self, request):
         logged_person = request.user.person
         animals = Animal.objects.filter(
-            blocked=False, 
+            blocked=False,
+            adopted=False,
             owner__city=logged_person.city
         ).exclude(
             owner__latitude='', 

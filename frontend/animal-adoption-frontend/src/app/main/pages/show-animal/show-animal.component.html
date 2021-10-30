@@ -26,12 +26,11 @@
                     <td>{{ vaccine.date | date: 'dd/MM/yyyy' }}</td>
                     <td>{{ vaccine.vaccine_name }}</td>
                 </tr>
-                
             </tbody>
         </table>
 
-        <div *ngIf="adotionRequestCreated;else solicitarAdocao">
-            <div *ngIf="animalShow.adopted == undefined;else cancelButtonDisabled">
+        <div *ngIf="adotionRequestCreated; else solicitarAdocao">
+            <div *ngIf="animalShow.adopted == false || animalShow.adopted == undefined; else cancelButtonDisabled">
                 <button class="btn btn-danger full-width py-2" (click)="cancelAdoption()">Cancelar solicitação</button>
             </div>
             <ng-template #cancelButtonDisabled>

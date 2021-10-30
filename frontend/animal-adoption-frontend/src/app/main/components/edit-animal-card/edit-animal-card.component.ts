@@ -168,6 +168,7 @@ export class EditAnimalCardComponent implements OnInit {
     if (this.animal != undefined){
       this.adoptionService.deleteAdoptionRequest(this.animal, adoption).subscribe(
         data => {
+          if (adoption.is_acepted == true) this.animal!.adopted = false;
           const adoptionIndex = this.adoptionRequests.indexOf(adoption);
           this.adoptionRequests.splice(adoptionIndex, 1);
           this.toast.success('Solicitação deletada');

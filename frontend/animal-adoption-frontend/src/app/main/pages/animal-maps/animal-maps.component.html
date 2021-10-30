@@ -5,7 +5,7 @@
     <aside class="animal-list">
         <h5>Animais próximos</h5>
         <div class="mb-3" *ngFor="let animal of animals">
-            <app-animal-card [animal]="animal" (click)=selectAnimal(animal)></app-animal-card>
+            <app-animal-card [animal]="animal" [showButton]="true" (click)=selectAnimal(animal)></app-animal-card>
         </div>
     </aside>
     <div id="ol-map" class="map-container"></div>
@@ -25,7 +25,7 @@
     </div>
     <div class="offcanvas-body">
         <div class="mb-3" *ngFor="let animal of animals">
-            <app-animal-card [animal]="animal"></app-animal-card>
+            <app-animal-card [animal]="animal" [showButton]="true" data-bs-dismiss="offcanvas" (click)="selectAnimal(animal)"></app-animal-card>
         </div>
     </div>
 </div>
