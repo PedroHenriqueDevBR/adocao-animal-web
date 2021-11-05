@@ -114,7 +114,7 @@ O desenvolvimento dessa aplicação utiliza como base as seguintes tecnologias e
    - [X] Adicionar poder de moderador a um determinado perfil (admin only);
    - [X] Remover poder de moderador a um determinado perfil (admin only);
    - [X] Bloquear um determinado perfil (admin only).
-- [ ] Sprint 02 (Animal e metadados)
+- [X] Sprint 02 (Animal e metadados)
    - [X] Registrar animal;
    - [X] Editar dados do animal;
    - [X] remover animal;
@@ -125,13 +125,12 @@ O desenvolvimento dessa aplicação utiliza como base as seguintes tecnologias e
    - [X] Apresentar os meus animais;
    - [X] Apresentar os animais da minha localdiade no mapa
    - [X] Selecionar um animal e mostrar a localização dele
-   - [ ] Filtrar animais
-- [ ] Sprint 03 (Adoção e controle de moderadores)
+   - [X] Filtrar animais
+- [X] Sprint 03 (Adoção e controle de moderadores)
    - [X] Solicitar adoção de um animal;
    - [X] Apresentar todos os pedidos de adoção;
    - [X] Confirmar ou negar pedido de adoção;
    - [X] Buscar animal de acordo com o código;
-   - [ ] Bloquear postagem (Moderador ou admin)
 - [ ] Sprint 04 (Patrocinadores)
    - [ ] registrar patrocinado
    - [ ] Listar patrocinadores na home page
