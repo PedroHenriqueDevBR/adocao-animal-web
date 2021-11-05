@@ -2,7 +2,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
 from apps.animal.validators.animal_validator import animal_is_valid_or_errors
-from apps.core.models import Animal
+from apps.core.models import Animal, AnimalType
 from rest_framework.permissions import IsAuthenticated
 from apps.animal.serializers.animal_serializers import (
     AnimalSerializer,
@@ -46,8 +46,19 @@ class AnimalListFilter(APIView):
     name = "animal_list_filter"
 
     # List all animals with adoption enable in logget person region
-    def get(self, request):
-        pass
+    def patch(self, request):
+        data = request.data
+        animalsSearchResponse = Animal.objects.filter(blocked=False, adopted=False)
+        if 'type' in data:
+            try:
+                type = AnimalType.objects.get(id=data['type'])
+                animalsSearchResponse = animalsSearchResponse.filter(type=type)
+            except:
+                return Response(status=status.HTTP_404_NOT_FOUND)
+        if 'sex' in data:
+            animalsSearchResponse = animalsSearchResponse.filter(sex=data['sex'])
+        serializer = AnimalSerializer(animalsSearchResponse, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class AnimalListAndCreate(APIView):
