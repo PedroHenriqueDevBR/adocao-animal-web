@@ -27,15 +27,14 @@ export class MyAnimalsComponent implements OnInit {
     this.verifyLoggedPerson();
   }
 
-  ngOnInit(): void {
-    this.getAnimals();
-  }
+  ngOnInit(): void {}
 
   verifyLoggedPerson() {
     if (!this.storage.userIsLogged()) {
       this.router.navigateByUrl('/account/login', {replaceUrl:true});
       return;
     }
+    this.getAnimals();
   }
 
   getAnimals(): void {
@@ -49,6 +48,7 @@ export class MyAnimalsComponent implements OnInit {
   }
 
   verifyStatusError(errors: any) {
+    console.log(errors);
     if (errors.status >= 500) {
       this.toast.error('Servidor indisponível');
     } else if (errors.status == 406) {

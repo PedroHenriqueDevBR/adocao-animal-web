@@ -12,7 +12,7 @@
     
         <div class="content container">
             <aside>
-                <app-animal-filter></app-animal-filter>
+                <app-animal-filter (addPropEmiter)="addFilterProp($event)" (removePropEmiter)="removerFilterProp($event)" (searchButton)="applyFilters()"></app-animal-filter>
                 <app-supporters></app-supporters>
             </aside>
     

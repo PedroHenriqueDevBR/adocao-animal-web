@@ -6,27 +6,36 @@ import { AnimalService } from 'src/app/shared/services/animal.service';
 @Component({
   selector: 'app-animals-for-adoption',
   templateUrl: './animals-for-adoption.component.html',
-  styleUrls: ['./animals-for-adoption.component.less']
+  styleUrls: ['./animals-for-adoption.component.less'],
 })
 export class AnimalsForAdoptionComponent implements OnInit {
-
-  animals: AnimalModel[] = []
+  animals: AnimalModel[] = [];
+  filterProps: Record<string, any> = {};
 
   constructor(
     private animalService: AnimalService,
-    private toast: ToastrService,
-  ) { }
+    private toast: ToastrService
+  ) {}
 
   ngOnInit(): void {
-    this.getAnimals();
+    this.getAllAnimals();
   }
 
-  getAnimals(): void {
+  getAllAnimals(): void {
     this.animalService.getAllAimalsForAdoption().subscribe(
       (data: AnimalModel[]) => {
         this.animals = data;
       },
-      error => this.verifyStatusError(error),
+      (error) => this.verifyStatusError(error)
+    );
+  }
+
+  getAnimalsByFilters(): void {
+    this.animalService.filterAnimals(this.filterProps).subscribe(
+      (data: AnimalModel[]) => {
+        this.animals = data;
+      },
+      (error) => this.verifyStatusError(error)
     );
   }
 
@@ -40,11 +49,32 @@ export class AnimalsForAdoptionComponent implements OnInit {
         }
       }
     } else if (errors.status == 403) {
-      this.toast.error("Sem permissão");
+      this.toast.error('Sem permissão');
     } else {
       this.toast.error('Erro interno');
       console.log(errors);
     }
   }
 
+  hasFilter(): boolean {
+    return Object.keys(this.filterProps).length > 0;
+  }
+
+  addFilterProp(data: any) {
+    this.filterProps[data.key] = data.value;
+    console.log(this.filterProps);
+  }
+  
+  removerFilterProp(keyProp: string) {
+    delete this.filterProps[keyProp];
+    console.log(this.filterProps);
+  }
+
+  applyFilters() {
+    if (this.hasFilter()) {
+      this.getAnimalsByFilters();
+    } else {
+      this.getAllAnimals();
+    }
+  }
 }

@@ -25,6 +25,13 @@ export class AnimalService {
     return this.http.get<AnimalModel[]>(`${this.BASE_URL}/animal/`);
   }
 
+  public filterAnimals(data: any) {
+    return this.http.patch<AnimalModel[]>(
+      `${this.BASE_URL}/animal/filter/`,
+      data,
+    );
+  }
+
   public getAimalsFromMyLocation(): Observable<AnimalModel[]> {
     return this.http.get<AnimalModel[]>(`${this.BASE_URL}/animal/location/`, {
       headers: this.storage.getHeader(),
