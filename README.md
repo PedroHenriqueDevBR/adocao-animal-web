@@ -95,6 +95,40 @@ O desenvolvimento dessa aplicação utiliza como base as seguintes tecnologias e
 <h1 id="instalacao">:information_source: Instalação</h1>
 
 ```bash
+# Baixe o repositório do projeto
+git clone https://github.com/PedroHenriqueDevBR/aplicacao-para-adocao-de-animais.git
+cd aplicacao-para-adocao-de-animais/
+
+# ================== Django ===================== #
+# Instale as dependencias do Django
+cd backend/animal_adoption/
+
+# Crie um ambiente virtual para instalar os pacotes do pip de forma isolada
+pip3 install virtualenv
+python3 -m virtualenv venv
+
+# Ative o ambiente virtual
+source venv/bin/activate
+
+# Instale as dependências do projeto backend
+pip install -r requirements.txt
+
+# Aplique as migrações no banco de dados
+python manage.py makemigrations
+python manage.py migrate
+
+# Rode o projeto localmente
+python manage.py runserver
+
+# =================== Angular ==================== #
+# Instale as dependências do Angular
+cd ../../frontend/animal-adoption-frontend/
+
+# Instale as dependências do projeto frontend
+npm install
+
+# Rode a aplicação Angular (Frontend)
+npm run start
 ```
 
 <h2 id="funcionalidades">:heavy_check_mark: Funcionalidades</h2>
