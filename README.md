@@ -165,6 +165,10 @@ npm run start
    - [X] Apresentar todos os pedidos de adoção;
    - [X] Confirmar ou negar pedido de adoção;
    - [X] Buscar animal de acordo com o código;
+   - [X] Animal bloqueado pelo dono
+   - [X] Aninal bloqueado por moderador
+   - [X] Animal desbloqueado pelo dono (se não houver bloqueio de moderador registrado)
+   - [X] Animal desbloqueado por moderador
 - [ ] Sprint 04 (Patrocinadores)
    - [ ] registrar patrocinado
    - [ ] Listar patrocinadores na home page
