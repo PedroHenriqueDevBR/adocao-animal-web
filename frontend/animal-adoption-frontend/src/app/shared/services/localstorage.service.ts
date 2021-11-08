@@ -44,6 +44,7 @@ export class LocalstorageService {
         username: person.username,
         is_moderator: person.is_moderator,
         is_active: person.is_active,
+        is_admin: person.is_admin
       })
     );
   }

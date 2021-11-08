@@ -12,6 +12,7 @@ export class PersonModel {
     longitude: string = '';
     is_moderator: boolean = false;
     is_active: boolean = false;
+    is_admin: boolean = false;
     city: CityModel = new CityModel();
 
     animals: AnimalModel[] = [];

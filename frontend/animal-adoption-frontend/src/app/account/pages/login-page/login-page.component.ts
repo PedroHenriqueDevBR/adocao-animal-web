@@ -49,6 +49,7 @@ export class LoginPageComponent implements OnInit {
     this.storage.saveJWT(data);
     this.accountService.getLoggedPersonData().subscribe(
       (data: PersonModel) => {
+        console.table(data);
         this.storage.saveLoggedData(data);
         this.router.navigateByUrl('/app');
       },

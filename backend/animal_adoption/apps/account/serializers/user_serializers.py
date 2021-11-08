@@ -18,6 +18,7 @@ class UserSerializer(ModelSerializer):
             "longitude",
             "is_moderator",
             "is_active",
+            "is_admin",
             "city",
         ]
 
