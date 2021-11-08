@@ -191,7 +191,7 @@ class UnlockAnimal(APIView):
         except:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
-        errors = unlock_reason_is_valid_or_errors(animal, blocks)
+        errors = unlock_reason_is_valid_or_errors(animal, blocks, person)
         if len(errors) > 0:
             return Response({"errors": errors}, status=status.HTTP_406_NOT_ACCEPTABLE)
 

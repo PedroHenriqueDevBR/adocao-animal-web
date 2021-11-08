@@ -8,11 +8,11 @@ def block_reason_is_valid_or_errors(data):
     return errors
 
 
-def unlock_reason_is_valid_or_errors(animal, blocks):
+def unlock_reason_is_valid_or_errors(animal, blocks, person):
     errors = []
     if animal.blocked == False:
         errors.append('Animal já encontra-se desbloqueado')
-    elif len(blocks) > 0:
+    elif len(blocks) > 0 and not person.is_moderator:
         errors.append('Animal bloqueado por moderador, entre em contato com a administração do sistema para desbloquar')
 
     return errors
