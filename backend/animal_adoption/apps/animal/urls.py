@@ -19,6 +19,9 @@ urlpatterns = [
     path("vaccine/<int:pk>", VaccineEditAndDelete.as_view(), name=VaccineEditAndDelete.name),
     path("photo", PhotoCreate.as_view(), name=PhotoCreate.name),
     path("photo/<int:pk>", PhotoUpdateAndDelete.as_view(), name=PhotoUpdateAndDelete.name),
+    # IsModerator
+    path("<int:pk>/block", BlockAnimal.as_view(), name=BlockAnimal.name),
+    path("<int:pk>/unlock", UnlockAnimal.as_view(), name=UnlockAnimal.name),
     # Admin
     path("all_types", AnimalTypeList.as_view(), name=AnimalTypeList.name),
     path("type/<int:pk>", AnimalTypeEdit.as_view(), name=AnimalTypeEdit.name),

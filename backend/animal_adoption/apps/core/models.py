@@ -58,6 +58,10 @@ class Person(models.Model):
         return self.user.is_active
 
     @property
+    def is_admin(self):
+        return self.user.is_superuser
+
+    @property
     def all_animals(self):
         return self.animals.all()
 

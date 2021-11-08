@@ -1,8 +1,10 @@
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
+from apps.animal.permissions.is_moderator_permission import IsModeratorPermission
 from apps.animal.validators.animal_validator import animal_is_valid_or_errors
-from apps.core.models import Animal, AnimalType
+from apps.animal.validators.block_validator import block_reason_is_valid_or_errors, unlock_reason_is_valid_or_errors
+from apps.core.models import Animal, AnimalType, BlockedReason
 from rest_framework.permissions import IsAuthenticated
 from apps.animal.serializers.animal_serializers import (
     AnimalSerializer,
@@ -144,3 +146,60 @@ class AnimalEditAndDelete(APIView):
             return Response(status=status.HTTP_404_NOT_FOUND)
         animal.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class BlockAnimal(APIView):
+    name = "block_animal"
+    permission_classes = [IsAuthenticated]
+
+    def patch(self, request, pk):
+        person = request.user.person
+        data = request.data
+
+        try:
+            animal = Animal.objects.get(pk=pk)
+            assert animal.owner == person or person.is_moderator
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        if animal.blocked == True:
+            errors = ['Animal já encontra-se bloqueado']
+            if len(errors) > 0:
+                return Response({"errors": errors}, status=status.HTTP_406_NOT_ACCEPTABLE)
+
+        if animal.owner == person:
+            animal.blocked = True
+            animal.save()
+        elif person.is_moderator:
+            errors = block_reason_is_valid_or_errors(data)
+            if len(errors) > 0:
+                return Response({"errors": errors}, status=status.HTTP_406_NOT_ACCEPTABLE)
+            reason = data['reason']
+            animal.block(person, reason)
+        return Response(status=status.HTTP_200_OK)
+
+class UnlockAnimal(APIView):
+    name = "unlock_animal"
+    permission_classes = [IsAuthenticated]
+
+    def patch(self, request, pk):
+        person = request.user.person
+        try:
+            animal = Animal.objects.get(pk=pk)
+            assert animal.owner == person or person.is_moderator
+            blocks = BlockedReason.objects.filter(blocked_animal=animal)
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        errors = unlock_reason_is_valid_or_errors(animal, blocks)
+        if len(errors) > 0:
+            return Response({"errors": errors}, status=status.HTTP_406_NOT_ACCEPTABLE)
+
+        if animal.owner == person:
+            animal.blocked = False
+            animal.save()
+        elif person.is_moderator:
+            animal.blocked = False
+            blocks.delete()
+            animal.save()
+        return Response(status=status.HTTP_200_OK)
