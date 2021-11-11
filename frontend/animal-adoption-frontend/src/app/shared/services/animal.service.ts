@@ -121,4 +121,16 @@ export class AnimalService {
       headers: this.storage.getHeader(),
     });
   }
+
+  public blockAnimal(animal: AnimalModel, reason: String = ''): Observable<any> {
+    return this.http.patch(`${this.BASE_URL}/animal/${animal.id}/block`, 
+    {reason: reason},
+    {headers: this.storage.getHeader()});
+  }
+
+  public unlockAnimal(animal: AnimalModel): Observable<any> {
+    return this.http.patch(`${this.BASE_URL}/animal/${animal.id}/unlock`,
+    {}, 
+    {headers: this.storage.getHeader()});
+  }
 }

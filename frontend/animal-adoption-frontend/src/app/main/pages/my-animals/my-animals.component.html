@@ -1,4 +1,4 @@
-<main>
+<main class="mb-5">
     <app-header></app-header>
 
     <div id="animals-for-adoption">
@@ -26,7 +26,8 @@
                     <div class="animal-card row row-cols-1 row-cols-md-2 g-4">
                         <app-edit-animal-card *ngFor="let animal of animals" [animal]="animal"
                             (editAnimal)="animalEditModal(createAnimalModal, animal)"
-                            (deleteAnimal)="deleteAnimal(animal)"></app-edit-animal-card>
+                            (deleteAnimal)="deleteAnimal(animal)"
+                            (blockAnimal)="toggleBlockAnimal(animal)"></app-edit-animal-card>
                     </div>
                 </div>
             </section>

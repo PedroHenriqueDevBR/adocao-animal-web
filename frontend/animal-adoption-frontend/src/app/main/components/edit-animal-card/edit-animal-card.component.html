@@ -10,6 +10,12 @@
             </button>
             <ul class="dropdown-menu p-0" aria-labelledby="dropdownMenuOptions">
                 <li><button class="dropdown-item" (click)="editEmit()">Editar</button></li>
+                <li>
+                    <button *ngIf="animal!.blocked;else unlockTemplate" class="dropdown-item" (click)="blockEmit()">Desbloquear</button>
+                    <ng-template #unlockTemplate>
+                        <button class="dropdown-item" (click)="blockEmit()">Bloquear</button>
+                    </ng-template>
+                </li>
                 <li><button class="dropdown-item" (click)="deleteEmit()">Deletar</button></li>
                 <li>
                     <hr class="dropdown-divider m-0">
@@ -20,16 +26,22 @@
     </div>
     <img [src]="animalImage()" class="card-img-top" alt="{{ animal!.name }}">
 
-    <div *ngIf="animal?.adopted == true; else adoptAvailable" class="secondary-color p-2">
+    <div *ngIf="animal?.adopted == true; else animalBlocked" class="bg-success p-2">
         <h6 class="m-0 text-light">Adotado</h6>
     </div>
-    <ng-template #adoptAvailable>
-        <div class="py-2 px-3 d-flex justify-content-between">
-            <h6 class="m-0">Disponível para adoção</h6>
-            <span *ngIf="adoptionRequests.length > 0"><b class="badge primary-color text-light">{{ adoptionRequests.length }}</b></span>
+    <ng-template #animalBlocked>
+        <div *ngIf="animal?.blocked;else adoptAvailable" class="py-2 px-3 d-flex justify-content-between bg-danger">
+            <h6 class="m-0 text-light">Animal bloqueado</h6>
         </div>
     </ng-template>
-    
+    <ng-template #adoptAvailable>
+        <div class="py-2 px-3 d-flex justify-content-between secondary-color">
+            <h6 class="m-0 text-light">Disponível para adoção</h6>
+            <span *ngIf="adoptionRequests.length > 0"><b class="badge primary-color text-light">{{
+                    adoptionRequests.length }}</b></span>
+        </div>
+    </ng-template>
+
     <div class="card-body">
         <div class="d-flex justify-content-between align-items-center">
             <h5 class="card-title">{{ animal!.name }}</h5>
@@ -124,18 +136,22 @@
         <div class="modal-body p-0">
             <ul class="list-group">
                 <div *ngIf="animal != undefined">
-                    <li *ngFor="let adoption_request of adoptionRequests" class="list-group-item d-flex justify-content-between align-items-center"
-                    [ngClass]="{'adopted': adoption_request.is_acepted == true, 'rejected': adoption_request.is_acepted == false}">
+                    <li *ngFor="let adoption_request of adoptionRequests"
+                        class="list-group-item d-flex justify-content-between align-items-center"
+                        [ngClass]="{'adopted': adoption_request.is_acepted == true, 'rejected': adoption_request.is_acepted == false}">
                         <div class="requester-data align-items-center">
                             <h5 class="m-0">{{ adoption_request.requester.name }}</h5>
                             <p class="m-0">{{ adoption_request.requester.contact }}</p>
                         </div>
                         <div *ngIf="showAdoptButtons(adoption_request)" class="options">
-                            <button class="btn"><span class="material-icons text-success" (click)="confirmAdoptionRequest(adoption_request)">check</span></button>
-                            <button class="btn"><span class="material-icons text-danger" (click)="rejectAdoptionRequest(adoption_request)">close</span></button>
+                            <button class="btn"><span class="material-icons text-success"
+                                    (click)="confirmAdoptionRequest(adoption_request)">check</span></button>
+                            <button class="btn"><span class="material-icons text-danger"
+                                    (click)="rejectAdoptionRequest(adoption_request)">close</span></button>
                         </div>
                         <div *ngIf="showDeleteAdoptButton(adoption_request)" class="options">
-                            <button class="btn btn-danger" (click)="deleteAdoptionRequest(adoption_request)">Deletar</button>
+                            <button class="btn btn-danger"
+                                (click)="deleteAdoptionRequest(adoption_request)">Deletar</button>
                         </div>
                     </li>
                 </div>

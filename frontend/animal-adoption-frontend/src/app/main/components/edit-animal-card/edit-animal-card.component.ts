@@ -29,6 +29,9 @@ export class EditAnimalCardComponent implements OnInit {
   @Output()
   deleteAnimal = new EventEmitter();
 
+  @Output()
+  blockAnimal = new EventEmitter();
+
   adoptionRequests: Array<AdoptionReceivedModel> = [];
 
   constructor(
@@ -124,6 +127,10 @@ export class EditAnimalCardComponent implements OnInit {
 
   editEmit() {
     this.editAnimal.emit(true);
+  }
+
+  blockEmit() {
+    this.blockAnimal.emit(true);
   }
 
   deleteEmit() {

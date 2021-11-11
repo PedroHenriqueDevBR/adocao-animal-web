@@ -75,7 +75,6 @@ export class MyAnimalsComponent implements OnInit {
     this.modalRef = this.modalService.show(this.confirmDeleteAnimal, { class: 'modal-sm' });
   }
 
-
   deleteAnimalFromDatabase() {
     this.animalService.deleteAnimal(this.selectedAnimal!).subscribe(
       data => {
@@ -91,6 +90,20 @@ export class MyAnimalsComponent implements OnInit {
   addAnimal(animal: any) {
     this.getAnimals();
     this.decline();
+  }
+
+  toggleBlockAnimal(animal: AnimalModel) {
+    if (animal.blocked) {
+      this.animalService.unlockAnimal(animal).subscribe(
+        data => animal.blocked = false,
+        errors => this.verifyStatusError(errors),
+      );
+    } else {
+      this.animalService.blockAnimal(animal).subscribe(
+        data => animal.blocked = true,
+        errors => this.verifyStatusError(errors),
+      );
+    }
   }
 
   decline(): void {
