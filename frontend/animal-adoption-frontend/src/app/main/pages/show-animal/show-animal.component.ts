@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, TemplateRef } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
@@ -23,6 +24,7 @@ export class ShowAnimalComponent implements OnInit {
   loggedPerson: boolean = false;
   adotionRequestCreated: AdoptionReceivedModel | undefined;
   personData: PersonModel | undefined;
+  formBlockAnimal: FormGroup;
 
   constructor(
     private route: ActivatedRoute,
@@ -32,7 +34,9 @@ export class ShowAnimalComponent implements OnInit {
     private adoptionService: AdoptionService,
     private toast: ToastrService,
     private modalService: BsModalService,
-  ) {}
+  ) {
+    this.formBlockAnimal = this.createFormBlockAnimal();
+  }
   
   ngOnInit(): void {
     if (this.animal == undefined) {
@@ -47,6 +51,16 @@ export class ShowAnimalComponent implements OnInit {
       this.animalShow = this.animal;
       this.verifyLoggedPerson();
     }
+  }
+
+  createFormBlockAnimal(): FormGroup {
+    return new FormGroup({
+      reason: new FormControl('', [Validators.required]),
+    });
+  }
+
+  get formIsValid() : boolean {
+    return this.formBlockAnimal.valid;
   }
 
   getAnimalFromDatabase(id: number) {
@@ -134,6 +148,22 @@ export class ShowAnimalComponent implements OnInit {
   showAnimal(photo: string, template: TemplateRef<any>) {
     this.selectedPhoto = this.serverPhoto(photo);
     this.modalRef = this.modalService.show(template, { class: 'modal-lg' });
+  }
+
+  toggleBlockAnimal() {
+    if (this.animalShow.blocked) {
+      this.animalService.unlockAnimal(this.animalShow).subscribe(
+        data => this.animalShow.blocked = false,
+        errors => this.verifyStatusError(errors),
+      );
+    } else {
+      const reason = this.formBlockAnimal.get('reason')?.value;
+      this.animalService.blockAnimal(this.animalShow, reason).subscribe(
+        data => this.animalShow.blocked = true,
+        errors => this.verifyStatusError(errors),
+      );
+      this.decline();
+    }
   }
 
   decline(): void {

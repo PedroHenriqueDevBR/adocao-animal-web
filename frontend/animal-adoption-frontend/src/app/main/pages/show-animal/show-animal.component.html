@@ -8,7 +8,7 @@
 
     <section class="animal-data p-3">
         <div class="text-center">
-            <h1>{{ animalShow.name }}</h1>
+            <h1>{{ animalShow.name }} <span *ngIf="animalShow.blocked"> - Bloqueado</span> </h1>
             <p>{{ animalShow.type }} - {{ animalShow.breed }}</p>
             <p>Idade: {{ animalShow.age }} anos</p>
         </div>
@@ -39,12 +39,18 @@
         </div>
         <ng-template #solicitarAdocao>
             <div class="d-flex">
-                <button *ngIf="personData != undefined && personData.is_moderator"
-                    class="btn btn-danger full-width py-2 m-2"
-                    (click)="openModal(blockAnimalTemplate)">Bloquear anúncio</button>
+                <button *ngIf="personData != undefined && personData.is_moderator && !animalShow.blocked; else unlockButton"
+                    class="btn btn-danger full-width py-2 m-2" (click)="openModal(blockAnimalTemplate)">Bloquear
+                    anúncio</button>
                 <button class="btn secondary-color text-light full-width py-2 m-2" (click)="requestAdoption()">Solicitar
                     adoção</button>
             </div>
+        </ng-template>
+
+        <ng-template #unlockButton>
+            <button *ngIf="personData != undefined && personData.is_moderator"
+                    class="btn btn-success full-width py-2 m-2" (click)="toggleBlockAnimal()">Desbloquear
+                    anúncio</button>
         </ng-template>
 
         <div class="images my-4 full-width">
@@ -52,7 +58,6 @@
                 (click)="showAnimal(photo.photo, showAnimalTemplate)">
         </div>
     </section>
-
 </main>
 
 <ng-template #showAnimalTemplate>
@@ -78,16 +83,17 @@
             </button>
         </div>
         <div class="modal-body">
-            <form>
+            <form (submit)="toggleBlockAnimal()" [formGroup]="formBlockAnimal">
                 <div class="form-floating">
-                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                    <textarea class="form-control" placeholder="Informe o motido do bloqueio" id="floatingTextarea2" formControlName="reason"
+                        style="height: 100px"></textarea>
                     <label for="floatingTextarea2">Motivo</label>
                     Por favor, informe o motivo do bloqueio.
                 </div>
                 <div class="d-flex">
-                <button class="btn btn-default full-width m-2" (click)="decline()">Cancelar</button>
-                <button class="btn btn-danger full-width my-2">Confirmar</button>
-            </div>
+                    <button class="btn btn-default full-width m-2" (click)="decline()">Cancelar</button>
+                    <button class="btn btn-danger full-width my-2" [attr.disabled]="formIsValid ? null : true" (click)="toggleBlockAnimal()">Confirmar</button>
+                </div>
             </form>
         </div>
     </div>
