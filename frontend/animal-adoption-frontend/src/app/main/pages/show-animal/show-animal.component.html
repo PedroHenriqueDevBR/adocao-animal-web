@@ -30,13 +30,20 @@
         </table>
 
         <div *ngIf="adotionRequestCreated; else solicitarAdocao">
-            <div *ngIf="animalShow.adopted == false || animalShow.adopted == undefined; else cancelButtonDisabled">
+            <div *ngIf="(animalShow.adopted == false || animalShow.adopted == undefined) && adotionRequestCreated.is_acepted == undefined; else adoptedAnimal">
                 <button class="btn btn-danger full-width py-2" (click)="cancelAdoption()">Cancelar solicitação</button>
             </div>
+
+            <ng-template #adoptedAnimal>
+                <button *ngIf="adotionRequestCreated.is_acepted == false; else cancelButtonDisabled" class="btn btn-secondary full-width py-2">Solicitação recusada</button>
+            </ng-template>
+
             <ng-template #cancelButtonDisabled>
                 <button class="btn btn-secondary full-width py-2">Animal adotado</button>
             </ng-template>
         </div>
+
+
         <ng-template #solicitarAdocao>
             <div class="d-flex">
                 <button *ngIf="personData != undefined && personData.is_moderator && !animalShow.blocked; else unlockButton"

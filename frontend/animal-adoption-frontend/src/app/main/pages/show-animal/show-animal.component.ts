@@ -6,7 +6,6 @@ import { ToastrService } from 'ngx-toastr';
 import { AdoptionReceivedModel } from 'src/app/shared/models/adoption-received-model';
 import { AnimalModel } from 'src/app/shared/models/animal-model';
 import { PersonModel } from 'src/app/shared/models/person-model';
-import { AccountService } from 'src/app/shared/services/account.service';
 import { AdoptionService } from 'src/app/shared/services/adoption.service';
 import { AnimalService } from 'src/app/shared/services/animal.service';
 import { LocalstorageService } from 'src/app/shared/services/localstorage.service';

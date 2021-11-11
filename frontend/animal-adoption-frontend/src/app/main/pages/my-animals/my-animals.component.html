@@ -2,20 +2,7 @@
     <app-header></app-header>
 
     <div id="animals-for-adoption">
-        <div class="filter-animals card px-2 py-1">
-            <span>Filtrar dados</span>
-            <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasFilter"
-                aria-controls="offcanvasFilter">
-                <span class="material-icons">filter_list</span>
-            </button>
-        </div>
-
         <div class="content container">
-            <aside>
-                <app-animal-filter></app-animal-filter>
-                <app-supporters></app-supporters>
-            </aside>
-
             <section>
                 <div class="card mx-3 mt-4 p-2 data-head">
                     <h5>meus animais</h5>
@@ -23,7 +10,7 @@
                         (click)="animalEditModal(createAnimalModal)">Adicionar</button>
                 </div>
                 <div class="animal-list">
-                    <div class="animal-card row row-cols-1 row-cols-md-2 g-4">
+                    <div class="animal-card row row-cols-1 row-cols-md-3 g-4">
                         <app-edit-animal-card *ngFor="let animal of animals" [animal]="animal"
                             (editAnimal)="animalEditModal(createAnimalModal, animal)"
                             (deleteAnimal)="deleteAnimal(animal)"
@@ -31,17 +18,6 @@
                     </div>
                 </div>
             </section>
-        </div>
-    </div>
-
-    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasFilter" aria-labelledby="offcanvasFilterLabel">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasFilterLabel">Filtrar dados</h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-            <app-animal-filter></app-animal-filter>
-            <app-supporters></app-supporters>
         </div>
     </div>
 </main>

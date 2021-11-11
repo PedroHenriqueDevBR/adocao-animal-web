@@ -208,7 +208,7 @@ export class EditAnimalCardComponent implements OnInit {
   }
 
   showDeleteAdoptButton(adoption: AdoptionReceivedModel) {
-    return this.animal?.adopted == true && adoption.is_acepted != undefined;
+    return adoption.is_acepted != undefined;
   }
 
   verifyStatusError(errors: any) {

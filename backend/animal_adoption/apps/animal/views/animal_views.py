@@ -97,6 +97,7 @@ class AnimalShow(APIView):
     def get(self, request, pk):
         try:
             animal = Animal.objects.get(pk=pk)
+            assert(animal.blocked == False)
         except:
             return Response(status=status.HTTP_404_NOT_FOUND)
         serializer = AnimalSerializer(animal, many=False)
