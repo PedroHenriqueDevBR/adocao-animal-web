@@ -32,7 +32,7 @@
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <app-animal-filter></app-animal-filter>
+            <app-animal-filter (addPropEmiter)="addFilterProp($event)" (removePropEmiter)="removerFilterProp($event)" (searchButton)="applyFilters()"></app-animal-filter>
             <app-supporters></app-supporters>
         </div>
     </div>
