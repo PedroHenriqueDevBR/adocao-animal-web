@@ -38,11 +38,18 @@
             </ng-template>
         </div>
         <ng-template #solicitarAdocao>
-            <button class="btn secondary-color text-light full-width py-2" (click)="requestAdoption()">Solicitar adoção</button>
+            <div class="d-flex">
+                <button *ngIf="personData != undefined && personData.is_moderator"
+                    class="btn btn-danger full-width py-2 m-2"
+                    (click)="openModal(blockAnimalTemplate)">Bloquear anúncio</button>
+                <button class="btn secondary-color text-light full-width py-2 m-2" (click)="requestAdoption()">Solicitar
+                    adoção</button>
+            </div>
         </ng-template>
 
         <div class="images my-4 full-width">
-            <img *ngFor="let photo of animalShow.all_photos" [src]="serverPhoto(photo.photo)" alt="Animal" (click)="showAnimal(photo.photo, showAnimalTemplate)">
+            <img *ngFor="let photo of animalShow.all_photos" [src]="serverPhoto(photo.photo)" alt="Animal"
+                (click)="showAnimal(photo.photo, showAnimalTemplate)">
         </div>
     </section>
 
@@ -58,6 +65,30 @@
         </div>
         <div class="modal-body p-0">
             <img src="{{ selectedPhoto }}" alt="Apresentação" width="100%">
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #blockAnimalTemplate>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 id="create-state-modal" class="modal-title pull-left">Bloquear anúncio</h4>
+            <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="decline()">
+                <span aria-hidden="true" class="visually-hidden">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="form-floating">
+                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                    <label for="floatingTextarea2">Motivo</label>
+                    Por favor, informe o motivo do bloqueio.
+                </div>
+                <div class="d-flex">
+                <button class="btn btn-default full-width m-2" (click)="decline()">Cancelar</button>
+                <button class="btn btn-danger full-width my-2">Confirmar</button>
+            </div>
+            </form>
         </div>
     </div>
 </ng-template>

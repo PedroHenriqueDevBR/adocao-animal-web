@@ -4,6 +4,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { AdoptionReceivedModel } from 'src/app/shared/models/adoption-received-model';
 import { AnimalModel } from 'src/app/shared/models/animal-model';
+import { PersonModel } from 'src/app/shared/models/person-model';
 import { AccountService } from 'src/app/shared/services/account.service';
 import { AdoptionService } from 'src/app/shared/services/adoption.service';
 import { AnimalService } from 'src/app/shared/services/animal.service';
@@ -21,6 +22,7 @@ export class ShowAnimalComponent implements OnInit {
   selectedPhoto: string = '';
   loggedPerson: boolean = false;
   adotionRequestCreated: AdoptionReceivedModel | undefined;
+  personData: PersonModel | undefined;
 
   constructor(
     private route: ActivatedRoute,
@@ -73,6 +75,7 @@ export class ShowAnimalComponent implements OnInit {
   verifyLoggedPerson() {
     if (this.storage.userIsLogged()) {
       this.loggedPerson = true;
+      this.personData = this.storage.getLoggedPersonData();
       this.verifyAdoptionRequestCreated();
     }
   }
@@ -122,6 +125,10 @@ export class ShowAnimalComponent implements OnInit {
 
   serverPhoto(photo: string): string {
     return `/server${photo}`;
+  }
+
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template, { class: 'modal-lg' });
   }
 
   showAnimal(photo: string, template: TemplateRef<any>) {
