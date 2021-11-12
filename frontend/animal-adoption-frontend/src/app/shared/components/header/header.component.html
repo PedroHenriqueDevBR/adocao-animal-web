@@ -1,4 +1,4 @@
-<nav class="navbar primary-color navbar-dark navbar-expand-lg">
+<nav class="navbar primary-color navbar-dark navbar-expand-lg py-3">
 
     <div class="container-fluid">
         <a class="navbar-brand" href="#">
@@ -23,16 +23,14 @@
             </div>
             <div class="offcanvas-body">
                 <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                    <li class="nav-item">
+                    <li class="nav-item" onclick="removeBodyStyle()">
                         <a class="nav-link" [routerLink]="['/app']" [routerLinkActive]="'router-link-active'" [routerLinkActiveOptions]="{exact: true}">Home</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" onclick="removeBodyStyle()">
                         <a class="nav-link" [routerLink]="['/app/meus']" [routerLinkActive]="'router-link-active'">Meus animais</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" [routerLink]="['/account']" >
-                            <img src="{{ profileImage() }}" height="40px" width="40px" alt="Avatar" class="avatar">
-                        </a>
+                    <li class="nav-item" onclick="removeBodyStyle()">
+                        <a class="nav-link" [routerLink]="['/account']">Perfil</a>
                     </li>
                 </ul>
             </div>
