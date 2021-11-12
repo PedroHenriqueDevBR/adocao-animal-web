@@ -1,56 +1,93 @@
 main {
-    
+  @media screen and (min-width: 768px) {
+    margin: 5vh 10vw;
+    height: calc(80vh);
+    display: flex;
+    flex-direction: row;
+  }
+
+  .animal-image {
+    width: 100%;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 
     @media screen and (min-width: 768px) {
-        margin: 5vh 10vw;
-        height: calc(80vh);
+      width: 60%;
+      height: 100%;
+      border-radius: 4px 0 0 4px;
+    }
+
+    .animal-header-info {
+        position: relative;
+        top: 0%;
+        left: 0;
+        width: 100%;
+        height: 50%;
+        background-image: linear-gradient(#00000000, #000000ee);
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 16px;
+        color: #fff;
+    }
+  }
+
+  .animal-data {
+    width: 100%;
+
+    .owner-info {
+      display: flex;
+      justify-content: flex-start;
+
+      .person-avatar {
+        object-fit: cover;
+        width: 75px;
+        height: 75px;
+        border-radius: 50%;
+        margin-right: 16px;
+      }
+
+      .person-data {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
     }
 
-    .animal-image {
-        width: 100%;
-        min-height: 300px;
-
-        @media screen and (min-width: 768px) {
-            width: 60%;
-            height: 100%;
-            border-radius: 4px 0 0 4px;
-        }
-
-        img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-        }
+    .bottom-line {
+        width: 95%;
+        margin: auto;
+        height: 2px;
+        background-color: #FFA500;
+        opacity: 1;
     }
 
-    .animal-data {
-        width: 100%;
-
-        @media screen and (min-width: 768px) {
-            overflow-y: auto;
-        }
-
-        thead {
-            background-color: #37474f;
-            color: #fff;
-        }
-
-        .images {
-            width: 100%;
-            text-align: center;
-
-            img {
-                width: 150px;
-                height: 150px;
-                border-radius: 8px;
-                margin: 8px;
-                background-color: #cfd8dc;
-                object-fit: contain;
-            }
-        }
+    @media screen and (min-width: 768px) {
+      overflow-y: auto;
     }
 
+    thead {
+      background-color: #37474f;
+      color: #fff;
+    }
+
+    .images {
+      width: 100%;
+      text-align: center;
+
+      img {
+        width: 150px;
+        height: 150px;
+        border-radius: 8px;
+        margin: 8px;
+        background-color: #cfd8dc;
+        object-fit: contain;
+      }
+    }
+  }
 }

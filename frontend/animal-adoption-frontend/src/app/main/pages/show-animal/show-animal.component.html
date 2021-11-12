@@ -2,68 +2,75 @@
 
 <main class="card bg-light p-0">
 
-    <aside class="animal-image">
-        <img src="{{animalImage()}}" alt="animal">
+    <aside class="animal-image" style="background-image: url({{animalImage}});">
+        <div class="animal-header-info">
+            <h1>{{ animalShow.name }} <span *ngIf="animalShow.blocked"> - Bloqueado</span> </h1>
+            <p class="m-0">{{ animalShow.type }} - {{ animalShow.breed }} - {{ animalShow.age }} anos <br>
+                {{ animalShow.owner?.contact }} ({{ animalShow.owner?.name}})</p>
+        </div>
     </aside>
 
-    <section class="animal-data p-3">
-        <div class="text-center">
-            <h1>{{ animalShow.name }} <span *ngIf="animalShow.blocked"> - Bloqueado</span> </h1>
-            <p>{{ animalShow.type }} - {{ animalShow.breed }}</p>
-            <p>Idade: {{ animalShow.age }} anos</p>
-        </div>
+    <section class="animal-data">
+        <div class="animal-info  p-3">
 
-        <table class="table table-striped table-hover">
-            <caption>Vacinas aplicadas</caption>
-            <thead>
-                <tr>
-                    <th scope="col">Data do registro</th>
-                    <th scope="col">Nome da vacina</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let vaccine of animalShow.all_vaccines">
-                    <td>{{ vaccine.date | date: 'dd/MM/yyyy' }}</td>
-                    <td>{{ vaccine.vaccine_name }}</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <div *ngIf="adotionRequestCreated; else solicitarAdocao">
-            <div *ngIf="(animalShow.adopted == false || animalShow.adopted == undefined) && adotionRequestCreated.is_acepted == undefined; else adoptedAnimal">
-                <button class="btn btn-danger full-width py-2" (click)="cancelAdoption()">Cancelar solicitação</button>
+            <div class="images my-4 full-width">
+                <img *ngFor="let photo of animalShow.all_photos" [src]="serverPhoto(photo.photo)" alt="Animal"
+                    (click)="showAnimal(photo.photo, showAnimalTemplate)">
             </div>
 
-            <ng-template #adoptedAnimal>
-                <button *ngIf="adotionRequestCreated.is_acepted == false; else cancelButtonDisabled" class="btn btn-secondary full-width py-2">Solicitação recusada</button>
-            </ng-template>
+            <table class="table table-striped table-hover">
+                <caption>Vacinas aplicadas</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Data do registro</th>
+                        <th scope="col">Nome da vacina</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let vaccine of animalShow.all_vaccines">
+                        <td>{{ vaccine.date | date: 'dd/MM/yyyy' }}</td>
+                        <td>{{ vaccine.vaccine_name }}</td>
+                    </tr>
+                </tbody>
+            </table>
 
-            <ng-template #cancelButtonDisabled>
-                <button class="btn btn-secondary full-width py-2">Animal adotado</button>
-            </ng-template>
-        </div>
+            <div *ngIf="adotionRequestCreated; else solicitarAdocao">
+                <div
+                    *ngIf="(animalShow.adopted == false || animalShow.adopted == undefined) && adotionRequestCreated.is_acepted == undefined; else adoptedAnimal">
+                    <button class="btn btn-danger full-width py-2" (click)="cancelAdoption()">Cancelar
+                        solicitação</button>
+                </div>
 
+                <ng-template #adoptedAnimal>
+                    <button *ngIf="adotionRequestCreated.is_acepted == false; else cancelButtonDisabled"
+                        class="btn btn-secondary full-width py-2">Solicitação recusada</button>
+                </ng-template>
 
-        <ng-template #solicitarAdocao>
-            <div class="d-flex">
-                <button *ngIf="personData != undefined && personData.is_moderator && !animalShow.blocked; else unlockButton"
-                    class="btn btn-danger full-width py-2 m-2" (click)="openModal(blockAnimalTemplate)">Bloquear
-                    anúncio</button>
-                <button class="btn secondary-color text-light full-width py-2 m-2" (click)="requestAdoption()">Solicitar
-                    adoção</button>
+                <ng-template #cancelButtonDisabled>
+                    <button class="btn btn-secondary full-width py-2">Animal adotado</button>
+                </ng-template>
             </div>
-        </ng-template>
 
-        <ng-template #unlockButton>
-            <button *ngIf="personData != undefined && personData.is_moderator"
+
+            <ng-template #solicitarAdocao>
+                <div class="d-flex">
+                    <button
+                        *ngIf="personData != undefined && personData.is_moderator && !animalShow.blocked; else unlockButton"
+                        class="btn btn-danger full-width py-2 m-2" (click)="openModal(blockAnimalTemplate)">Bloquear
+                        anúncio</button>
+                    <button class="btn secondary-color text-light full-width py-2 m-2"
+                        (click)="requestAdoption()">Solicitar
+                        adoção</button>
+                </div>
+            </ng-template>
+
+            <ng-template #unlockButton>
+                <button *ngIf="personData != undefined && personData.is_moderator"
                     class="btn btn-success full-width py-2 m-2" (click)="toggleBlockAnimal()">Desbloquear
                     anúncio</button>
-        </ng-template>
-
-        <div class="images my-4 full-width">
-            <img *ngFor="let photo of animalShow.all_photos" [src]="serverPhoto(photo.photo)" alt="Animal"
-                (click)="showAnimal(photo.photo, showAnimalTemplate)">
+            </ng-template>
         </div>
+
     </section>
 </main>
 
@@ -92,14 +99,15 @@
         <div class="modal-body">
             <form (submit)="toggleBlockAnimal()" [formGroup]="formBlockAnimal">
                 <div class="form-floating">
-                    <textarea class="form-control" placeholder="Informe o motido do bloqueio" id="floatingTextarea2" formControlName="reason"
-                        style="height: 100px"></textarea>
+                    <textarea class="form-control" placeholder="Informe o motido do bloqueio" id="floatingTextarea2"
+                        formControlName="reason" style="height: 100px"></textarea>
                     <label for="floatingTextarea2">Motivo</label>
                     Por favor, informe o motivo do bloqueio.
                 </div>
                 <div class="d-flex">
                     <button class="btn btn-default full-width m-2" (click)="decline()">Cancelar</button>
-                    <button class="btn btn-danger full-width my-2" [attr.disabled]="formIsValid ? null : true" (click)="toggleBlockAnimal()">Confirmar</button>
+                    <button class="btn btn-danger full-width my-2" [attr.disabled]="formIsValid ? null : true"
+                        (click)="toggleBlockAnimal()">Confirmar</button>
                 </div>
             </form>
         </div>

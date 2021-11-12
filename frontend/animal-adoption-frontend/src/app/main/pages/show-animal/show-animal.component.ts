@@ -52,6 +52,14 @@ export class ShowAnimalComponent implements OnInit {
     }
   }
 
+  ownerImage(): string {
+    const image = this.animalShow.owner?.image;
+    if (image != undefined) {
+      return `/server${image}`;
+    }
+    return '/assets/images/person.png';
+  }
+
   createFormBlockAnimal(): FormGroup {
     return new FormGroup({
       reason: new FormControl('', [Validators.required]),
@@ -72,7 +80,7 @@ export class ShowAnimalComponent implements OnInit {
     );
   }
 
-  animalImage(): string {
+  get animalImage(): string {
     if (this.animalShow!.all_photos.length == 0) {
       if (this.animalShow?.type == 'Cachorro') {
         return '/assets/images/adopt-dog.png';
@@ -97,7 +105,6 @@ export class ShowAnimalComponent implements OnInit {
     this.adoptionService.loggedPersonAdoptionsCreated().subscribe(
       (data: AdoptionReceivedModel[]) => {
        for (const adoptionRequest of data)  {
-         console.log(`${adoptionRequest.animal} == ${this.animalShow.id}`);
          if (adoptionRequest.animal == this.animalShow.id) {
            this.adotionRequestCreated = adoptionRequest;
            break;
