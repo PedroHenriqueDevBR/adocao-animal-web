@@ -1,10 +1,10 @@
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import serializers, status
 from rest_framework.views import APIView
 from apps.animal.permissions.is_moderator_permission import IsModeratorPermission
 from apps.animal.validators.animal_validator import animal_is_valid_or_errors
 from apps.animal.validators.block_validator import block_reason_is_valid_or_errors, unlock_reason_is_valid_or_errors
-from apps.core.models import Animal, AnimalType, BlockedReason
+from apps.core.models import Animal, AnimalType, BlockedReason, Person
 from rest_framework.permissions import IsAuthenticated
 from apps.animal.serializers.animal_serializers import (
     AnimalSerializer,
@@ -204,3 +204,18 @@ class UnlockAnimal(APIView):
             blocks.delete()
             animal.save()
         return Response(status=status.HTTP_200_OK)
+
+
+class AnimalsFromOwner(APIView):
+    name = 'animal_from_owner'
+
+    def get(self, request, owner_name):
+        try:
+            results = Person.objects.filter(user__username=owner_name)
+            assert(len(results) > 0)
+            owner = results[0]
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        animals = owner.animals.filter(blocked=False)
+        serializer = AnimalSerializer(animals, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
