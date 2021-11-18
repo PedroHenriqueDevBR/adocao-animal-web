@@ -169,7 +169,10 @@ npm run start
    - [X] Aninal bloqueado por moderador
    - [X] Animal desbloqueado pelo dono (se não houver bloqueio de moderador registrado)
    - [X] Animal desbloqueado por moderador
-- [ ] Sprint 04 (Patrocinadores)
-   - [ ] registrar patrocinado
-   - [ ] Listar patrocinadores na home page
 
+<h2>:heavy_check_mark: Futuro</h2>
+
+- [ ] Apresentar todos os animais de um dono específico
+- [ ] registrar patrocinador
+- [ ] Listar patrocinadores na home page
+- [ ] Criar uma página para gerenciamento de anúncios (para patrocinadores)
