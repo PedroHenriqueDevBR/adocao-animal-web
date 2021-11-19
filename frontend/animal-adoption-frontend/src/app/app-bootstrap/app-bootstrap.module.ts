@@ -26,6 +26,7 @@ import { HeaderComponent } from '../shared/components/header/header.component';
     ToastrModule,
     HeaderComponent,
     RouterModule,
+    TypeaheadModule,
   ]
 })
 

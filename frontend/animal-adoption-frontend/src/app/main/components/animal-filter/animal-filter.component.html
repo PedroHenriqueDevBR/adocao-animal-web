@@ -1,11 +1,18 @@
 <div class="filter-animals-aside card border-0">
     <form>
+        <div class="mb-3">
+            <label class="form-label">Selecione a cidade</label>
+            <input [(ngModel)]="selected" [typeahead]="citiesStr" class="form-control full-width"
+                placeholder="Nome da cidade" onfocusout="this.value=''" [ngModelOptions]="{standalone: false}">
+            <pre *ngIf="selected" class="card card-block card-header mb-3">Selecionado: {{selected || 'Todas'}}</pre>
+        </div>
         <p class="text-muted"><b>Tipo de animal</b></p>
         <div>
             <input type="radio" name="animal_type" id="animal_type_0" value="0" checked (click)="selectType()">
             <label for="animal_type_0">Todos</label><br>
             <div *ngFor="let type of types">
-                <input type="radio" name="animal_type" id="{{type.id}}" value="{{ type.id }}" (click)="selectType(type)">
+                <input type="radio" name="animal_type" id="{{type.id}}" value="{{ type.id }}"
+                    (click)="selectType(type)">
                 <label for="{{ type.id }}">{{ type.name }}</label><br>
             </div>
         </div>

@@ -1,7 +1,9 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { AnimalTypeModel } from 'src/app/shared/models/animal-type-model';
+import { CityModel } from 'src/app/shared/models/city-model';
 import { AnimalService } from 'src/app/shared/services/animal.service';
+import { LocationService } from 'src/app/shared/services/location.service';
 
 @Component({
   selector: 'app-animal-filter',
@@ -18,13 +20,31 @@ export class AnimalFilterComponent implements OnInit {
   @Output() removePropEmiter = new EventEmitter();
   @Output() searchButton = new EventEmitter();
 
+  selected?: string;
+  cities: CityModel[] = [];
+
+  get citiesStr(): String[] {
+    return this.cities.map(value => value.name);
+  }
+
   constructor(
     private animalService: AnimalService,
+    private locationService: LocationService,
     private toast: ToastrService,
   ) { }
 
   ngOnInit(): void {
     this.getTypes();
+    this.getCities();
+  }
+
+  selectLocation() {
+    let responses = this.cities.filter(e => e.name == this.selected!);
+    let city = undefined;
+    if (responses.length > 0) {
+      city = responses[0];
+      this.addPropEmiter.emit({key: 'city', value: city.id});
+    }
   }
 
   selectType(typeModel?: AnimalTypeModel) {
@@ -46,7 +66,15 @@ export class AnimalFilterComponent implements OnInit {
   }
 
   search() {
+    this.selectLocation();
     this.searchButton.emit(true);
+  }
+
+  getCities() {
+    this.locationService.getCities().subscribe(
+      (data: CityModel[]) => this.cities = data,
+      error => this.verifyStatusError(error),
+    );
   }
 
   getTypes() {

@@ -17,6 +17,10 @@ export class LocationService {
     return this.http.get<StateModel[]>(`${this.BASE_URL}/location/`);
   }
 
+  public getCities(): Observable<CityModel[]> {
+    return this.http.get<CityModel[]>(`${this.BASE_URL}/location/cities`);
+  }
+
   public createState(state: StateModel): Observable<StateModel> {
     return this.http.post<StateModel>(
       `${this.BASE_URL}/location/state`,

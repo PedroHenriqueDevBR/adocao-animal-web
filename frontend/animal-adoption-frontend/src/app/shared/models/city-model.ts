@@ -3,7 +3,7 @@ import { AnimalModel } from "./animal-model";
 export class CityModel {
     id?: number;
     name: string = '';
-    state: number = 0;
+    state: any = 0;
     animals: AnimalModel[] = [];
 
     toCreate() {
