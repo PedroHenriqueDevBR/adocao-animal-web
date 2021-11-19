@@ -24,6 +24,15 @@ class LocationList(APIView):
         return Response(state_serializer.data, status=status.HTTP_200_OK)
 
 
+class CityList(APIView):
+    name = "city_list"
+
+    def get(self, request):
+        cities = City.objects.all()
+        city_serializer = CitySerializer(cities, many=True)
+        return Response(city_serializer.data, status=status.HTTP_200_OK)
+
+
 # Create a new State
 class StateCreate(APIView):
     name = "state_create"

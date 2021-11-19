@@ -4,7 +4,7 @@ from rest_framework.views import APIView
 from apps.animal.permissions.is_moderator_permission import IsModeratorPermission
 from apps.animal.validators.animal_validator import animal_is_valid_or_errors
 from apps.animal.validators.block_validator import block_reason_is_valid_or_errors, unlock_reason_is_valid_or_errors
-from apps.core.models import Animal, AnimalType, BlockedReason, Person
+from apps.core.models import Animal, AnimalType, BlockedReason, City, Person
 from rest_framework.permissions import IsAuthenticated
 from apps.animal.serializers.animal_serializers import (
     AnimalSerializer,
@@ -55,6 +55,12 @@ class AnimalListFilter(APIView):
             try:
                 type = AnimalType.objects.get(id=data['type'])
                 animalsSearchResponse = animalsSearchResponse.filter(type=type)
+            except:
+                return Response(status=status.HTTP_404_NOT_FOUND)
+        if 'city' in data and data['city'] != '':
+            try:
+                city = City.objects.get(id=data['city'])
+                animalsSearchResponse = animalsSearchResponse.filter(owner__city=city)
             except:
                 return Response(status=status.HTTP_404_NOT_FOUND)
         if 'sex' in data:
