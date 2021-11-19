@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AnimalModel } from 'src/app/shared/models/animal-model';
 
 @Component({
@@ -10,6 +10,7 @@ export class AnimalCardComponent implements OnInit {
 
   @Input() animal: AnimalModel | undefined;
   @Input() showButton: boolean = false;
+  @Output() ownerEmitter = new EventEmitter();
 
   constructor() { }
 
@@ -35,5 +36,9 @@ export class AnimalCardComponent implements OnInit {
 
   showAnimalString(): string {
     return `/app/detalhes/${this.animal!.id}`;
+  }
+
+  selectOwner(): void {
+    this.ownerEmitter.emit(this.animal?.owner.username);
   }
 }

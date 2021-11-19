@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ToastrModule } from 'ngx-toastr';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { HeaderComponent } from '../shared/components/header/header.component';
 
 @NgModule({
@@ -14,6 +15,7 @@ import { HeaderComponent } from '../shared/components/header/header.component';
     CommonModule,
     RouterModule,
     ModalModule.forRoot(),
+    TypeaheadModule.forRoot(),
     ToastrModule.forRoot({
       closeButton: true,
       progressBar: true,

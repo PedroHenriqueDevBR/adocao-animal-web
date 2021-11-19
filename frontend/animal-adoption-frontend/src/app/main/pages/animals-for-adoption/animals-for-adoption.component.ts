@@ -39,6 +39,15 @@ export class AnimalsForAdoptionComponent implements OnInit {
     );
   }
 
+  getAnimalsFromOwner(ownerName: String): void {
+    this.animalService.getAnimalsFromOwner(ownerName).subscribe(
+      (data: AnimalModel[]) => {
+        this.animals = data;
+      },
+      (error) => this.verifyStatusError(error)
+    );
+  }
+
   verifyStatusError(errors: any) {
     if (errors.status >= 500) {
       this.toast.error('Servidor indisponível');

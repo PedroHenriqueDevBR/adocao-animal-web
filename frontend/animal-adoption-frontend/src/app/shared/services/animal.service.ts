@@ -32,6 +32,10 @@ export class AnimalService {
     );
   }
 
+  public getAnimalsFromOwner(ownerName: String): Observable<AnimalModel[]> {
+    return this.http.get<AnimalModel[]>(`${this.BASE_URL}/animal/owner/${ownerName}`);
+  }
+
   public getAimalsFromMyLocation(): Observable<AnimalModel[]> {
     return this.http.get<AnimalModel[]>(`${this.BASE_URL}/animal/location/`, {
       headers: this.storage.getHeader(),

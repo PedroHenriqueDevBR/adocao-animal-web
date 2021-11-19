@@ -1,20 +1,22 @@
 <div class="card">
-    <div class="card-header">
+    <div class="card-header" [routerLink]="['/app/detalhes/' + animal!.id]">
         <div class="avatar">
             <img [src]="profileImage()" class="avatar-image">
             <p class="owner-name">{{animal!.owner.name}}</p>
         </div>
     </div>
-    <img [src]="animalImage()" class="card-img-top" alt="{{ animal!.name }}">
-    <div class="card-body">
-        <h5 class="card-title">{{ animal!.name }}</h5>
-        <p class="card-text">
-            <b>Tipo</b>: {{ animal!.type }}<br>
-            <b>Raça</b>: {{ animal!.breed }}<br>
-            <span class="text-muted">Registrado em {{ animal!.create_at | date: 'dd/MM/yyyy' }}</span><br>
-        </p>
-    </div>
-    <div *ngIf="showButton == true" class="card-footer p-0">
-        <button class="btn secondary-color full-width text-light" [routerLink]="showAnimalString()" >Abrir</button>
+    <div [routerLink]="['/app/detalhes/' + animal!.id]">
+        <img [src]="animalImage()" class="card-img-top" alt="{{ animal!.name }}">
+        <div class="card-body">
+            <h5 class="card-title">{{ animal!.name }}</h5>
+            <p class="card-text">
+                <b>Tipo</b>: {{ animal!.type }}<br>
+                <b>Raça</b>: {{ animal!.breed }}<br>
+                <span class="text-muted">Registrado em {{ animal!.create_at | date: 'dd/MM/yyyy' }}</span><br>
+            </p>
+        </div>
+        <div *ngIf="showButton == true" class="card-footer p-0">
+            <button class="btn secondary-color full-width text-light" [routerLink]="showAnimalString()" >Abrir</button>
+        </div>
     </div>
 </div>
