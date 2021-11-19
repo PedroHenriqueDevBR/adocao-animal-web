@@ -27,7 +27,7 @@
             <label for="animal_sex_2">Fêmea</label><br>
         </div>
     </form>
-    <button type="button" class="btn secondary-color text-light mt-3 full-width" (click)="search()">Filtrar</button>
+    <button type="button" class="btn secondary-color text-light mt-3 full-width" (click)="search()" data-bs-dismiss="offcanvas" aria-label="Close">Filtrar</button>
     <button class="btn my-city-animals-card btn-light" [routerLink]="['/app/mapa']">
         <b>Ver mapa</b>
         <span class="material-icons">

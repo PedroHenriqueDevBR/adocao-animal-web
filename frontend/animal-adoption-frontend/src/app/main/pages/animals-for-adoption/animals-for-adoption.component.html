@@ -13,7 +13,6 @@
         <div class="content container">
             <aside>
                 <app-animal-filter (addPropEmiter)="addFilterProp($event)" (removePropEmiter)="removerFilterProp($event)" (searchButton)="applyFilters()"></app-animal-filter>
-                <app-supporters></app-supporters>
             </aside>
     
             <section>
@@ -37,7 +36,6 @@
         </div>
         <div class="offcanvas-body">
             <app-animal-filter (addPropEmiter)="addFilterProp($event)" (removePropEmiter)="removerFilterProp($event)" (searchButton)="applyFilters()"></app-animal-filter>
-            <app-supporters></app-supporters>
         </div>
     </div>
 </main>
