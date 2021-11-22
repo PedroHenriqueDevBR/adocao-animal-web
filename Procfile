@@ -1,0 +1,1 @@
+web: gunicorn backend/animal_adoption/animal_adoption.wsgi
