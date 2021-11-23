@@ -4,13 +4,14 @@ import { PersonModel } from '../models/person-model';
 import { Observable } from 'rxjs';
 import { JWTResponseModel } from './models/jwt-response-model';
 import { LocalstorageService } from './localstorage.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountService {
 
-  private BASE_URL: string = '/server';
+  private BASE_URL: string = `${environment.API}`;
 
   constructor(
     private http: HttpClient,

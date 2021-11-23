@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { AnimalModel } from '../models/animal-model';
 import { AnimalTypeModel } from '../models/animal-type-model';
 import { PhotoModel } from '../models/photo-model';
@@ -11,7 +12,7 @@ import { LocalstorageService } from './localstorage.service';
   providedIn: 'root',
 })
 export class AnimalService {
-  private BASE_URL: string = '/server';
+  private BASE_URL: string = `${environment.API}`;
 
   constructor(private http: HttpClient, private storage: LocalstorageService) {}
 

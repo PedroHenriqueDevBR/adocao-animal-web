@@ -8,6 +8,7 @@ import { StateModel } from 'src/app/shared/models/state-model';
 import { AccountService } from 'src/app/shared/services/account.service';
 import { LocalstorageService } from 'src/app/shared/services/localstorage.service';
 import { LocationService } from 'src/app/shared/services/location.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   templateUrl: './profile-page.component.html',
@@ -142,7 +143,7 @@ export class ProfilePageComponent implements OnInit {
     if (this.person.image == null || this.person.image == '') {
       return '/assets/images/avatar.png';
     }
-    return `/server${this.person.image}`;
+    return `${environment.API}${this.person.image}`;
   }
 
   openModal(template: TemplateRef<any>): void {

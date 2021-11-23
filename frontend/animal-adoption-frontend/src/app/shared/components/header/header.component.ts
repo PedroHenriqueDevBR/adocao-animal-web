@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
 import { LocalstorageService } from '../../services/localstorage.service';
 
 @Component({
@@ -18,7 +19,7 @@ export class HeaderComponent implements OnInit {
   profileImage(): string {
     const loggedPersonData = this.storage.getLoggedPersonData();
     if ('image' in loggedPersonData && loggedPersonData['image'] != undefined) {
-      return `/server${loggedPersonData['image']}`;
+      return `${environment.API}${loggedPersonData['image']}`;
     }
     return '/assets/images/person.png';
   }

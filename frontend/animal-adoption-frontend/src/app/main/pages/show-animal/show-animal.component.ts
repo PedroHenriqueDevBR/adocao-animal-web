@@ -9,6 +9,7 @@ import { PersonModel } from 'src/app/shared/models/person-model';
 import { AdoptionService } from 'src/app/shared/services/adoption.service';
 import { AnimalService } from 'src/app/shared/services/animal.service';
 import { LocalstorageService } from 'src/app/shared/services/localstorage.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   templateUrl: './show-animal.component.html',
@@ -55,7 +56,7 @@ export class ShowAnimalComponent implements OnInit {
   ownerImage(): string {
     const image = this.animalShow.owner?.image;
     if (image != undefined) {
-      return `/server${image}`;
+      return `${environment.API}${image}`;
     }
     return '/assets/images/person.png';
   }
@@ -90,7 +91,7 @@ export class ShowAnimalComponent implements OnInit {
         return '/assets/images/cat-dog.png';
       }
     }
-    return '/server' + this.animalShow!.all_photos[0].photo;
+    return `${environment.API}` + this.animalShow!.all_photos[0].photo;
   }
 
   verifyLoggedPerson() {
@@ -144,7 +145,7 @@ export class ShowAnimalComponent implements OnInit {
   }
 
   serverPhoto(photo: string): string {
-    return `/server${photo}`;
+    return `${environment.API}${photo}`;
   }
 
   openModal(template: TemplateRef<any>) {

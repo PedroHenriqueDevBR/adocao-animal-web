@@ -7,6 +7,7 @@ import { PhotoModel } from 'src/app/shared/models/photo-model';
 import { VaccineModel } from 'src/app/shared/models/vaccine-model';
 import { AdoptionService } from 'src/app/shared/services/adoption.service';
 import { AnimalService } from 'src/app/shared/services/animal.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-edit-animal-card',
@@ -49,7 +50,7 @@ export class EditAnimalCardComponent implements OnInit {
     if (this.animal?.owner.image == null) {
       return '/assets/images/avatar.png';
     }
-    return '/server' + this.animal?.owner.image;
+    return `${environment.API}` + this.animal?.owner.image;
   }
 
   getAdoptionRequests() {
@@ -62,7 +63,7 @@ export class EditAnimalCardComponent implements OnInit {
   }
 
   formatImage(image: string): string {
-    return '/server' + image; 
+    return `${environment.API}` + image; 
   }
 
   animalImage(): string {
@@ -73,7 +74,7 @@ export class EditAnimalCardComponent implements OnInit {
         return '/assets/images/adopt-cat.png';
       }
     }
-    return '/server' + this.animal!.all_photos[0].photo;
+    return `${environment.API}` + this.animal!.all_photos[0].photo;
   }
 
   get imageIsValid(): boolean {

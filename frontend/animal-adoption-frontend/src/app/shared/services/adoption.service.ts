@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { AdoptionReceivedModel } from '../models/adoption-received-model';
 import { AnimalModel } from '../models/animal-model';
 import { LocalstorageService } from './localstorage.service';
@@ -9,7 +10,7 @@ import { LocalstorageService } from './localstorage.service';
   providedIn: 'root',
 })
 export class AdoptionService {
-  private BASE_URL: string = '/server';
+  private BASE_URL: string = `${environment.API}`;
 
   constructor(private http: HttpClient, private storage: LocalstorageService) {}
 
