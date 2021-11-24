@@ -1,11 +1,11 @@
 <div class="card">
-    <div class="card-header" [routerLink]="['/app/detalhes/' + animal!.id]">
+    <div class="card-header">
         <div class="avatar">
             <img [src]="profileImage()" class="avatar-image">
             <p class="owner-name">{{animal!.owner.name}}</p>
         </div>
     </div>
-    <div [routerLink]="['/app/detalhes/' + animal!.id]">
+    <div>
         <img [src]="animalImage()" class="card-img-top" alt="{{ animal!.name }}">
         <div class="card-body">
             <h5 class="card-title">{{ animal!.name }}</h5>

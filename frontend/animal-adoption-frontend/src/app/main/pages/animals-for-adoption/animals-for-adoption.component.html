@@ -21,6 +21,7 @@
                         <app-animal-card 
                         *ngFor="let animal of animals" 
                         [animal]="animal" 
+                        [routerLink]="['/app/detalhes/' + animal.id]"
                         (ownerEmitter)="getAnimalsFromOwner($event)"
                         ></app-animal-card>
                     </div>
