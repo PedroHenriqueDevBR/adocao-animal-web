@@ -1,11 +1,11 @@
 from rest_framework.response import Response
-from rest_framework import serializers, status
+from rest_framework import status
 from rest_framework.views import APIView
-from apps.animal.permissions.is_moderator_permission import IsModeratorPermission
 from apps.animal.validators.animal_validator import animal_is_valid_or_errors
 from apps.animal.validators.block_validator import block_reason_is_valid_or_errors, unlock_reason_is_valid_or_errors
 from apps.core.models import Animal, AnimalType, BlockedReason, City, Person
 from rest_framework.permissions import IsAuthenticated
+from django.contrib.auth.models import User
 from apps.animal.serializers.animal_serializers import (
     AnimalSerializer,
     CreateAnimalSerializer,
@@ -215,13 +215,12 @@ class UnlockAnimal(APIView):
 class AnimalsFromOwner(APIView):
     name = 'animal_from_owner'
 
-    def get(self, request, owner_name):
+    def get(self, request, pk):
         try:
-            results = Person.objects.filter(user__username=owner_name)
-            assert(len(results) > 0)
-            owner = results[0]
+            user = User.objects.get(pk=pk)
+            import pdb; pdb.set_trace()
         except:
             return Response(status=status.HTTP_404_NOT_FOUND)
-        animals = owner.animals.filter(blocked=False)
+        animals = user.person.animals.filter(blocked=False)
         serializer = AnimalSerializer(animals, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)

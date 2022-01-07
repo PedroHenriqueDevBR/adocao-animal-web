@@ -11,7 +11,7 @@ urlpatterns = [
     path("", AnimalListForAdoption.as_view(), name=AnimalListForAdoption.name),
     path("location/", AnimalLocationList.as_view(), name=AnimalLocationList.name),
     path("filter/", AnimalListFilter.as_view(), name=AnimalListFilter.name),
-    path("owner/<str:owner_name>", AnimalsFromOwner.as_view(), name=AnimalsFromOwner.name),
+    path("owner/<int:pk>", AnimalsFromOwner.as_view(), name=AnimalsFromOwner.name),
     # IsAuthenticated
     path("<int:pk>", AnimalShow.as_view(), name=AnimalShow.name),
     path("my", AnimalListAndCreate.as_view(), name=AnimalListAndCreate.name),
