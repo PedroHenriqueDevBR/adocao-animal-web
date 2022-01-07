@@ -38,6 +38,7 @@ class Person(models.Model):
     latitude = models.CharField(max_length=250, default="")
     longitude = models.CharField(max_length=250, default="")
     is_moderator = models.BooleanField(default=False)
+    is_sponsor = models.BooleanField(default=False)
     city = models.ForeignKey(City, on_delete=models.CASCADE, related_name="residents")
     user = models.OneToOneField(User, related_name="person", on_delete=models.CASCADE)
 
