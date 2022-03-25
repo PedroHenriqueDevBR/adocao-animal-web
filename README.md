@@ -1,7 +1,7 @@
 <h1 align="center">:dog: Adoção de animais :cat:</h1>
 
 <p align="center">
-Este projeto está sendo desenvolvido para a disciplina de projeto integrador, ministrada por Ely da Silva Miranda no Instituto Federal do Piauí (Campus Central).
+Este projeto está sendo desenvolvido para a disciplina de projeto integrador, ministrada no Instituto Federal do Piauí (Campus Central).
 </p>
 
 <p align="center">
