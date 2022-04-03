@@ -27,9 +27,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # 3 Party
+    # 3rt Apps
     "rest_framework",
-    "rest_framework_swagger",
+    "drf_yasg",
     # My Apps
     "apps.core",
     "apps.account",
