@@ -31,6 +31,8 @@ class AnimalSerializer(ModelSerializer):
 
 # TODO: need test
 class CreateAnimalSerializer(ModelSerializer):
+    type = SlugRelatedField(many=False, read_only=True, slug_field="name")
+
     class Meta:
         model = Animal
         fields = [
