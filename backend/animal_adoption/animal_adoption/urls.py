@@ -22,8 +22,6 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
-    path('jet/', include('jet.urls', 'jet')),
-    path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),
     path("admin/", admin.site.urls),
     path("user/", include("apps.account.urls")),
     path("location/", include("apps.location.urls")),
