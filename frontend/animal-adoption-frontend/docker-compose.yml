@@ -1,12 +1,9 @@
-version: '3.8'
+version: "3"
+
 services:
-  app:
-    container_name: frontendapp
-    build: .
+  client:
+    image: nginx
+    ports:
+      - 8000:80
     volumes:
-      - '.:/app'
-    ports:
-      - '4200:4200'
-    command: npm run start
-    ports:
-      - "80:4200"
+      - ./dist/animal-adoption-frontend:/usr/share/nginx/html
