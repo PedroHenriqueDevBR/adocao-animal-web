@@ -5,8 +5,7 @@ services:
     build: .
     volumes:
       - '.:/app'
-    ports:
-      - '4200:4200'
+      - './dist:/app/dist'
     command: npm run start
     ports:
       - "80:4200"
