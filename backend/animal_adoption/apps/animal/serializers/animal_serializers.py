@@ -6,7 +6,7 @@ from rest_framework.serializers import ModelSerializer, SlugRelatedField
 
 # TODO: need test
 class AnimalSerializer(ModelSerializer):
-    type = SlugRelatedField(many=False, read_only=True, slug_field="name")
+    animal_type = SlugRelatedField(many=False, read_only=True, slug_field="name")
     owner = UserSerializer(many=False, read_only=True)
     all_vaccines = VaccineSerializer(many=True, read_only=True)
     all_photos = PhotoSerializer(many=True, read_only=True)
@@ -23,7 +23,7 @@ class AnimalSerializer(ModelSerializer):
             "blocked",
             "create_at",
             "owner",
-            "type",
+            "animal_type",
             "all_photos",
             "all_vaccines",
         ]
@@ -31,8 +31,6 @@ class AnimalSerializer(ModelSerializer):
 
 # TODO: need test
 class CreateAnimalSerializer(ModelSerializer):
-    type = SlugRelatedField(many=False, read_only=True, slug_field="name")
-
     class Meta:
         model = Animal
         fields = [
@@ -42,5 +40,5 @@ class CreateAnimalSerializer(ModelSerializer):
             "age",
             "sex",
             "owner",
-            "type",
+            "animal_type",
         ]

@@ -1,8 +1,12 @@
+from distutils.log import error
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
 from apps.animal.validators.animal_validator import animal_is_valid_or_errors
-from apps.animal.validators.block_validator import block_reason_is_valid_or_errors, unlock_reason_is_valid_or_errors
+from apps.animal.validators.block_validator import (
+    block_reason_is_valid_or_errors,
+    unlock_reason_is_valid_or_errors,
+)
 from apps.core.models import Animal, AnimalType, BlockedReason, City, Person
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.models import User
@@ -29,16 +33,15 @@ class AnimalLocationList(APIView):
     # List all animals with adoption enable in logget person region
     def get(self, request):
         logged_person = request.user.person
-        animals = Animal.objects.filter(
-            blocked=False,
-            adopted=False,
-            owner__city=logged_person.city
-        ).exclude(
-            owner__latitude='', 
-            owner__longitude='',
-        ).exclude(
-            owner__latitude='0',
-            owner__longitude='0'
+        animals = (
+            Animal.objects.filter(
+                blocked=False, adopted=False, owner__city=logged_person.city
+            )
+            .exclude(
+                owner__latitude="",
+                owner__longitude="",
+            )
+            .exclude(owner__latitude="0", owner__longitude="0")
         )
         serializer = AnimalSerializer(animals, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -51,20 +54,20 @@ class AnimalListFilter(APIView):
     def patch(self, request):
         data = request.data
         animalsSearchResponse = Animal.objects.filter(blocked=False, adopted=False)
-        if 'type' in data:
+        if "type" in data:
             try:
-                type = AnimalType.objects.get(id=data['type'])
-                animalsSearchResponse = animalsSearchResponse.filter(type=type)
+                type = AnimalType.objects.get(id=data["type"])
+                animalsSearchResponse = animalsSearchResponse.filter(animal_type=type)
             except:
                 return Response(status=status.HTTP_404_NOT_FOUND)
-        if 'city' in data and data['city'] != '':
+        if "city" in data and data["city"] != "":
             try:
-                city = City.objects.get(id=data['city'])
+                city = City.objects.get(id=data["city"])
                 animalsSearchResponse = animalsSearchResponse.filter(owner__city=city)
             except:
                 return Response(status=status.HTTP_404_NOT_FOUND)
-        if 'sex' in data:
-            animalsSearchResponse = animalsSearchResponse.filter(sex=data['sex'])
+        if "sex" in data:
+            animalsSearchResponse = animalsSearchResponse.filter(sex=data["sex"])
         serializer = AnimalSerializer(animalsSearchResponse, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -84,11 +87,15 @@ class AnimalListAndCreate(APIView):
     def post(self, request):
         data = request.data
         errors = animal_is_valid_or_errors(data)
+        print("*" * 50)
+        print("erros:" + str(len(errors)))
         if len(errors) > 0:
             return Response({"errors": errors}, status=status.HTTP_406_NOT_ACCEPTABLE)
         data["owner"] = request.user.person.pk
         creator_serializer = CreateAnimalSerializer(data=data)
         if creator_serializer.is_valid():
+            print("*" * 50)
+            print("Creator serializer is valid")
             creator_serializer.save()
             return Response(creator_serializer.data, status=status.HTTP_202_ACCEPTED)
         return Response(
@@ -103,7 +110,7 @@ class AnimalShow(APIView):
     def get(self, request, pk):
         try:
             animal = Animal.objects.get(pk=pk)
-            assert(animal.blocked == False)
+            assert animal.blocked == False
         except:
             return Response(status=status.HTTP_404_NOT_FOUND)
         serializer = AnimalSerializer(animal, many=False)
@@ -170,9 +177,11 @@ class BlockAnimal(APIView):
             return Response(status=status.HTTP_404_NOT_FOUND)
 
         if animal.blocked == True:
-            errors = ['Animal já encontra-se bloqueado']
+            errors = ["Animal já encontra-se bloqueado"]
             if len(errors) > 0:
-                return Response({"errors": errors}, status=status.HTTP_406_NOT_ACCEPTABLE)
+                return Response(
+                    {"errors": errors}, status=status.HTTP_406_NOT_ACCEPTABLE
+                )
 
         if animal.owner == person:
             animal.blocked = True
@@ -180,10 +189,13 @@ class BlockAnimal(APIView):
         elif person.is_moderator:
             errors = block_reason_is_valid_or_errors(data)
             if len(errors) > 0:
-                return Response({"errors": errors}, status=status.HTTP_406_NOT_ACCEPTABLE)
-            reason = data['reason']
+                return Response(
+                    {"errors": errors}, status=status.HTTP_406_NOT_ACCEPTABLE
+                )
+            reason = data["reason"]
             animal.block(person, reason)
         return Response(status=status.HTTP_200_OK)
+
 
 class UnlockAnimal(APIView):
     name = "unlock_animal"
@@ -213,12 +225,14 @@ class UnlockAnimal(APIView):
 
 
 class AnimalsFromOwner(APIView):
-    name = 'animal_from_owner'
+    name = "animal_from_owner"
 
     def get(self, request, pk):
         try:
             user = User.objects.get(pk=pk)
-            import pdb; pdb.set_trace()
+            import pdb
+
+            pdb.set_trace()
         except:
             return Response(status=status.HTTP_404_NOT_FOUND)
         animals = user.person.animals.filter(blocked=False)

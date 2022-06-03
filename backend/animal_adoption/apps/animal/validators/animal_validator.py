@@ -28,9 +28,9 @@ def animal_is_valid_or_errors(data):
     elif data["sex"] != "M" and data["sex"] != "F":
         errors.append("O sexo do animal deve ser M o F")
 
-    if "type" not in data:
+    if "animal_type" not in data:
         errors.append("Qual é o tipo do animal")
-    elif not animal_type_exists(data["type"]):
+    elif not animal_type_exists(data["animal_type"]):
         errors.append("O tipo de animal informado não existe")
     return errors
 

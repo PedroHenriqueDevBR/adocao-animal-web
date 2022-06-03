@@ -6,12 +6,12 @@ services:
     volumes:
       - ./data/db:/var/lib/postgresql/data
     environment:
-      - POSTGRES_NAME=postgres
+      - POSTGRES_NAME=${DB_DATABASE_NAME}
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
       - POSTGRES_PORT=${DB_PORT}
     ports:
-      - "5433:5432"
+      - "5432:5432"
 
   web:
     build: .
@@ -19,7 +19,7 @@ services:
     volumes:
       - .:/code
     environment:
-      - POSTGRES_NAME=postgres
+      - POSTGRES_NAME=${DB_DATABASE_NAME}
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
       - POSTGRES_PORT=${DB_PORT}

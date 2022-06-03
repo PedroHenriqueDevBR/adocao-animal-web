@@ -45,7 +45,7 @@ class AnimalDataValidatorTestCase(TestCase):
             "breed": "Cd",
             "age": -1,
             "sex": "No",
-            "type": 5,
+            "animal_type": 5,
         }
         errors = animal_is_valid_or_errors(animal_obj)
         self.assertEqual(len(errors), 5)
@@ -61,7 +61,7 @@ class AnimalDataValidatorTestCase(TestCase):
             "breed": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
             "age": 1,
             "sex": "M",
-            "type": 1,
+            "animal_type": 1,
         }
         errors = animal_is_valid_or_errors(animal_obj)
         self.assertEqual(len(errors), 2)
@@ -74,7 +74,7 @@ class AnimalDataValidatorTestCase(TestCase):
             "breed": "Unknown",
             "age": 0,
             "sex": "M",
-            "type": 1,
+            "animal_type": 1,
         }
         errors = animal_is_valid_or_errors(animal_obj)
         self.assertEqual(len(errors), 0)

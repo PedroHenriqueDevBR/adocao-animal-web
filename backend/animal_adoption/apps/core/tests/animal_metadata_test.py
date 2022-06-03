@@ -22,7 +22,7 @@ class VaccineTestCase(TestCase):
             age=2,
             sex="M",
             owner=person,
-            type=animal_type,
+            animal_type=animal_type,
         )
 
     def create_persons(self, id):
@@ -47,7 +47,7 @@ class VaccineTestCase(TestCase):
     def test_animal_data(self):
         animal = Animal.objects.get(pk=1)
         self.assertEqual(len(animal.all_vaccines), 2)
-        self.assertEqual(animal.type.name, "Dog")
+        self.assertEqual(animal.animal_type.name, "Dog")
         self.assertEqual(len(animal.all_adoption_received), 1)
 
     def test_block_animal(self):

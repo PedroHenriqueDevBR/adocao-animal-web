@@ -75,7 +75,7 @@ class Person(models.Model):
         return self.animals.filter(adopted=False)
 
     def has_image(self):
-        return self.image != None and self.image != ''
+        return self.image != None and self.image != ""
 
     def remove_image(self, save):
         if self.has_image():
@@ -117,7 +117,7 @@ class Animal(models.Model):
     blocked = models.BooleanField(default=False)
     create_at = models.DateField(auto_now_add=True)
     owner = models.ForeignKey(Person, on_delete=models.CASCADE, related_name="animals")
-    type = models.ForeignKey(
+    animal_type = models.ForeignKey(
         AnimalType, on_delete=models.CASCADE, related_name="linked_animals"
     )
 
@@ -151,7 +151,7 @@ class AnimalPhoto(models.Model):
     animal = models.ForeignKey(Animal, on_delete=models.CASCADE, related_name="photos")
 
     def has_image(self):
-        return self.photo != None and self.photo != ''
+        return self.photo != None and self.photo != ""
 
     def remove_image(self, save):
         if self.has_image():
@@ -189,7 +189,9 @@ class BlockedReason(models.Model):
 class AdoptionRequest(models.Model):
     create_at = models.DateField(auto_now_add=True)
     is_acepted = models.BooleanField(null=True, blank=True)
-    requester = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='my_adoption_requests')
+    requester = models.ForeignKey(
+        Person, on_delete=models.CASCADE, related_name="my_adoption_requests"
+    )
     animal = models.ForeignKey(
         Animal, on_delete=models.CASCADE, related_name="adoption_requests"
     )

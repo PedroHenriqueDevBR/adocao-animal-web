@@ -32,7 +32,7 @@ class AnimalTypeTestCase(TestCase):
             age=2,
             sex="M",
             owner=owner_o1,
-            type=dog_type,
+            animal_type=dog_type,
         )
         Animal.objects.create(
             name="Cat 01",
@@ -40,7 +40,7 @@ class AnimalTypeTestCase(TestCase):
             age=1,
             sex="M",
             owner=owner_o1,
-            type=cat_type,
+            animal_type=cat_type,
         )
         Animal.objects.create(
             name="Porquinho 01",
@@ -48,7 +48,7 @@ class AnimalTypeTestCase(TestCase):
             age=1,
             sex="M",
             owner=owner_o1,
-            type=pork_type,
+            animal_type=pork_type,
         )
 
     def setUp(self) -> None:
