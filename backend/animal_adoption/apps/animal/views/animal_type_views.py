@@ -44,9 +44,23 @@ class AnimalTypeCreate(APIView):
         return Response(serializer.errors, status=status.HTTP_406_NOT_ACCEPTABLE)
 
 
+class AnimalTypeGet(APIView):
+    name = "animal_type_get"
+    permission_classes = [IsAuthenticated]
+
+    # Select animal type by ID
+    def get(self, request, pk):
+        try:
+            animal_type = AnimalType.objects.get(pk=pk)
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        serializer = AnimalTypeSerializer(animal_type, many=False)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
 class AnimalTypeEdit(APIView):
     name = "animal_type_edit"
-    permission_classes = [IsAuthenticated, IsAdminUser]
+    permission_classes = [IsAdminUser, IsAuthenticated]
 
     # Select animal type by ID
     def get(self, request, pk):

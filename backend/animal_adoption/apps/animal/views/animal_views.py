@@ -87,15 +87,11 @@ class AnimalListAndCreate(APIView):
     def post(self, request):
         data = request.data
         errors = animal_is_valid_or_errors(data)
-        print("*" * 50)
-        print("erros:" + str(len(errors)))
         if len(errors) > 0:
             return Response({"errors": errors}, status=status.HTTP_406_NOT_ACCEPTABLE)
         data["owner"] = request.user.person.pk
         creator_serializer = CreateAnimalSerializer(data=data)
         if creator_serializer.is_valid():
-            print("*" * 50)
-            print("Creator serializer is valid")
             creator_serializer.save()
             return Response(creator_serializer.data, status=status.HTTP_202_ACCEPTED)
         return Response(
