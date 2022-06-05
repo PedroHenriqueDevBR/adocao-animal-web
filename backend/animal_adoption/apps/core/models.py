@@ -14,10 +14,23 @@ class State(models.Model):
     def all_cities(self):
         return self.cities.all()
 
+    class Meta:
+        verbose_name = "State"
+        verbose_name_plural = "States"
+
+    def __str__(self) -> str:
+        return "{}".format(
+            self.name,
+        )
+
 
 class City(models.Model):
     name = models.CharField(max_length=150)
-    state = models.ForeignKey(State, on_delete=models.CASCADE, related_name="cities")
+    state = models.ForeignKey(
+        State,
+        on_delete=models.CASCADE,
+        related_name="cities",
+    )
 
     @property
     def all_persons(self):
@@ -31,16 +44,37 @@ class City(models.Model):
             animals.extend(person.all_not_adopted_animals)
         return animals
 
+    class Meta:
+        verbose_name = "City"
+        verbose_name_plural = "Cities"
+
+    def __str__(self) -> str:
+        return "{}".format(
+            self.name,
+        )
+
 
 class Person(models.Model):
-    image = models.ImageField(upload_to=upload_image_formater, blank=True, null=True)
     contact = models.CharField(max_length=20)
     latitude = models.CharField(max_length=250, default="")
     longitude = models.CharField(max_length=250, default="")
     is_moderator = models.BooleanField(default=False)
     is_sponsor = models.BooleanField(default=False)
-    city = models.ForeignKey(City, on_delete=models.CASCADE, related_name="residents")
-    user = models.OneToOneField(User, related_name="person", on_delete=models.CASCADE)
+    image = models.ImageField(
+        upload_to=upload_image_formater,
+        blank=True,
+        null=True,
+    )
+    city = models.ForeignKey(
+        City,
+        on_delete=models.CASCADE,
+        related_name="residents",
+    )
+    user = models.OneToOneField(
+        User,
+        related_name="person",
+        on_delete=models.CASCADE,
+    )
 
     @property
     def name(self):
@@ -91,6 +125,15 @@ class Person(models.Model):
                 os.remove(self.image.path)
         super().delete()
 
+    class Meta:
+        verbose_name = "Person"
+        verbose_name_plural = "Persons"
+
+    def __str__(self) -> str:
+        return "{}".format(
+            self.contact,
+        )
+
 
 class AnimalType(models.Model):
     name = models.CharField(max_length=150)
@@ -107,6 +150,15 @@ class AnimalType(models.Model):
     def all_not_adopted_animals(self):
         return self.linked_animals.filter(adopted=False)
 
+    class Meta:
+        verbose_name = "Animal type"
+        verbose_name_plural = "Animals type"
+
+    def __str__(self) -> str:
+        return "{}".format(
+            self.name,
+        )
+
 
 class Animal(models.Model):
     name = models.CharField(max_length=150)
@@ -116,15 +168,23 @@ class Animal(models.Model):
     adopted = models.BooleanField(default=False)
     blocked = models.BooleanField(default=False)
     create_at = models.DateField(auto_now_add=True)
-    owner = models.ForeignKey(Person, on_delete=models.CASCADE, related_name="animals")
+    owner = models.ForeignKey(
+        Person,
+        on_delete=models.CASCADE,
+        related_name="animals",
+    )
     animal_type = models.ForeignKey(
-        AnimalType, on_delete=models.CASCADE, related_name="linked_animals"
+        AnimalType,
+        on_delete=models.CASCADE,
+        related_name="linked_animals",
     )
 
     def block(self, person, reason):
         self.blocked = True
         reason = BlockedReason(
-            person_requester=person, blocked_animal=self, reason=reason
+            person_requester=person,
+            blocked_animal=self,
+            reason=reason,
         )
         self.save()
         reason.save()
@@ -145,10 +205,27 @@ class Animal(models.Model):
     def all_adoption_received(self):
         return self.adoption_requests.all()
 
+    class Meta:
+        verbose_name = "Animal"
+        verbose_name_plural = "Animals"
+
+    def __str__(self) -> str:
+        return "{}".format(
+            self.name,
+        )
+
 
 class AnimalPhoto(models.Model):
-    photo = models.ImageField(upload_to=upload_image_formater, blank=True, null=True)
-    animal = models.ForeignKey(Animal, on_delete=models.CASCADE, related_name="photos")
+    photo = models.ImageField(
+        upload_to=upload_image_formater,
+        blank=True,
+        null=True,
+    )
+    animal = models.ForeignKey(
+        Animal,
+        on_delete=models.CASCADE,
+        related_name="photos",
+    )
 
     def has_image(self):
         return self.photo != None and self.photo != ""
@@ -166,34 +243,71 @@ class AnimalPhoto(models.Model):
             os.remove(self.photo.path)
         super().delete()
 
+    class Meta:
+        verbose_name = "Animal photo"
+        verbose_name_plural = "Animal photos"
+
+    def __str__(self) -> str:
+        return "{} - {}".format(self.animal, self.photo)
+
 
 class VaccineBook(models.Model):
     vaccine_name = models.CharField(max_length=150)
     date = models.DateField(auto_now_add=True)
     animal = models.ForeignKey(
-        Animal, on_delete=models.CASCADE, related_name="vaccines"
+        Animal,
+        on_delete=models.CASCADE,
+        related_name="vaccines",
     )
+
+    class Meta:
+        verbose_name = "Vaccine book"
+        verbose_name_plural = "Vaccines book"
+
+    def __str__(self) -> str:
+        return "{} - {}".format(
+            self.vaccine_name,
+            self.animal,
+        )
 
 
 class BlockedReason(models.Model):
     create_at = models.DateField(auto_now_add=True)
     reason = models.TextField(max_length=500)
     person_requester = models.ForeignKey(
-        Person, on_delete=models.CASCADE, related_name="blocks_sent"
+        Person,
+        on_delete=models.CASCADE,
+        related_name="blocks_sent",
     )
     blocked_animal = models.ForeignKey(
-        Animal, on_delete=models.CASCADE, related_name="blocks_received"
+        Animal,
+        on_delete=models.CASCADE,
+        related_name="blocks_received",
     )
+
+    class Meta:
+        verbose_name = "Block reason"
+        verbose_name_plural = "Block reasons"
+
+    def __str__(self) -> str:
+        return "{} - {}".format(
+            self.person_requester,
+            self.blocked_animal,
+        )
 
 
 class AdoptionRequest(models.Model):
     create_at = models.DateField(auto_now_add=True)
     is_acepted = models.BooleanField(null=True, blank=True)
     requester = models.ForeignKey(
-        Person, on_delete=models.CASCADE, related_name="my_adoption_requests"
+        Person,
+        on_delete=models.CASCADE,
+        related_name="my_adoption_requests",
     )
     animal = models.ForeignKey(
-        Animal, on_delete=models.CASCADE, related_name="adoption_requests"
+        Animal,
+        on_delete=models.CASCADE,
+        related_name="adoption_requests",
     )
 
     def accept(self):
@@ -205,3 +319,10 @@ class AdoptionRequest(models.Model):
     def reject(self):
         self.is_acepted = False
         self.save()
+
+    class Meta:
+        verbose_name = "Adoption request"
+        verbose_name_plural = "Adoption requests"
+
+    def __str__(self) -> str:
+        return "{} - {}".format(self.animal, self.requester)
