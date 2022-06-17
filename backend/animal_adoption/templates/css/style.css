@@ -1,0 +1,40 @@
+:root {
+	--scaffold-color: #EEEEEEFF;
+	--surface-color: #ffffffff;
+	--primary: #8A2BE2;
+	--secondary: #FFA500;
+}
+
+
+.scaffold-color {
+	background-color: var(--scaffold-color) !important;
+}
+
+.surface-color {
+	background-color: var(--surface-color) !important;
+	color: #000 !important;
+}
+
+.primary-color {
+	background-color: var(--primary) !important;
+	color: #fff !important;
+}
+
+.secondary-color {
+	background-color: var(--secondary) !important;
+	color: #fff !important;
+}
+
+.offcanvas-footer {
+	list-style: none;
+}
+
+.offcanvas-footer .nav-item-signout {
+	width: -webkit-fill-available;
+	padding: 1.2rem;
+	border-radius: 0 !important;
+}
+
+.content {
+	min-height: calc(100vh - 175px);
+}
