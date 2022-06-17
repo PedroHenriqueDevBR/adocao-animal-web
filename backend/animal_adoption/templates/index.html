@@ -50,22 +50,152 @@
   </nav>
 
   <div class="content m-5">
-    <div class="row surface-color">
-      <div class="col">
-        <h1>Title</h1>
-        <p>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Autem cum debitis optio cupiditate. Placeat tempora
-          consequatur impedit eveniet officiis doloribus repudiandae ullam? Modi omnis ad, aspernatur cumque ab
-          doloribus. Dolorum.
-        </p>
+    <div class="row">
+      <div class="col col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+        <div class="card p-3">
+          <h4>Filtros</h4>
+          <p class="mb-0">Utilize os filtros para especificar as características que você busca.</p>
+          <hr>
+          <form method="post">
+            <div>
+              <b>Tipo de animal</b>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="1" id="cachorro_checkbox">
+                <label class="form-check-label" for="cachorro_checkbox">Cachorro</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="2" id="gato_checkbox">
+                <label class="form-check-label" for="gato_checkbox">Gato</label>
+              </div>
+            </div>
+            <div class="mt-2">
+              <b>Sexo</b>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="1" id="macho_checkbox">
+                <label class="form-check-label" for="macho_checkbox">Macho</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="2" id="femea_checkbox">
+                <label class="form-check-label" for="femea_checkbox">Fêmea</label>
+              </div>
+            </div>
+            <button class="btn primary-color mt-2 full-width">Buscar</button>
+
+          </form>
+        </div>
       </div>
-      <div class="col">
-        <h1>Title</h1>
-        <p>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Autem cum debitis optio cupiditate. Placeat tempora
-          consequatur impedit eveniet officiis doloribus repudiandae ullam? Modi omnis ad, aspernatur cumque ab
-          doloribus. Dolorum.
-        </p>
+      <div class="col  col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9 col-xxl-9">
+        <div class="card alert alert-warning">
+          <h3>Animais disponíveis</h1>
+            <p>Os animais listados a seguir estão disponíveis para adoção na localidade onde você está cadastrado.</p>
+        </div>
+
+        <div>
+          <div class="row row-cols-1 row-cols-md-2 g-4">
+            <div class="col">
+              <div class="card">
+                <div class="card-header surface-color">
+                  <img src="images/person.jpg" width="40" height="40" class="circle"
+                    style="border-radius: 50%; object-fit: cover;">
+                  <span class="m-2">Nome da pessoa</span>
+                </div>
+                <img src="images/person.jpg" class="card-img-top" alt="images/person.jpg"
+                  style="border-radius: 0 !important;">
+                <div class="card-body">
+                  <h5 class="card-title">Card title</h5>
+                  <p class="card-text limit-text">This is a longer card with supporting text below as a natural lead-in
+                    to
+                    additional content. This content is a little bit longer.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card">
+                <div class="card-header surface-color">
+                  <img src="images/person.jpg" width="40" height="40" class="circle"
+                    style="border-radius: 50%; object-fit: cover;">
+                  <span class="m-2">Nome da pessoa</span>
+                </div>
+                <img src="images/person.jpg" class="card-img-top" alt="images/person.jpg"
+                  style="border-radius: 0 !important;">
+                <div class="card-body">
+                  <h5 class="card-title">Card title</h5>
+                  <p class="card-text limit-text">This is a longer card with supporting text below as a natural lead-in
+                    to
+                    additional content. This content is a little bit longer.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card">
+                <div class="card-header surface-color">
+                  <img src="images/person.jpg" width="40" height="40" class="circle"
+                    style="border-radius: 50%; object-fit: cover;">
+                  <span class="m-2">Nome da pessoa</span>
+                </div>
+                <img src="images/person.jpg" class="card-img-top" alt="images/person.jpg"
+                  style="border-radius: 0 !important;">
+                <div class="card-body">
+                  <h5 class="card-title">Card title</h5>
+                  <p class="card-text limit-text">This is a longer card with supporting text below as a natural lead-in
+                    to
+                    additional content.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card">
+                <div class="card-header surface-color">
+                  <img src="images/person.jpg" width="40" height="40" class="circle"
+                    style="border-radius: 50%; object-fit: cover;">
+                  <span class="m-2">Nome da pessoa</span>
+                </div>
+                <img src="images/person.jpg" class="card-img-top" alt="images/person.jpg"
+                  style="border-radius: 0 !important;">
+                <div class="card-body">
+                  <h5 class="card-title">Card title</h5>
+                  <p class="card-text limit-text">This is a longer card with supporting text below as a natural lead-in
+                    to
+                    additional content. This content is a little bit longer.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card">
+                <div class="card-header surface-color">
+                  <img src="images/person.jpg" width="40" height="40" class="circle"
+                    style="border-radius: 50%; object-fit: cover;">
+                  <span class="m-2">Nome da pessoa</span>
+                </div>
+                <img src="images/person.jpg" class="card-img-top" alt="images/person.jpg"
+                  style="border-radius: 0 !important;">
+                <div class="card-body">
+                  <h5 class="card-title">Card title</h5>
+                  <p class="card-text limit-text">This is a longer card with supporting text below as a natural lead-in
+                    to
+                    additional content.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card">
+                <div class="card-header surface-color">
+                  <img src="images/person.jpg" width="40" height="40" class="circle"
+                    style="border-radius: 50%; object-fit: cover;">
+                  <span class="m-2">Nome da pessoa</span>
+                </div>
+                <img src="images/person.jpg" class="card-img-top" alt="images/person.jpg"
+                  style="border-radius: 0 !important;">
+                <div class="card-body">
+                  <h5 class="card-title">Card title</h5>
+                  <p class="card-text limit-text">This is a longer card with supporting text below as a natural lead-in
+                    to
+                    additional content. This content is a little bit longer.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
