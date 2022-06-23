@@ -1,4 +1,4 @@
-from distutils.log import error
+from django.http import HttpResponse
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
@@ -14,6 +14,34 @@ from apps.animal.serializers.animal_serializers import (
     AnimalSerializer,
     CreateAnimalSerializer,
 )
+import json
+
+
+class DashboardView(APIView):
+    name = "dashboard"
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        context = {}
+        person = request.user.person
+        context["available_animals"] = self.get_available_animals(person)
+        context["pedding_requests"] = self.get_pedding_requests(person)
+        context["adopted_animals"] = self.get_adopted_animals(person)
+        return HttpResponse(json.dumps(context))
+
+    def get_available_animals(self, person):
+        return person.animals.filter(adopted=False, blocked=False).count()
+
+    def get_pedding_requests(self, person):
+        animals = person.animals.filter(adopted=False, blocked=False)
+        requests_count = 0
+        for animal in animals:
+            requests = animal.adoption_requests.filter(is_acepted=None).count()
+            requests_count += requests
+        return requests_count
+
+    def get_adopted_animals(self, person):
+        return person.animals.filter(adopted=True).count()
 
 
 class AnimalListForAdoption(APIView):

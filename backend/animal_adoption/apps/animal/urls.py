@@ -13,6 +13,7 @@ urlpatterns = [
     path("filter/", AnimalListFilter.as_view(), name=AnimalListFilter.name),
     path("owner/<int:pk>", AnimalsFromOwner.as_view(), name=AnimalsFromOwner.name),
     # IsAuthenticated
+    path("dashboard", DashboardView.as_view(), name=DashboardView.name),
     path("<int:pk>", AnimalShow.as_view(), name=AnimalShow.name),
     path("my", AnimalListAndCreate.as_view(), name=AnimalListAndCreate.name),
     path("my/<int:pk>", AnimalEditAndDelete.as_view(), name=AnimalEditAndDelete.name),
