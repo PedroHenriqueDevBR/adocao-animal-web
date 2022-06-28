@@ -5,8 +5,10 @@
     <aside class="animal-image" style="background-image: url({{animalImage}});">
         <div class="animal-header-info">
             <h1>{{ animalShow.name }} <span *ngIf="animalShow.blocked"> - Bloqueado</span> </h1>
-            <p class="m-0">{{ animalShow.type }} - {{ animalShow.breed }} - {{ animalShow.age }} anos <br>
-                {{ animalShow.owner?.contact }} ({{ animalShow.owner?.name}})</p>
+            <p class="m-0">{{ animalShow.animal_type.name }} - {{ animalShow.breed }} - {{ animalShow.age }} ano(s) <br>
+                <b>{{ animalShow.owner?.name}}</b> <br>
+                {{ animalShow.owner?.contact }}
+            </p>
         </div>
     </aside>
 

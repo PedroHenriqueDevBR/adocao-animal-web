@@ -10,13 +10,13 @@
         <div class="card-body">
             <h5 class="card-title">{{ animal!.name }}</h5>
             <p class="card-text">
-                <b>Tipo</b>: {{ animal!.type }}<br>
+                <b>Tipo</b>: {{ animal!.animal_type.name }}<br>
                 <b>Raça</b>: {{ animal!.breed }}<br>
                 <span class="text-muted">Registrado em {{ animal!.create_at | date: 'dd/MM/yyyy' }}</span><br>
             </p>
         </div>
         <div *ngIf="showButton == true" class="card-footer p-0">
-            <button class="btn secondary-color full-width text-light" [routerLink]="showAnimalString()" >Abrir</button>
+            <button class="btn secondary-color full-width text-light" [routerLink]="showAnimalString()">Abrir</button>
         </div>
     </div>
 </div>

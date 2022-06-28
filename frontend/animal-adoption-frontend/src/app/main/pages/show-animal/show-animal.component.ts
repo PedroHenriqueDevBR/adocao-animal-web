@@ -83,9 +83,9 @@ export class ShowAnimalComponent implements OnInit {
 
   get animalImage(): string {
     if (this.animalShow!.all_photos.length == 0) {
-      if (this.animalShow?.type == 'Cachorro') {
+      if (this.animalShow?.animal_type == 'Cachorro') {
         return '/assets/images/adopt-dog.png';
-      } else if (this.animalShow?.type == 'Gato') {
+      } else if (this.animalShow?.animal_type == 'Gato') {
         return '/assets/images/adopt-cat.png';
       } else {
         return '/assets/images/cat-dog.png';
@@ -145,7 +145,7 @@ export class ShowAnimalComponent implements OnInit {
   }
 
   serverPhoto(photo: string): string {
-    return `/server${photo}`;
+    return `${environment.API}${photo}`;
   }
 
   openModal(template: TemplateRef<any>) {

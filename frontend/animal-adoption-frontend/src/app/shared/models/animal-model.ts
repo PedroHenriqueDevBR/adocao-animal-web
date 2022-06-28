@@ -13,7 +13,7 @@ export class AnimalModel {
     blocked: boolean = false;
     create_at: Date = new Date(Date.now());
     owner: any;
-    type: any;
+    animal_type: any;
 
     all_photos: PhotoModel[] = [];
     all_vaccines: VaccineModel[] = [];
@@ -26,7 +26,7 @@ export class AnimalModel {
             breed: this.breed,
             age: this.age,
             sex: this.sex,
-            type: this.type,
+            animal_type: this.animal_type,
         };
     }
 

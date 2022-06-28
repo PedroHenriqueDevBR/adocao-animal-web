@@ -26,9 +26,9 @@ export class AnimalCardComponent implements OnInit {
 
   animalImage(): string {
     if (this.animal!.all_photos.length == 0) {
-      if (this.animal?.type == 'Cachorro') {
+      if (this.animal?.animal_type.name == 'Cachorro') {
         return '/assets/images/adopt-dog.png';
-      } else if (this.animal?.type == 'Gato') {
+      } else if (this.animal?.animal_type.name == 'Gato') {
         return '/assets/images/adopt-cat.png';
       }
     }

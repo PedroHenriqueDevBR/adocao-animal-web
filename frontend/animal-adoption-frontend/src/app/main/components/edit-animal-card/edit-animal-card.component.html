@@ -11,7 +11,8 @@
             <ul class="dropdown-menu p-0" aria-labelledby="dropdownMenuOptions">
                 <li><button class="dropdown-item" (click)="editEmit()">Editar</button></li>
                 <li>
-                    <button *ngIf="animal!.blocked;else unlockTemplate" class="dropdown-item" (click)="blockEmit()">Desbloquear</button>
+                    <button *ngIf="animal!.blocked;else unlockTemplate" class="dropdown-item"
+                        (click)="blockEmit()">Desbloquear</button>
                     <ng-template #unlockTemplate>
                         <button class="dropdown-item" (click)="blockEmit()">Bloquear</button>
                     </ng-template>
@@ -48,7 +49,7 @@
             <button class="btn secondary-color text-light" (click)="parentModal.show()">Foto</button>
         </div>
         <p class="card-text">
-            <b>Tipo</b>: {{ animal!.type }}<br>
+            <b>Tipo</b>: {{ animal!.animal_type.name }}<br>
             <b>Raça</b>: {{ animal!.breed }}<br>
             <span class="text-muted">Registrado em {{ animal!.create_at | date: 'dd/MM/yyyy' }}</span><br>
         </p>

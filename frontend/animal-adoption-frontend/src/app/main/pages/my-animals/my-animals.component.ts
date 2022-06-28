@@ -27,11 +27,11 @@ export class MyAnimalsComponent implements OnInit {
     this.verifyLoggedPerson();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   verifyLoggedPerson() {
     if (!this.storage.userIsLogged()) {
-      this.router.navigateByUrl('/account/login', {replaceUrl:true});
+      this.router.navigateByUrl('/account/login', { replaceUrl: true });
       return;
     }
     this.getAnimals();

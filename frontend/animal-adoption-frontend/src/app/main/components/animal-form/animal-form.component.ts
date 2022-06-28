@@ -15,11 +15,11 @@ export class AnimalFormComponent implements OnInit {
   formAnimal: FormGroup;
   animalFormData: AnimalModel = new AnimalModel();
   types: AnimalTypeModel[] = [];
-  
+
   @Input()
   animal: AnimalModel | undefined;
-  
-  @Output() 
+
+  @Output()
   animalOutput = new EventEmitter();
 
   constructor(
@@ -39,9 +39,9 @@ export class AnimalFormComponent implements OnInit {
       this.formAnimal.get('breed')?.setValue(this.animal.breed);
       this.formAnimal.get('age')?.setValue(this.animal.age);
       this.formAnimal.get('sex')?.setValue(this.animal.sex);
-      
+
       for (const type of this.types) {
-        if (type.name == this.animal.type) {
+        if (type.name == this.animal.animal_type) {
           this.formAnimal.get('type')?.setValue(type.id);
           break;
         }
@@ -51,11 +51,11 @@ export class AnimalFormComponent implements OnInit {
 
   createFormRegisterPerson(): FormGroup {
     return new FormGroup({
-      name: new FormControl(this.animalFormData.name, [Validators.required, Validators.minLength(3)], ),
+      name: new FormControl(this.animalFormData.name, [Validators.required, Validators.minLength(3)],),
       breed: new FormControl(this.animalFormData.breed, [Validators.required]),
       age: new FormControl(this.animalFormData.age, [Validators.required]),
       sex: new FormControl(this.animalFormData.sex, [Validators.required]),
-      type: new FormControl(this.animalFormData.type, [Validators.required]),
+      type: new FormControl(this.animalFormData.animal_type, [Validators.required]),
     });
   }
 
@@ -85,7 +85,7 @@ export class AnimalFormComponent implements OnInit {
     animal.breed = breed;
     animal.age = age;
     animal.sex = sex;
-    animal.type = type;
+    animal.animal_type = type;
 
     if (this.animal == undefined) {
       this.animalService.createAnimal(animal).subscribe(
