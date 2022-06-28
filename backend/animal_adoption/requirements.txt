@@ -5,8 +5,8 @@ charset-normalizer==2.0.12
 click==8.0.1
 coreapi==2.3.3
 coreschema==0.0.4
-coverage==6.3.2
 Django==3.2.7
+django-cors-headers==3.13.0
 djangorestframework==3.12.4
 djangorestframework-simplejwt==4.7.2
 drf-yasg==1.20.0

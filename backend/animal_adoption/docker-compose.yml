@@ -19,6 +19,11 @@ services:
     volumes:
       - .:/code
     environment:
+      # APP
+      - APP_SECRET_KEY=${APP_SECRET_KEY}
+      - APP_CORS_ALLOW_ALL_ORIGINS=${APP_CORS_ALLOW_ALL_ORIGINS}
+      - APP_CORS_ALLOWED_ORIGINS=${APP_CORS_ALLOWED_ORIGINS}
+      # DATABASE
       - POSTGRES_NAME=${DB_DATABASE_NAME}
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
