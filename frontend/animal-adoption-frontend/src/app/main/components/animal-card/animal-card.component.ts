@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AnimalModel } from 'src/app/shared/models/animal-model';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-animal-card',
@@ -14,13 +15,13 @@ export class AnimalCardComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   profileImage(): string {
     if (this.animal?.owner.image == null) {
       return '/assets/images/avatar.png';
     }
-    return '/server' + this.animal?.owner.image;
+    return environment.API + this.animal?.owner.image;
   }
 
   animalImage(): string {
@@ -31,7 +32,7 @@ export class AnimalCardComponent implements OnInit {
         return '/assets/images/adopt-cat.png';
       }
     }
-    return '/server' + this.animal!.all_photos[0].photo;
+    return environment.API + this.animal!.all_photos[0].photo;
   }
 
   showAnimalString(): string {

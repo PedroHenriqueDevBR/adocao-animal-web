@@ -4,14 +4,15 @@ import { Observable } from 'rxjs';
 import { AdoptionReceivedModel } from '../models/adoption-received-model';
 import { AnimalModel } from '../models/animal-model';
 import { LocalstorageService } from './localstorage.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AdoptionService {
-  private BASE_URL: string = '/server';
+  private BASE_URL: string = environment.API;
 
-  constructor(private http: HttpClient, private storage: LocalstorageService) {}
+  constructor(private http: HttpClient, private storage: LocalstorageService) { }
 
   public loggedPersonAdoptionsCreated(): Observable<AdoptionReceivedModel[]> {
     return this.http.get<AdoptionReceivedModel[]>(

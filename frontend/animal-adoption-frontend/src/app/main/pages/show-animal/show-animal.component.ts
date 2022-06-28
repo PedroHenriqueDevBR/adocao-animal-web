@@ -9,6 +9,7 @@ import { PersonModel } from 'src/app/shared/models/person-model';
 import { AdoptionService } from 'src/app/shared/services/adoption.service';
 import { AnimalService } from 'src/app/shared/services/animal.service';
 import { LocalstorageService } from 'src/app/shared/services/localstorage.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   templateUrl: './show-animal.component.html',
@@ -36,7 +37,7 @@ export class ShowAnimalComponent implements OnInit {
   ) {
     this.formBlockAnimal = this.createFormBlockAnimal();
   }
-  
+
   ngOnInit(): void {
     if (this.animal == undefined) {
       const id = this.route.snapshot.paramMap.get('id');
@@ -66,7 +67,7 @@ export class ShowAnimalComponent implements OnInit {
     });
   }
 
-  get formIsValid() : boolean {
+  get formIsValid(): boolean {
     return this.formBlockAnimal.valid;
   }
 
@@ -90,7 +91,7 @@ export class ShowAnimalComponent implements OnInit {
         return '/assets/images/cat-dog.png';
       }
     }
-    return '/server' + this.animalShow!.all_photos[0].photo;
+    return environment.API + this.animalShow!.all_photos[0].photo;
   }
 
   verifyLoggedPerson() {
@@ -104,12 +105,12 @@ export class ShowAnimalComponent implements OnInit {
   verifyAdoptionRequestCreated() {
     this.adoptionService.loggedPersonAdoptionsCreated().subscribe(
       (data: AdoptionReceivedModel[]) => {
-       for (const adoptionRequest of data)  {
-         if (adoptionRequest.animal == this.animalShow.id) {
-           this.adotionRequestCreated = adoptionRequest;
-           break;
-         }
-       }
+        for (const adoptionRequest of data) {
+          if (adoptionRequest.animal == this.animalShow.id) {
+            this.adotionRequestCreated = adoptionRequest;
+            break;
+          }
+        }
       },
       error => this.verifyStatusError(error),
     );
@@ -140,7 +141,7 @@ export class ShowAnimalComponent implements OnInit {
   }
 
   notFoundRedirect() {
-    this.routerService.navigateByUrl('/404', {replaceUrl:true});
+    this.routerService.navigateByUrl('/404', { replaceUrl: true });
   }
 
   serverPhoto(photo: string): string {

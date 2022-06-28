@@ -3,6 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 import { PersonModel } from 'src/app/shared/models/person-model';
 import { StateModel } from 'src/app/shared/models/state-model';
 import { AccountService } from 'src/app/shared/services/account.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-person-list',
@@ -20,9 +21,9 @@ export class PersonListComponent implements OnInit {
   constructor(
     private toast: ToastrService,
     private accountService: AccountService
-  ) {}
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   selectPerson(person: PersonModel) {
     this.personEmit.emit(person);
@@ -34,7 +35,7 @@ export class PersonListComponent implements OnInit {
     } else if (person.image == null || person.image == '') {
       return '/assets/images/avatar.png';
     }
-    return '/server/' + person.image;
+    return environment.API + person.image;
   }
 
   searchKeyword(keyword: string): void {

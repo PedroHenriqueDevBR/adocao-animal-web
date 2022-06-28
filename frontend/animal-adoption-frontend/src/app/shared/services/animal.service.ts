@@ -6,14 +6,15 @@ import { AnimalTypeModel } from '../models/animal-type-model';
 import { PhotoModel } from '../models/photo-model';
 import { VaccineModel } from '../models/vaccine-model';
 import { LocalstorageService } from './localstorage.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AnimalService {
-  private BASE_URL: string = '/server';
+  private BASE_URL: string = environment.API;
 
-  constructor(private http: HttpClient, private storage: LocalstorageService) {}
+  constructor(private http: HttpClient, private storage: LocalstorageService) { }
 
   public getAnimalTypes(): Observable<AnimalTypeModel[]> {
     return this.http.get<AnimalTypeModel[]>(
@@ -127,14 +128,14 @@ export class AnimalService {
   }
 
   public blockAnimal(animal: AnimalModel, reason: String = ''): Observable<any> {
-    return this.http.patch(`${this.BASE_URL}/animal/${animal.id}/block`, 
-    {reason: reason},
-    {headers: this.storage.getHeader()});
+    return this.http.patch(`${this.BASE_URL}/animal/${animal.id}/block`,
+      { reason: reason },
+      { headers: this.storage.getHeader() });
   }
 
   public unlockAnimal(animal: AnimalModel): Observable<any> {
     return this.http.patch(`${this.BASE_URL}/animal/${animal.id}/unlock`,
-    {}, 
-    {headers: this.storage.getHeader()});
+      {},
+      { headers: this.storage.getHeader() });
   }
 }

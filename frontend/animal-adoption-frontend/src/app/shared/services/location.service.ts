@@ -4,14 +4,15 @@ import { Observable } from 'rxjs';
 import { CityModel } from '../models/city-model';
 import { StateModel } from '../models/state-model';
 import { LocalstorageService } from './localstorage.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LocationService {
-  private BASE_URL: string = '/server';
+  private BASE_URL: string = environment.API;
 
-  constructor(private http: HttpClient, private storage: LocalstorageService) {}
+  constructor(private http: HttpClient, private storage: LocalstorageService) { }
 
   public getLocations(): Observable<StateModel[]> {
     return this.http.get<StateModel[]>(`${this.BASE_URL}/location/`);

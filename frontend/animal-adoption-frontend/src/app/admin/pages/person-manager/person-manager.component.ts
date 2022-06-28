@@ -5,6 +5,7 @@ import { PersonModel } from 'src/app/shared/models/person-model';
 import { StateModel } from 'src/app/shared/models/state-model';
 import { AccountService } from 'src/app/shared/services/account.service';
 import { LocationService } from 'src/app/shared/services/location.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   templateUrl: './person-manager.component.html',
@@ -23,7 +24,7 @@ export class PersonManagerComponent implements OnInit {
     this.getPersons();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   getPersons(): void {
     this.accountService.allPersons().subscribe(
@@ -41,7 +42,7 @@ export class PersonManagerComponent implements OnInit {
     ) {
       return '/assets/images/avatar.png';
     }
-    return '/server' + this.selectedPerson.image;
+    return environment.API + this.selectedPerson.image;
   }
 
   selectPerson(person: PersonModel) {

@@ -8,6 +8,7 @@ import { StateModel } from 'src/app/shared/models/state-model';
 import { AccountService } from 'src/app/shared/services/account.service';
 import { LocalstorageService } from 'src/app/shared/services/localstorage.service';
 import { LocationService } from 'src/app/shared/services/location.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   templateUrl: './profile-page.component.html',
@@ -42,7 +43,7 @@ export class ProfilePageComponent implements OnInit {
   getCurrentLocation() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
-        (position: GeolocationPosition) => {  
+        (position: GeolocationPosition) => {
           this.accountService.updateLocation({
             "latitude": position.coords.latitude,
             "longitude": position.coords.longitude,
@@ -57,7 +58,7 @@ export class ProfilePageComponent implements OnInit {
 
   verifyLogedUser() {
     if (!this.storage.userIsLogged()) {
-      this.router.navigateByUrl('/account/login', {replaceUrl:true});
+      this.router.navigateByUrl('/account/login', { replaceUrl: true });
       return;
     }
     this.getPersonData();
@@ -142,7 +143,7 @@ export class ProfilePageComponent implements OnInit {
     if (this.person.image == null || this.person.image == '') {
       return '/assets/images/avatar.png';
     }
-    return `/server${this.person.image}`;
+    return `${environment.API}${this.person.image}`;
   }
 
   openModal(template: TemplateRef<any>): void {
@@ -211,7 +212,7 @@ export class ProfilePageComponent implements OnInit {
     const contact = this.formPerson.get('contact')?.value;
     const password = this.formPerson.get('password')?.value;
 
-    let formatedData: {[key: string]: any} = {};
+    let formatedData: { [key: string]: any } = {};
     if (name != '') formatedData['name'] = name;
     if (password != '') formatedData['password'] = password;
     if (contact != '') formatedData['contact'] = contact;
