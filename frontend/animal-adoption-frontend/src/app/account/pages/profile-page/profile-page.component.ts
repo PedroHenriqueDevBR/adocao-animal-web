@@ -37,7 +37,7 @@ export class ProfilePageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getCurrentLocation();
+    // this.getCurrentLocation();
   }
 
   getCurrentLocation() {

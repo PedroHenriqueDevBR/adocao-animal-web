@@ -51,9 +51,21 @@
                 </select>
             </div>
 
-            <button type="submit" class="btn primary-color text-light full-width mt-3">Atualizar</button>
+            <button type="submit" class="btn btn-success full-width mt-3">Atualizar dados</button>
         </form>
-        <button type="button" class="btn btn-danger full-width mt-1" (click)="logout()">Encerrar sessão</button>
+        <div class="row mt-1">
+            <div class="col" style="padding-right: 2px;">
+                <button type="button" class="btn btn-outline-success full-width" (click)="getCurrentLocation()">Informar
+                    localização</button>
+            </div>
+            <div class="col" style="padding-left: 2px;">
+                <button type="button" class="btn btn-outline-danger full-width" (click)="logout()">Encerrar
+                    sessão</button>
+            </div>
+        </div>
+        <div class="col mt-1">
+            <a type="button" href="/app" class="btn full-width" (click)="getCurrentLocation()">Cancelar</a>
+        </div>
     </div>
 </div>
 
