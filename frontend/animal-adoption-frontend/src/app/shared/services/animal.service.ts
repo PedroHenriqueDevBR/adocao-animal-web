@@ -76,7 +76,7 @@ export class AnimalService {
   }
 
   public deleteAnimal(animal: AnimalModel): Observable<any> {
-    return this.http.delete(`${this.BASE_URL}//animal/my/${animal.id}`, {
+    return this.http.delete(`${this.BASE_URL}/animal/my/${animal.id}`, {
       headers: this.storage.getHeader(),
     });
   }
