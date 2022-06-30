@@ -1,10 +1,10 @@
 {
 	"folders": [
 		{
-			"path": "backend/animal_adoption"
+			"path": "frontend/animal-adoption-frontend"
 		},
 		{
-			"path": "frontend/animal-adoption-frontend"
+			"path": "backend/animal_adoption"
 		}
 	],
 	"settings": {}
