@@ -21,8 +21,10 @@
         <div class="row mb-3">
             <div class="col">
                 <div class="form-floating">
-                    <select class="form-select" aria-label="Tipo de animal" formControlName="type">
-                        <option *ngFor="let type of types" value="{{ type.id }}">{{ type.name }}</option>
+                    <select class="form-select" aria-label="Tipo de animal" formControlName="animal_type">
+                        <option *ngFor="let animal_type of animal_types" value="{{ animal_type.id }}">{{
+                            animal_type.name }}
+                        </option>
                     </select>
                     <label for="floatingSelect">Tipo de animal</label>
                 </div>

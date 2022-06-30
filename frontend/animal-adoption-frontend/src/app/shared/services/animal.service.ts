@@ -69,7 +69,7 @@ export class AnimalService {
         breed: animal.breed,
         age: animal.age,
         sex: animal.sex,
-        type: animal.animal_type,
+        animal_type: animal.animal_type,
       },
       { headers: this.storage.getHeader() }
     );

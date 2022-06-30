@@ -14,7 +14,7 @@ export class AnimalFormComponent implements OnInit {
 
   formAnimal: FormGroup;
   animalFormData: AnimalModel = new AnimalModel();
-  types: AnimalTypeModel[] = [];
+  animal_types: AnimalTypeModel[] = [];
 
   @Input()
   animal: AnimalModel | undefined;
@@ -26,7 +26,7 @@ export class AnimalFormComponent implements OnInit {
     private toast: ToastrService,
     private animalService: AnimalService,
   ) {
-    this.formAnimal = this.createFormRegisterPerson();
+    this.formAnimal = this.createFormRegisterAnimal();
   }
 
   ngOnInit(): void {
@@ -40,29 +40,29 @@ export class AnimalFormComponent implements OnInit {
       this.formAnimal.get('age')?.setValue(this.animal.age);
       this.formAnimal.get('sex')?.setValue(this.animal.sex);
 
-      for (const type of this.types) {
-        if (type.name == this.animal.animal_type) {
-          this.formAnimal.get('type')?.setValue(type.id);
+      for (const type of this.animal_types) {
+        if (type.name == this.animal.animal_type.name) {
+          this.formAnimal.get('animal_type')?.setValue(type.id);
           break;
         }
       }
     }
   }
 
-  createFormRegisterPerson(): FormGroup {
+  createFormRegisterAnimal(): FormGroup {
     return new FormGroup({
       name: new FormControl(this.animalFormData.name, [Validators.required, Validators.minLength(3)],),
       breed: new FormControl(this.animalFormData.breed, [Validators.required]),
       age: new FormControl(this.animalFormData.age, [Validators.required]),
       sex: new FormControl(this.animalFormData.sex, [Validators.required]),
-      type: new FormControl(this.animalFormData.animal_type, [Validators.required]),
+      animal_type: new FormControl(this.animalFormData.animal_type, [Validators.required]),
     });
   }
 
   getAnimalTypes() {
     this.animalService.getAnimalTypes().subscribe(
       (data: AnimalTypeModel[]) => {
-        this.types = data;
+        this.animal_types = data;
         this.setAnimalData();
       },
       error => this.verifyStatusError(error),
@@ -78,14 +78,14 @@ export class AnimalFormComponent implements OnInit {
     const breed = this.formAnimal.get('breed')?.value;
     const age = this.formAnimal.get('age')?.value;
     const sex = this.formAnimal.get('sex')?.value;
-    const type = this.formAnimal.get('type')?.value;
+    const animal_type = this.formAnimal.get('animal_type')?.value;
 
     const animal: AnimalModel = new AnimalModel();
     animal.name = name;
     animal.breed = breed;
     animal.age = age;
     animal.sex = sex;
-    animal.animal_type = type;
+    animal.animal_type = animal_type;
 
     if (this.animal == undefined) {
       this.animalService.createAnimal(animal).subscribe(
