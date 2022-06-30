@@ -13,8 +13,8 @@
                     <div class="animal-card row row-cols-1 row-cols-md-3 g-4">
                         <app-edit-animal-card *ngFor="let animal of animals" [animal]="animal"
                             (editAnimal)="animalEditModal(createAnimalModal, animal)"
-                            (deleteAnimal)="deleteAnimal(animal)"
-                            (blockAnimal)="toggleBlockAnimal(animal)"></app-edit-animal-card>
+                            (deleteAnimal)="deleteAnimal(animal)" (blockAnimal)="toggleBlockAnimal(animal)">
+                        </app-edit-animal-card>
                     </div>
                 </div>
             </section>

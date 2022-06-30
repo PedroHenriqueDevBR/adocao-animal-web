@@ -1,5 +1,7 @@
 <div id="content">
 
+    <!-- <app-header></app-header> -->
+
     <div class="header primary-color">
         <div class="image-container">
             <img [src]="getProfileImage" alt="profile image" width="100%">
@@ -27,8 +29,8 @@
                 </div>
             </div>
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="contact" matInput mask="(00) 00000-0000" formControlName="contact" placeholder="Contato"
-                    [value]="person.contact">
+                <input type="text" class="form-control" id="contact" matInput mask="(00) 00000-0000"
+                    formControlName="contact" placeholder="Contato" [value]="person.contact">
                 <label for="contact">Contato</label>
             </div>
             <div class="row g-2">
@@ -40,10 +42,12 @@
             </div>
             <div class="row g-2">
                 <select class="form-select col" aria-label="Estado" (change)="selectState($event)">
-                    <option *ngFor="let state of locations" value="{{ state.id }}" [attr.selected]="selectedState.id == state.id ? true : null">{{ state.name }}</option>
+                    <option *ngFor="let state of locations" value="{{ state.id }}"
+                        [attr.selected]="selectedState.id == state.id ? true : null">{{ state.name }}</option>
                 </select>
                 <select class="form-select col mx-2" aria-label="Cidade" (change)="selectCity($event)">
-                    <option *ngFor="let city of selectedState.cities" value="{{ city.id }}" [attr.selected]="selectedCityID == city.id ? true : null">{{ city.name }}</option>
+                    <option *ngFor="let city of selectedState.cities" value="{{ city.id }}"
+                        [attr.selected]="selectedCityID == city.id ? true : null">{{ city.name }}</option>
                 </select>
             </div>
 

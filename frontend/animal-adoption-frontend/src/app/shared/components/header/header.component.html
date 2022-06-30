@@ -2,9 +2,8 @@
 
     <div class="container-fluid">
         <a class="navbar-brand" href="#">
-            <img src="/assets/images/paw-logo.png" alt="" width="20%" 
-                class="d-inline-block align-text-top">
-            Adoção
+            <img src="/assets/images/paw-logo.png" alt="" width="30" class="d-inline-block align-text-top">
+            Adotamigo Web
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
             aria-controls="offcanvasNavbar">
@@ -14,9 +13,8 @@
             aria-labelledby="offcanvasNavbarLabel">
             <div class="offcanvas-header">
                 <a class="navbar-brand" href="#">
-                    <img src="/assets/images/paw-logo.png" alt="" width="20%" 
-                        class="d-inline-block align-text-top">
-                    Adoção
+                    <img src="/assets/images/paw-logo.png" alt="" width="30" class="d-inline-block align-text-top">
+                    Adotamigo Web
                 </a>
                 <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
                     aria-label="Close"></button>
@@ -24,10 +22,12 @@
             <div class="offcanvas-body">
                 <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                     <li class="nav-item" onclick="removeBodyStyle()">
-                        <a class="nav-link" [routerLink]="['/app']" [routerLinkActive]="'router-link-active'" [routerLinkActiveOptions]="{exact: true}">Home</a>
+                        <a class="nav-link" [routerLink]="['/app']" [routerLinkActive]="'router-link-active'"
+                            [routerLinkActiveOptions]="{exact: true}">Home</a>
                     </li>
                     <li class="nav-item" onclick="removeBodyStyle()">
-                        <a class="nav-link" [routerLink]="['/app/meus']" [routerLinkActive]="'router-link-active'">Meus animais</a>
+                        <a class="nav-link" [routerLink]="['/app/meus']" [routerLinkActive]="'router-link-active'">Meus
+                            animais</a>
                     </li>
                     <li class="nav-item" onclick="removeBodyStyle()">
                         <a class="nav-link" [routerLink]="['/account']">Perfil</a>

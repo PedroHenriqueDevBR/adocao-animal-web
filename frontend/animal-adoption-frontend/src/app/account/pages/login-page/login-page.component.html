@@ -1,6 +1,5 @@
 <div class="content primary-color">
     <div class="login">
-        <img src="/assets/images/paw-logo.png" alt="logo" width="75px">
         <h1 class="title" id="login">login</h1>
         <p class="subtitle">Entre na sua conta, utilizando as suas credenciais</p>
 
@@ -10,12 +9,14 @@
                 <label for="username">Username</label>
             </div>
             <div class="form-floating mb-3">
-                <input type="password" class="form-control" id="password" placeholder="Senha" formControlName="password">
+                <input type="password" class="form-control" id="password" placeholder="Senha"
+                    formControlName="password">
                 <label for="password">Senha</label>
             </div>
 
-            <button class="btn secondary-color text-light full-width" [attr.disabled]="formIsValid ? null : true">Entrar</button>
+            <button class="btn secondary-color text-light full-width"
+                [attr.disabled]="formIsValid ? null : true">Entrar</button>
         </form>
-        <a class="btn mt-3" [routerLink]="['/account/register']" >Criar novo perfil</a>
+        <a class="btn mt-3" [routerLink]="['/account/register']">Criar novo perfil</a>
     </div>
 </div>
