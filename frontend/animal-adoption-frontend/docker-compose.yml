@@ -1,9 +1,10 @@
-version: "3.8"
+version: '3.8'
 
 services:
-  client:
-    image: nginx
+  adotamigo-front:
+    image: adotamigo-frontend
+    build:
+      context: .
+      dockerfile: ./Dockerfile
     ports:
-      - 5000:80
-    volumes:
-      - ./dist/animal-adoption-frontend:/usr/share/nginx/html
+      - 8080:80
